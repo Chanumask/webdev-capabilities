@@ -74,8 +74,13 @@ Open the chat, name the site ("the Meyer site"). The agent reads `brief/BRIEF.md
 - Language: copy in the site language, code and comments in English, commit messages in English.
 - No invented facts. Placeholders are visibly labelled ("Beispiel", "Platzhalter").
 
-## What is committed
-Source, briefs, docs, capabilities. Not committed: `node_modules`, `dist`, `.astro`, `exports/`, `.env*`, Impeccable review screenshots (`.impeccable/review`, `.impeccable/mocks`), Playwright output.
+## What is committed, and where
+- **Framework repository** (this one): framework, capabilities, templates, examples, tools, docs. `sites/*` is git-ignored here ([decision 0003](../docs/decisions/0003-sites-own-repos.md)).
+- **Each site is its own git repository** (`npm run new-site` runs `git init` and makes the first commit). Website sessions commit milestones there. Publishing a site is a separate repository the user creates.
+- Never committed anywhere: `node_modules`, `dist`, `.astro`, `exports/`, `.env*`, Impeccable review screenshots (`.impeccable/review`, `.impeccable/mocks`), Playwright output.
+
+## Two session modes
+Building and changing sites is **website mode** (write only in `sites/<slug>` and `exports/`, never edit the framework, note gaps in `brief/FRAMEWORK-FEEDBACK.md`). Improving the framework is **maintainer mode** on feature branches ([modes](../docs/process/modes.md), [git workflow](../docs/process/git-workflow.md)).
 
 ## Documentation
-Decisions and lessons go to `docs/` (research) and the site's `brief/CHANGELOG.md`. Update `CLAUDE.md` when the process itself changes.
+Site decisions and changes go to the site's `brief/CHANGELOG.md`. Framework decisions, process and research go to `docs/`. Update `CLAUDE.md` when the process itself changes (maintainer mode).

@@ -1,0 +1,27 @@
+#!/bin/sh
+# Enforces Conventional Commits on the subject line: type(scope): summary
+# Types: feat fix docs chore refactor test build ci style. Subject max 72 chars.
+# Merge, revert, fixup and squash commits pass. Only the first line is checked, so trailers are fine.
+# Versioned in .githooks/, activated by: git config core.hooksPath .githooks (npm run setup does it)
+
+subject=$(head -n 1 "$1")
+
+case "$subject" in
+  "Merge "*|"Revert "*|"fixup! "*|"squash! "*) exit 0 ;;
+esac
+
+pattern='^(feat|fix|docs|chore|refactor|test|build|ci|style)(\([a-z0-9._/-]+\))?!?: .+'
+if ! printf '%s\n' "$subject" | grep -Eq "$pattern"; then
+  printf >&2 '%s\n' \
+    "commit-msg: subject must follow Conventional Commits:" \
+    "  type(scope): summary" \
+    "  types: feat fix docs chore refactor test build ci style" \
+    "  got:   $subject"
+  exit 1
+fi
+
+if [ "${#subject}" -gt 72 ]; then
+  printf >&2 '%s\n' "commit-msg: subject is ${#subject} characters, max 72."
+  exit 1
+fi
+exit 0

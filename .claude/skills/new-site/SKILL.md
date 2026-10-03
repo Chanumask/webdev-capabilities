@@ -16,7 +16,7 @@ You are starting a new website for a user who is usually **not technical**. Your
 ## Create the project folder
 As soon as the name is known (Q1.1), propose a kebab-case slug, confirm it, and run:
 `npm run new-site -- <slug> "<Display Name>"`
-This creates `sites/<slug>/` with `brief/BRIEF.md`, `brief/INTAKE.md`, `brief/ACCEPTANCE.md`, `brief/CHANGELOG.md`.
+This creates `sites/<slug>/` (its own git repository) with `brief/BRIEF.md`, `brief/INTAKE.md`, `brief/ACCEPTANCE.md`, `brief/CHANGELOG.md`, `brief/FRAMEWORK-FEEDBACK.md`.
 
 ## Run the rounds
 Open and follow, in order, with the `AskUserQuestion` tool (max 4 questions per call, 2 to 4 options, recommended option first for every technical question):
@@ -29,6 +29,9 @@ Open and follow, in order, with the `AskUserQuestion` tool (max 4 questions per 
 
 Between rounds: recap in 2 to 4 lines, append the raw answers to `brief/INTAKE.md`, update `brief/BRIEF.md`. Ask the next round from what you learned; skip answered questions; add follow-ups where an answer opens a new dimension.
 
+## Mode
+This is **website mode** ([modes](../../../docs/process/modes.md)): write only inside `sites/<slug>`; never edit framework files. If a question is missing, an option is wrong or a capability would have helped, append a line to `brief/FRAMEWORK-FEEDBACK.md` and mention it to the user at the end.
+
 ## Hard rules
 - Ask in the user's language. Plain words. Explain any technical term in one sentence.
 - Recommend one option for every technical choice and say why it fits this project.
@@ -37,4 +40,4 @@ Between rounds: recap in 2 to 4 lines, append the raw answers to `brief/INTAKE.m
 - If the user stops midway, save everything; the chat can be resumed by reading `brief/INTAKE.md`.
 
 ## When done
-Brief is `status: approved`. Commit it (`brief: approved <slug>`), then continue with the `build-site` skill (read `.claude/skills/build-site/SKILL.md`) in the same chat unless the user wants to wait.
+Brief is `status: approved`. Commit it in the site repository (`brief: approved <slug>`), then continue with the `build-site` skill (read `.claude/skills/build-site/SKILL.md`) in the same chat unless the user wants to wait.

@@ -1,0 +1,6 @@
+type(scope): summary in lower case, max 72 chars, no period
+
+# Why this change, if the diff does not say it.
+#
+# types:  feat fix docs chore refactor test build ci style
+# scopes: intake framework capabilities starter tools skills hooks docs deps examples

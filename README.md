@@ -81,6 +81,25 @@ npm run list                        all sites, examples, templates
 ## Requirements
 Node.js 22.12 or newer, npm, git, Chrome or Edge, and Claude Code. The Impeccable design skill and the Playwright skill are part of this repository (`.claude/skills`); the setup installs the Playwright CLI and prepares the rest.
 
+## Two kinds of sessions
+
+At the start of every chat the agent decides (or asks) which mode applies:
+
+- **Website mode:** you build, change or export a website. The agent works only inside `sites/<slug>` (each site is its own private git repository) and never edits the framework.
+- **Maintainer mode:** you improve the framework itself (capabilities, the question catalog, tools, docs). The agent works on a **feature branch**, runs the quality gates (`npm run check`), merges locally and stops. **The agent never pushes `main`; you do**: `WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main`.
+
+Rules and reasons: `docs/process/modes.md`, `docs/process/git-workflow.md`, `docs/decisions/`.
+
+## For maintainers
+
+```
+npm run setup          also activates the git hooks (conventional commits, no commits on main, no push of main, secret guard)
+npm run check          format, lint, tests, docs check
+npm run smoke          starter template installs and builds from scratch
+```
+
+Extend the repo with `docs/process/extending.md` (capability, intake question, skill, tool, template, example). Ideas live in `docs/product/backlog.md`; things found while building sites arrive in `sites/*/brief/FRAMEWORK-FEEDBACK.md`.
+
 ## Where to read more
 - `CLAUDE.md`: how the agent behaves here
 - `framework/WORKFLOW.md`: the stages from idea to delivery

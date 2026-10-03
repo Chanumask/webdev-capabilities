@@ -27,3 +27,7 @@ Thumbs.db
 
 # local setup state
 .framework-state.json
+# customer sites live in their own repositories (decision 0003)
+sites/*
+!sites/README.md
+.smoke/

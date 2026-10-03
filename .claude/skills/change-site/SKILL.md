@@ -5,6 +5,8 @@ description: Change, refine or extend an existing website in sites/<slug>/. Use 
 
 # Change an existing site
 
+Website mode ([modes](../../../docs/process/modes.md)): write only inside `sites/<slug>` and `exports/`; commit in the site repository; never edit the framework; framework gaps go to `brief/FRAMEWORK-FEEDBACK.md`.
+
 ## 1. Load context
 Identify the site (`npm run list`; ask if ambiguous). Read, in this order: `sites/<slug>/brief/BRIEF.md`, `brief/CHANGELOG.md`, `PRODUCT.md`, `DESIGN.md`, `.impeccable/surfaces/*.md`. Start the site on localhost if it is not running: `npm run dev -- <slug>`.
 

@@ -12,21 +12,45 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { findSite } from './lib.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const slug = args.find((a) => !a.startsWith('--'));
-if (!slug) { console.error('Usage: node tools/export-site.mjs <site> [--no-build] [--zip]'); process.exit(1); }
+if (!slug) {
+  console.error('Usage: node tools/export-site.mjs <site> [--no-build] [--zip]');
+  process.exit(1);
+}
 
-const siteDir = ['sites', 'examples', 'templates'].map((d) => path.join(root, d, slug)).find((d) => fs.existsSync(path.join(d, 'package.json')));
-if (!siteDir) { console.error(`Site "${slug}" not found in sites/, examples/ or templates/.`); process.exit(1); }
+const found = findSite(slug);
+const siteDir = found?.dir;
+if (!siteDir) {
+  console.error(`Site "${slug}" not found in sites/, examples/ or templates/.`);
+  process.exit(1);
+}
 
 if (!args.includes('--no-build')) execSync('npm run build', { cwd: siteDir, stdio: 'inherit' });
 const dist = path.join(siteDir, 'dist');
-if (!fs.existsSync(dist)) { console.error('No dist/ folder. Build failed?'); process.exit(1); }
+if (!fs.existsSync(dist)) {
+  console.error('No dist/ folder. Build failed?');
+  process.exit(1);
+}
 
 const esbuild = createRequire(path.join(siteDir, 'package.json'))('esbuild');
-const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf', '.mp4': 'video/mp4', '.glb': 'model/gltf-binary' };
+const MIME = {
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
+  '.mp4': 'video/mp4',
+  '.glb': 'model/gltf-binary',
+};
 const uri = (file) => {
   const mime = MIME[path.extname(file).toLowerCase()];
   if (!mime || !fs.existsSync(file)) return null;
@@ -46,7 +70,8 @@ function inlineCss(file) {
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) walk(p, out); else if (e.name.endsWith('.html')) out.push(p);
+    if (e.isDirectory()) walk(p, out);
+    else if (e.name.endsWith('.html')) out.push(p);
   }
   return out;
 }
@@ -66,14 +91,25 @@ for (const file of walk(dist)) {
   html = html.replace(/<script type="module" src="([^"]+)"[^>]*><\/script>/g, (m, s) => {
     const f = fromDist(s, path.dirname(file));
     if (!fs.existsSync(f)) return m;
-    const code = esbuild.buildSync({ entryPoints: [f], bundle: true, format: 'iife', minify: true, write: false, target: 'es2020', legalComments: 'none' }).outputFiles[0].text;
-    const safe = code.replace(/<\/script/gi, '<\/script');
+    const code = esbuild.buildSync({
+      entryPoints: [f],
+      bundle: true,
+      format: 'iife',
+      minify: true,
+      write: false,
+      target: 'es2020',
+      legalComments: 'none',
+    }).outputFiles[0].text;
+    const safe = code.replace(/<\/script/gi, '<\\/script');
     return `<script>document.addEventListener('DOMContentLoaded',function(){${safe}});</script>`;
   });
-  html = html.replace(/(\s(?:src|href|poster))="(\/[^"#?]+\.(?:jpe?g|png|webp|svg|ico|gif|mp4|glb))"/g, (m, attr, ref) => {
-    const u = uri(path.join(dist, ref));
-    return u ? `${attr}="${u}"` : m;
-  });
+  html = html.replace(
+    /(\s(?:src|href|poster))="(\/[^"#?]+\.(?:jpe?g|png|webp|svg|ico|gif|mp4|glb))"/g,
+    (m, attr, ref) => {
+      const u = uri(path.join(dist, ref));
+      return u ? `${attr}="${u}"` : m;
+    },
+  );
   // internal page links -> relative file links, so a folder of pages still works from disk
   html = html.replace(/(\shref)="(\/[^"#?]*)(#[^"]*)?"/g, (m, attr, p, hash = '') => {
     if (p.startsWith('//')) return m;

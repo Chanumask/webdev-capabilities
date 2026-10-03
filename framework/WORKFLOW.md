@@ -63,10 +63,14 @@ Rules: update `BRIEF.md` first when a change alters a decision. After changes, r
 - Deployment (when decided in the brief): create a private GitHub repository for the site, connect Cloudflare Pages or Netlify, set the CMS rebuild hook, connect the domain. Never push or publish without the user's explicit yes.
 - Handover notes in `sites/<slug>/README.md`: how to run, export, edit content, who to ask.
 
-## Git rules
-- Commit at milestones with clear messages (`brief:`, `build:`, `change:`, `docs:`). One logical step per commit.
+## Git rules (website mode)
+- Each site is its own git repository inside `sites/<slug>`; commit milestones there (`brief:`, `build:`, `change:`). One logical step per commit.
 - Never commit `node_modules`, `dist`, `.env`, exports, review screenshots.
-- Do not push, publish or delete anything outward-facing without explicit approval.
+- Website sessions never create branches, commits or changes in the framework repository.
+- Do not push, publish, add remotes or delete anything outward-facing without explicit approval.
+
+## Feedback to the framework
+When a website session finds something the framework should do better (a missing question, a capability that would have saved time, a tool bug), it appends one line to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md` and tells the user at the end. A later maintainer session reads these files and turns them into backlog items or branches.
 
 ## Quality bar (every site)
 Real content or marked placeholders, no invented claims, contrast AA, keyboard focus visible, reduced motion respected, no third-party requests by default, responsive 360 to 1920 px, console clean, export works from `file://`.

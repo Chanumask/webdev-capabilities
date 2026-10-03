@@ -7,6 +7,8 @@ description: Build a website from an approved brief in sites/<slug>/brief/BRIEF.
 
 Input: `sites/<slug>/brief/BRIEF.md` with `status: approved`. If the status is not approved, go back to `new-site` round 6. Do not ask the user new questions except genuine blockers (a missing credential, a contradiction in the brief).
 
+Website mode ([modes](../../../docs/process/modes.md)): write only inside `sites/<slug>` (its own git repository, commit milestones there) and `exports/`; never edit the framework. Framework gaps go to `brief/FRAMEWORK-FEEDBACK.md`.
+
 ## 0. Read
 `framework/WORKFLOW.md` (stage 3 and 4), `framework/CONVENTIONS.md`, the brief, `brief/ACCEPTANCE.md`, and the relevant `capabilities/*/README.md`. Look at `examples/lindenhof` for the expected level of finish (3D scroll story, realism, copy tone, forms, listings).
 

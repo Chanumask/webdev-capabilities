@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-export
+exports
+.smoke
+sites
+examples
+templates
+capabilities
+.claude
+.githooks
+.impeccable
+*.md
+package-lock.json

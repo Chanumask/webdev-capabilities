@@ -1,0 +1,40 @@
+#!/bin/sh
+# Push guard (docs/decisions/0002-git-workflow.md).
+#   - Only the repo Chanumask/webdev-capabilities may be pushed to.
+#   - main may not be pushed unless WEBDEV_ALLOW_MAIN_PUSH=1 (the user sets it, never the agent).
+#   - main may never be force-pushed (non-fast-forward) or deleted.
+#   - Deleting any remote branch needs WEBDEV_ALLOW_DELETE=1 after explicit approval (decision 0004).
+# Feature branches may be pushed, and force-pushed with --force-with-lease after a rebase.
+
+url="$2"
+case "$url" in
+  https://github.com/Chanumask/webdev-capabilities|https://github.com/Chanumask/webdev-capabilities.git|git@github.com:Chanumask/webdev-capabilities.git) ;;
+  *)
+    printf >&2 '%s\n' "pre-push: remote $url is not Chanumask/webdev-capabilities. Refusing (decision 0002)."
+    exit 1
+    ;;
+esac
+
+zero=0000000000000000000000000000000000000000
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$local_sha" = "$zero" ] && [ "$WEBDEV_ALLOW_DELETE" != "1" ]; then
+    printf >&2 '%s\n' "pre-push: deleting $remote_ref needs the user's explicit approval first." \
+      "After approval, set WEBDEV_ALLOW_DELETE=1 for that one command (decision 0004)."
+    exit 1
+  fi
+  [ "$remote_ref" = "refs/heads/main" ] || continue
+  if [ "$local_sha" = "$zero" ]; then
+    printf >&2 '%s\n' "pre-push: deleting main is not allowed (decision 0002)."
+    exit 1
+  fi
+  if [ "$WEBDEV_ALLOW_MAIN_PUSH" != "1" ]; then
+    printf >&2 '%s\n' "pre-push: pushing main is the user's job (decision 0002)." \
+      "User: WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main"
+    exit 1
+  fi
+  if [ "$remote_sha" != "$zero" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+    printf >&2 '%s\n' "pre-push: refusing a non-fast-forward push to main (decision 0002)."
+    exit 1
+  fi
+done
+exit 0

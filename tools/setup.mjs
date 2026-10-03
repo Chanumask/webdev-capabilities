@@ -16,9 +16,15 @@ import { root, listSites } from './lib.mjs';
 const quick = process.argv.includes('--quick');
 const win = process.platform === 'win32';
 const results = [];
-const add = (name, ok, detail = '') => { results.push({ name, ok, detail }); console.log(`${ok ? 'OK  ' : 'FAIL'} ${name}${detail ? ' - ' + detail : ''}`); };
+const add = (name, ok, detail = '') => {
+  results.push({ name, ok, detail });
+  console.log(`${ok ? 'OK  ' : 'FAIL'} ${name}${detail ? ' - ' + detail : ''}`);
+};
 const run = (cmd, opts = {}) => spawnSync(cmd, { shell: true, encoding: 'utf8', cwd: root, ...opts });
-const out = (cmd) => { const r = run(cmd); return r.status === 0 ? (r.stdout || '').trim() : null; };
+const out = (cmd) => {
+  const r = run(cmd);
+  return r.status === 0 ? (r.stdout || '').trim() : null;
+};
 
 console.log('Setting up webdev-capabilities...\n');
 
@@ -32,10 +38,36 @@ const gitV = out('git --version');
 add('git', !!gitV, gitV ?? 'not found');
 
 // 2. git identity and remote (information only)
-const gitUser = out('git config user.name'), gitMail = out('git config user.email');
-add('git identity configured', !!(gitUser && gitMail), gitUser && gitMail ? `${gitUser} <${gitMail}>` : 'run: git config --global user.name "..." and user.email "..." before committing');
+const gitUser = out('git config user.name'),
+  gitMail = out('git config user.email');
+add(
+  'git identity configured',
+  !!(gitUser && gitMail),
+  gitUser && gitMail
+    ? `${gitUser} <${gitMail}>`
+    : 'run: git config --global user.name "..." and user.email "..." before committing',
+);
 const remote = out('git remote get-url origin');
 add('git remote', !!remote, remote ?? 'no remote set (fine for local use)');
+
+// 2b. repository hooks (commit and push guards, decision 0002): feature branches only, main is pushed by the user
+if (fs.existsSync(path.join(root, '.githooks')) && out('git rev-parse --is-inside-work-tree') === 'true') {
+  run('git config core.hooksPath .githooks');
+  run('git config commit.template .gitmessage');
+  if (!win) {
+    try {
+      for (const h of fs.readdirSync(path.join(root, '.githooks')))
+        fs.chmodSync(path.join(root, '.githooks', h), 0o755);
+    } catch {
+      /* ignore */
+    }
+  }
+  add(
+    'git hooks active',
+    out('git config core.hooksPath') === '.githooks',
+    'commit-msg, pre-commit, pre-push (.githooks)',
+  );
+} else add('git hooks active', true, 'not a git checkout, skipped');
 
 // 3. Playwright CLI (agent looks at the site in a real browser)
 let pw = out('playwright-cli --version');
@@ -51,19 +83,47 @@ if (pw) {
   add('Playwright skill present', fs.existsSync(path.join(root, '.claude', 'skills', 'playwright-cli', 'SKILL.md')));
   const cfg = path.join(root, '.playwright', 'cli.config.json');
   if (!fs.existsSync(cfg)) run('playwright-cli install', { stdio: 'inherit' });
-  add('browser for Playwright', fs.existsSync(cfg), fs.existsSync(cfg) ? 'configured (.playwright/cli.config.json)' : 'no browser configured; install Chrome or Edge, then run: playwright-cli install');
+  add(
+    'browser for Playwright',
+    fs.existsSync(cfg),
+    fs.existsSync(cfg)
+      ? 'configured (.playwright/cli.config.json)'
+      : 'no browser configured; install Chrome or Edge, then run: playwright-cli install',
+  );
 }
 
 // 4. Impeccable design tool (its launcher downloads a small engine binary on first run)
 const imp = path.join(root, '.claude', 'skills', 'impeccable', 'scripts', win ? 'impeccable.cmd' : 'impeccable');
 if (fs.existsSync(imp)) {
-  if (!win) { try { fs.chmodSync(imp, 0o755); } catch { /* ignore */ } }
+  if (!win) {
+    try {
+      fs.chmodSync(imp, 0o755);
+    } catch {
+      /* ignore */
+    }
+  }
   const r = run(`"${imp}" context`, { cwd: root });
-  add('Impeccable design tool', r.status === 0, r.status === 0 ? 'engine ready' : (r.stderr || r.stdout || '').slice(0, 160));
+  add(
+    'Impeccable design tool',
+    r.status === 0,
+    r.status === 0 ? 'engine ready' : (r.stderr || r.stdout || '').slice(0, 160),
+  );
 } else add('Impeccable design tool', false, 'skill files missing under .claude/skills/impeccable');
 
 // 5. skills of this framework
-for (const s of ['new-site', 'build-site', 'change-site', 'export-site', 'onboard']) {
+for (const s of [
+  'session-start',
+  'onboard',
+  'new-site',
+  'build-site',
+  'change-site',
+  'export-site',
+  'feature-workflow',
+  'sanity-check',
+  'session-handover',
+  'decision-log',
+  'parallel-planning',
+]) {
   add(`skill ${s}`, fs.existsSync(path.join(root, '.claude', 'skills', s, 'SKILL.md')));
 }
 
@@ -73,12 +133,19 @@ if (example && !quick) {
   console.log('\nInstalling and building the example site (smoke test, about a minute)...');
   const i = run('npm install', { cwd: example.dir, stdio: 'inherit' });
   const b = i.status === 0 ? run('npm run build', { cwd: example.dir, stdio: 'ignore' }) : { status: 1 };
-  add('example site builds', b.status === 0, b.status === 0 ? 'examples/lindenhof' : 'check Node version and network, then run: npm run build -- lindenhof');
+  add(
+    'example site builds',
+    b.status === 0,
+    b.status === 0 ? 'examples/lindenhof' : 'check Node version and network, then run: npm run build -- lindenhof',
+  );
 } else add('example site build', true, quick ? 'skipped (--quick)' : 'no example present');
 
 // 7. state file (git-ignored)
 const ok = results.every((r) => r.ok || ['git identity configured', 'git remote'].includes(r.name));
-fs.writeFileSync(path.join(root, '.framework-state.json'), JSON.stringify({ setupAt: new Date().toISOString(), ok, results }, null, 2));
+fs.writeFileSync(
+  path.join(root, '.framework-state.json'),
+  JSON.stringify({ setupAt: new Date().toISOString(), ok, results }, null, 2),
+);
 
 const sites = listSites().filter((s) => s.group === 'sites');
 console.log('\n===== STATUS =====');

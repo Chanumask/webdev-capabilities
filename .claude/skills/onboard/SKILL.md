@@ -6,7 +6,7 @@ description: Set up this repository on a fresh machine and report status. Use wh
 # Onboard: set up, report, offer next steps
 
 ## 1. Run the setup
-From the repository root run `npm run setup` (use `npm run setup:quick` to skip the example build). It checks Node, npm and git, installs the Playwright CLI if missing, prepares the Impeccable design tool, verifies the framework skills, installs and builds the example site as a smoke test and writes `.framework-state.json`. If a step fails, read the FAIL line, fix the cause (for example install Node 22+, install Chrome or Edge, set `git config user.name/email`) and run the setup again. Do not hide failures.
+From the repository root run `npm run setup` (use `npm run setup:quick` to skip the example build). It checks Node, npm and git, activates the repository git hooks (commit and push guards), installs the Playwright CLI if missing, prepares the Impeccable design tool, verifies the framework skills, installs and builds the example site as a smoke test and writes `.framework-state.json`. If a step fails, read the FAIL line, fix the cause (for example install Node 22+, install Chrome or Edge, set `git config user.name/email`) and run the setup again. Do not hide failures.
 
 Do not push, publish, create accounts or spend money during setup.
 
@@ -16,6 +16,8 @@ Tell the user, in their language:
 - **Needs attention:** anything that failed or is optional (git identity, GitHub remote, browser).
 - **What exists:** `sites/` (their sites, usually empty at first), `examples/` (reference projects).
 - **How it works in one paragraph:** you ask, I interview you in rounds, you approve a brief, I build it on localhost, you give feedback, I export a single HTML file.
+
+Mention that sessions run in one of two modes (website mode for building sites, maintainer mode for improving the framework) and that the agent asks which one at session start.
 
 ## 3. Offer the next steps
 End with one `AskUserQuestion` call (options as below, adapted to what exists; "Other" is automatic):

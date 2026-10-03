@@ -28,15 +28,30 @@ if (!fs.existsSync(path.join(site.dir, 'node_modules'))) {
   run('npm install');
 }
 
-if (cmd === 'build') { run('npm run build'); process.exit(0); }
-if (cmd === 'stop') { try { run('npx astro dev stop'); } catch { /* not running */ } process.exit(0); }
+if (cmd === 'build') {
+  run('npm run build');
+  process.exit(0);
+}
+if (cmd === 'stop') {
+  try {
+    run('npx astro dev stop');
+  } catch {
+    /* not running */
+  }
+  process.exit(0);
+}
 
 // dev: reuse the running server if there is one
 try {
   const status = execSync('npx astro dev status', { cwd: site.dir, encoding: 'utf8' });
   const m = status.match(/localhost:(\d+)/);
-  if (m) { console.log(`Already running: http://localhost:${m[1]}`); process.exit(0); }
-} catch { /* not running */ }
+  if (m) {
+    console.log(`Already running: http://localhost:${m[1]}`);
+    process.exit(0);
+  }
+} catch {
+  /* not running */
+}
 const port = await freePort(4321);
 execSync(`npx astro dev --background --port ${port}`, { cwd: site.dir, stdio: 'ignore' });
 console.log(`\n  ${slug} is running at  http://localhost:${port}\n  Stop it with: npm run stop -- ${slug}\n`);
