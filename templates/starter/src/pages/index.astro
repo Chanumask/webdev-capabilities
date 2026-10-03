@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { getSite } from '../content/provider';
+const site = await getSite();
+---
+<Base title={site.name}>
+  <main style="min-height:100svh;display:grid;place-items:center;padding:var(--gutter)">
+    <div>
+      <h1>{site.name}</h1>
+      <p>{site.tagline}</p>
+    </div>
+  </main>
+</Base>

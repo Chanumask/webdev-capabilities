@@ -1,0 +1,15 @@
+{
+  "name": "webdev-capabilities",
+  "private": true,
+  "type": "module",
+  "description": "Framework for creating high-end websites with Claude Code: intake, build, localhost preview, offline export.",
+  "scripts": {
+    "new-site": "node tools/new-site.mjs",
+    "dev": "node tools/site.mjs dev",
+    "stop": "node tools/site.mjs stop",
+    "build": "node tools/site.mjs build",
+    "list": "node tools/site.mjs list",
+    "export": "node tools/export-site.mjs"
+  },
+  "engines": { "node": ">=22.12.0" }
+}

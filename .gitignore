@@ -1,0 +1,26 @@
+# dependencies and builds
+node_modules/
+dist/
+dist-export/
+.astro/
+exports/
+
+# secrets
+.env
+.env.*
+!.env.example
+
+# tool output
+.playwright/
+.playwright-cli/
+**/.impeccable/review/
+**/.impeccable/mocks/
+**/.impeccable/live/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# downloaded Impeccable engine binary (the launcher fetches it on first run)
+.claude/skills/impeccable/scripts/bin/

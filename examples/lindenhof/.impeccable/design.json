@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T00:00:00Z",
+  "title": "Design System: Lindenhof Hausverwaltung",
+  "extensions": {
+    "colorMeta": {
+      "brass": { "role": "primary", "displayName": "Dusk Brass", "canonical": "#b79a68", "tonalRamp": ["#2e2615", "#4a3d21", "#665330", "#7d6636", "#9b8250", "#b79a68", "#d2bd95", "#ebe0c8"] },
+      "brass-deep": { "role": "primary", "displayName": "Deep Brass", "canonical": "#7d6636", "tonalRamp": ["#251d0e", "#3b2f17", "#52421f", "#6a5529", "#7d6636", "#98814e", "#b59f72", "#d4c6a6"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#0d1014", "tonalRamp": ["#0d1014", "#15181d", "#1d2127", "#2b3037", "#3f454d", "#5f656d", "#8a9097", "#c4c8cc"] },
+      "graphite": { "role": "neutral", "displayName": "Graphite", "canonical": "#15181d", "tonalRamp": ["#0d1014", "#15181d", "#1d2127", "#2a2f36", "#3b4048", "#555b63", "#7d838a", "#aeb3b8"] },
+      "stone": { "role": "neutral", "displayName": "Stone", "canonical": "#ecece9", "tonalRamp": ["#5a5a57", "#7a7a77", "#9a9a97", "#b9b9b6", "#d0d0cc", "#e1e1dd", "#ecece9", "#f3f3f1"] },
+      "chalk": { "role": "neutral", "displayName": "Chalk", "canonical": "#f3f3f1", "tonalRamp": ["#5f5f5d", "#807f7d", "#a1a09e", "#c0c0be", "#dcdcda", "#e8e8e6", "#f3f3f1", "#fafaf9"] },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#4d535b", "tonalRamp": ["#1f2226", "#2e3238", "#3c4147", "#4d535b", "#666c74", "#82888f", "#a3a9b0", "#c9cdd1"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero h1 only." },
+      "headline": { "displayName": "Headline", "purpose": "Chapter and section h2s." },
+      "title": { "displayName": "Title", "purpose": "Listing addresses and row titles." },
+      "body": { "displayName": "Body", "purpose": "Running German copy, max 62ch." },
+      "label": { "displayName": "Label", "purpose": "Buttons, field labels, nav, chips." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "Footer name only." }
+    },
+    "shadows": [
+      { "name": "plate-ambient", "value": "0 22px 44px -24px rgb(0 0 0 / 0.7)", "purpose": "Soft drop that seats name plates over the scene and dark grounds." },
+      { "name": "plate-engraved", "value": "inset 0 0 0 4px #f3f3f1, inset 0 0 0 5px rgb(13 16 20 / 0.12)", "purpose": "Engraved inset line on plates." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Spring-out easing for button, arrow, row and service hover movement (0.3-0.4s)." },
+      { "name": "colour-swap", "value": "background 0.25s, color 0.25s, border-color 0.25s", "purpose": "Hover and selected-state colour change on buttons, chips, segments, menu links." },
+      { "name": "scene-scrub", "value": "gsap power2.inOut, scroll-driven timeline", "purpose": "Construction story in the pinned 3D scene; Lenis smooth scroll to anchors at 1.6s." },
+      { "name": "reduced-motion", "value": "durations collapse to 0.01ms", "purpose": "prefers-reduced-motion override." }
+    ],
+    "breakpoints": [
+      { "name": "chapters-stack", "value": "1000px" },
+      { "name": "listing-two-col", "value": "980px" },
+      { "name": "two-col-collapse", "value": "860px" },
+      { "name": "menu-toggle", "value": "760px" },
+      { "name": "listing-one-col", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Chalk button with trailing arrow; brass fill on hover. Dark variant on stone grounds and inside plates.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Objekte zeigen <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M3 12h17M14 5l7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.3rem; min-height: 3rem; background: #0d1014; color: #f3f3f1; border: 1px solid #0d1014; border-radius: 2px; font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; font-weight: 500; font-size: 1.05rem; text-decoration: none; cursor: pointer; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background 0.25s, color 0.25s, border-color 0.25s; } .ds-btn svg { width: 1.1em; height: 1.1em; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { background: #b79a68; border-color: #b79a68; color: #0d1014; } .ds-btn:hover svg { transform: translateX(4px); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }"
+    },
+    {
+      "name": "Name Plate (Search)",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Chalk face, hairline border, engraved inset line, ambient shadow. Holds the search and forms.",
+      "html": "<div class=\"ds-plate\"><label class=\"ds-field\"><span>Ort</span><input class=\"ds-input\" placeholder=\"Musterstadt\"></label></div>",
+      "css": ".ds-plate { background: #f3f3f1; color: #0d1014; border: 1px solid rgb(13 16 20 / 0.28); border-radius: 3px; padding: 1.4rem; width: 18rem; box-shadow: 0 22px 44px -24px rgb(0 0 0 / 0.7), inset 0 0 0 4px #f3f3f1, inset 0 0 0 5px rgb(13 16 20 / 0.12); font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; } .ds-field { display: grid; gap: 0.35rem; } .ds-field span { font-weight: 500; font-size: 0.9rem; letter-spacing: 0.01em; } .ds-input { width: 100%; min-height: 3rem; padding: 0.6rem 0.85rem; background: #fff; border: 1px solid #7e848c; border-radius: 2px; font: inherit; color: #0d1014; } .ds-input::placeholder { color: #5b616a; } .ds-input:focus-visible { outline: 2px solid #0d1014; outline-offset: 1px; border-color: #0d1014; }"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field, 1px grey-blue border, 2px radius; ink focus outline; error wash when touched and invalid.",
+      "html": "<label class=\"ds-field\"><span>E-Mail</span><input class=\"ds-input\" type=\"email\" placeholder=\"name@beispiel.de\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.35rem; font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; color: #0d1014; } .ds-field span { font-weight: 500; font-size: 0.9rem; letter-spacing: 0.01em; } .ds-input { width: 100%; min-height: 3rem; padding: 0.6rem 0.85rem; background: #fff; border: 1px solid #7e848c; border-radius: 2px; font: inherit; color: #0d1014; } .ds-input::placeholder { color: #5b616a; } .ds-input:focus-visible { outline: 2px solid #0d1014; outline-offset: 1px; border-color: #0d1014; } .ds-input:invalid:not(:placeholder-shown):not(:focus) { border-color: #a43a25; background: #fdf1ee; }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segment-selected",
+      "description": "Mieten/Kaufen switch: ink-framed cells, ink fill when selected.",
+      "html": "<div class=\"ds-seg\"><label><input type=\"radio\" name=\"m\" checked><span>Mieten</span></label><label><input type=\"radio\" name=\"m\"><span>Kaufen</span></label></div>",
+      "css": ".ds-seg { display: inline-grid; grid-auto-flow: column; border: 1px solid #0d1014; border-radius: 2px; overflow: hidden; font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; } .ds-seg label { position: relative; cursor: pointer; } .ds-seg label + label { border-left: 1px solid #0d1014; } .ds-seg input { position: absolute; opacity: 0; inset: 0; } .ds-seg span { display: block; padding: 0.55rem 1.1rem; min-height: 2.75rem; line-height: 1.7; font-weight: 500; color: #0d1014; transition: background 0.2s, color 0.2s; } .ds-seg input:checked + span { background: #0d1014; color: #f3f3f1; } .ds-seg input:focus-visible + span { outline: 2px solid #7d6636; outline-offset: -4px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "plate",
+      "description": "Plate menu with hairline dividers; ink fill on hover.",
+      "html": "<ul class=\"ds-menu\"><li><a href=\"#\">Mieten</a></li><li><a href=\"#\">Kaufen</a></li><li><a href=\"#\">Eigentümer</a></li></ul>",
+      "css": ".ds-menu { list-style: none; margin: 0; padding: 0; display: inline-flex; background: #f3f3f1; border: 1px solid rgb(13 16 20 / 0.28); border-radius: 3px; box-shadow: 0 22px 44px -24px rgb(0 0 0 / 0.7), inset 0 0 0 4px #f3f3f1, inset 0 0 0 5px rgb(13 16 20 / 0.12); font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; } .ds-menu li + li { border-left: 1px solid rgb(13 16 20 / 0.18); } .ds-menu a { display: block; padding: 0.85rem 1.15rem; font-weight: 500; color: #0d1014; text-decoration: none; transition: background 0.2s, color 0.2s; } .ds-menu a:hover { background: #0d1014; color: #f3f3f1; } .ds-menu a:focus-visible { outline: 2px solid #0d1014; outline-offset: 3px; }"
+    },
+    {
+      "name": "House Number Tile",
+      "kind": "custom",
+      "refersTo": "house-number",
+      "description": "Ink square with chalk numerals and a brass hairline inset 5px.",
+      "html": "<span class=\"ds-hausnr\">14</span>",
+      "css": ".ds-hausnr { display: grid; place-items: center; min-width: 3.4rem; height: 3.4rem; padding: 0 0.4rem; background: #0d1014; color: #f3f3f1; font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; font-weight: 500; font-size: 1.5rem; outline: 1px solid #b79a68; outline-offset: -5px; border-radius: 2px; }"
+    },
+    {
+      "name": "Listing Row",
+      "kind": "custom",
+      "refersTo": "house-number",
+      "description": "Hairline-ruled row that floods ink with chalk text on hover or focus.",
+      "html": "<div class=\"ds-row\"><h3>Lindenstraße 14</h3><strong>1.150 €</strong></div>",
+      "css": ".ds-row { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.2rem 1rem; border-top: 1px solid #0d1014; border-bottom: 1px solid rgb(13 16 20 / 0.18); background: #ecece9; color: #0d1014; font-family: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif; transition: background 0.35s cubic-bezier(0.16,1,0.3,1), color 0.35s; } .ds-row:hover { background: #0d1014; color: #f3f3f1; } .ds-row h3 { margin: 0; font-size: 1.8rem; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; } .ds-row strong { font-size: 2rem; font-weight: 400; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Dusk Model",
+    "overview": "The page is a restrained architectural visualisation seen at dusk. A pinned WebGL scene builds a Mehrfamilienhaus as the visitor scrolls, lit by a warm low sun against a cool blue-grey sky. Around the scene the page stays in graphite and stone, with a single brass accent borrowed from the model's own brass fittings.\n\nInterface chrome is borrowed from the building: name plates carry the brand, the menu, the search, both forms and the emergency number. Each is a chalk face with one hairline border and an engraved inset line, no colour. Type is one family, Hanken Grotesk, light and tightly tracked at large sizes, medium for anything you act on.\n\nImagery is rendered, not photographed. The stills in public/thumbs are generated from the same 3D kit by tools-dev/thumbs.ts and stay labelled as renders.",
+    "keyCharacteristics": [
+      "Graphite and stone grounds, chalk plates, one brass accent used only as hover, selection and a hairline.",
+      "One typeface (Hanken Grotesk Variable); weight 300 for display, 500 for controls.",
+      "2px corners on controls, 3px on plates and stills; no pill shapes.",
+      "Flat surfaces except plates, which carry one soft ambient shadow.",
+      "Scene materials share the CSS palette: plaster, graphite membrane and brass match the page tokens."
+    ],
+    "rules": [
+      { "name": "The One Brass Rule", "body": "Brass is the only chroma on the page and appears as hover, selection or a hairline. If a screen shows a brass block at rest, it is wrong.", "section": "colors" },
+      { "name": "The Dusk Ground Rule", "body": "Dark sections use graphite or ink, light sections use stone; chalk is reserved for plates and for text on dark. Do not introduce a third hue family.", "section": "colors" },
+      { "name": "The Light Heading Rule", "body": "Headings are weight 300 and tightly tracked; weight 500 is for things you click or fill in.", "section": "typography" },
+      { "name": "The Plate Only Rule", "body": "Only name plates cast a shadow, and it is always diffuse. No offset or hard-edged shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep grounds to ink, graphite, stone and stone-2, with chalk plates over them.",
+      "Do use brass only for hover fills, selection, scrollbar and hairline details.",
+      "Do build new containers as name plates (chalk face, 1px hairline, engraved inset, soft ambient shadow).",
+      "Do keep headings at weight 300 and -0.03em; controls at weight 500.",
+      "Do keep radii at 2px (controls) and 3px (plates, stills); targets at least 2.75rem.",
+      "Do use the 0.16, 1, 0.3, 1 ease at 0.25 to 0.4s for movement, and let reduced motion collapse durations.",
+      "Do label stills as rendered views and keep sample listings visibly marked as placeholder.",
+      "Do keep a flat graphite fallback for the no-WebGL path."
+    ],
+    "donts": [
+      "Don't add photographs; imagery comes from the 3D kit.",
+      "Don't fill large areas with brass or add a second accent hue.",
+      "Don't add card grids, pill shapes, glass blur or hard offset shadows.",
+      "Don't set body copy in weight 300 or headings in weight 500.",
+      "Don't fabricate testimonials, counts, awards or prices as fact."
+    ]
+  }
+}

@@ -1,0 +1,375 @@
+---
+import Base from '../layouts/Base.astro';
+import { getSite, getListings } from '../content/provider';
+
+const site = await getSite();
+const listings = await getListings();
+const eur = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const arrow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M3 12h17M14 5l7 7-7 7"/></svg>`;
+---
+<Base
+  title="Lindenhof Hausverwaltung – Wohnungen und Häuser mieten, kaufen, verwalten"
+  description="Demo-Website einer fiktiven Hausverwaltung: Mietobjekte, Kaufobjekte, Verwaltung für Eigentümer und Mieterservice."
+>
+  <header class="nav">
+    <a class="plate brand" href="#top" aria-label={`${site.name}, zum Seitenanfang`}>
+      <span class="brand-name">{site.name}</span>
+      <span class="brand-sub">Hausverwaltung</span>
+    </a>
+    <nav class="plate menu" aria-label="Hauptnavigation">
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu-list">Menü</button>
+      <ul id="menu-list">
+        <li><a href="#objekte" data-filter="mieten">Mieten</a></li>
+        <li><a href="#objekte" data-filter="kaufen">Kaufen</a></li>
+        <li><a href="#eigentuemer">Eigentümer</a></li>
+        <li><a href="#mieter">Mieter</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="stage" id="top">
+      <div class="stage-sticky" aria-hidden="true">
+        <canvas id="scene"></canvas>
+      </div>
+      <div class="stage-top" aria-hidden="true"></div>
+
+      <div class="chapters">
+        <section class="chapter hero" aria-labelledby="h-hero">
+          <div class="hero-copy">
+            <h1 id="h-hero">Wohnen, das gut verwaltet ist.</h1>
+            <p class="lede">{site.intro}</p>
+            <form class="plate search" id="hero-search" aria-label="Objekte suchen">
+              <fieldset class="seg-wrap">
+                <legend class="sr-only">Mieten oder kaufen</legend>
+                <div class="seg">
+                  <label><input type="radio" name="mode" value="mieten" checked /><span>Mieten</span></label>
+                  <label><input type="radio" name="mode" value="kaufen" /><span>Kaufen</span></label>
+                </div>
+              </fieldset>
+              <label class="field"><span>Ort</span><input class="input" name="city" placeholder="Musterstadt" autocomplete="off" /></label>
+              <label class="field"><span>Zimmer ab</span>
+                <select class="input" name="rooms"><option value="0">egal</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
+              </label>
+              <button class="btn dark" type="submit">Objekte zeigen <Fragment set:html={arrow} /></button>
+            </form>
+          </div>
+        </section>
+
+        {site.chapters.map((c) => (
+          <section class="chapter" aria-labelledby={`h-${c.id}`}>
+            <div class="copy">
+              <h2 id={`h-${c.id}`}>{c.title}</h2>
+              <p>{c.text}</p>
+              <a class="btn" href={c.href} data-filter={c.filter}>{c.cta} <Fragment set:html={arrow} /></a>
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+
+    <section class="listings" id="objekte" aria-labelledby="h-objekte">
+      <div class="wrap">
+        <div class="listings-head">
+          <h2 id="h-objekte">Wohnungen und Häuser, gerade frei.</h2>
+          <p class="note">Beispielobjekte mit Platzhalterdaten. Echte Angebote kommen später aus dem CMS.</p>
+        </div>
+        <form class="filters" id="filters" aria-label="Objekte filtern">
+          <div class="seg">
+            <label><input type="radio" name="mode" value="alle" checked /><span>Alle</span></label>
+            <label><input type="radio" name="mode" value="mieten" /><span>Mieten</span></label>
+            <label><input type="radio" name="mode" value="kaufen" /><span>Kaufen</span></label>
+          </div>
+          <label class="field"><span>Ort</span><input class="input" name="city" placeholder="Alle Orte" autocomplete="off" /></label>
+          <label class="field"><span>Zimmer ab</span>
+            <select class="input" name="rooms"><option value="0">egal</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
+          </label>
+          <p class="count" id="count" role="status" aria-live="polite"></p>
+        </form>
+
+        <ul class="rows" id="rows">
+          {listings.map((l) => (
+            <li class="row" data-mode={l.mode} data-city={l.city.toLowerCase()} data-rooms={l.rooms}
+                data-address={`${l.street} ${l.number}, ${l.city}`}>
+              <div class="ill"><img src={`/thumbs/${l.thumb}.jpg`} alt={`${l.kind} in ${l.city}, gerenderte Ansicht`} width="720" height="480" loading="lazy" decoding="async" /></div>
+              <div class="addr">
+                <span class="hausnr" aria-hidden="true">{l.number}</span>
+                <div>
+                  <h3>{l.street} {l.number}</h3>
+                  <p>{l.kind} zur {l.mode === 'mieten' ? 'Miete' : 'Kauf'} · {l.city}</p>
+                </div>
+              </div>
+              <dl class="facts">
+                <div><dt>Zimmer</dt><dd>{l.rooms}</dd></div>
+                <div><dt>Fläche</dt><dd>{l.area} m²</dd></div>
+                <div><dt>Frei</dt><dd>{l.available}</dd></div>
+              </dl>
+              <div class="price">
+                <strong>{eur.format(l.price)}</strong>
+                <span>{l.mode === 'mieten' ? 'Kaltmiete / Monat' : 'Kaufpreis'} · Beispiel</span>
+                <a class="btn small" href="#kontakt" data-enquiry={`${l.kind} ${l.street} ${l.number}, ${l.city}`}>Anfragen <Fragment set:html={arrow} /></a>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div class="empty" id="empty" hidden>
+          <h3>Dazu haben wir gerade nichts.</h3>
+          <p>Versuchen Sie einen anderen Ort oder weniger Zimmer.</p>
+          <button class="btn dark" type="button" id="reset">Filter zurücksetzen</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="owners" id="eigentuemer" aria-labelledby="h-owners">
+      <div class="wrap owners-grid">
+        <div class="owners-intro">
+          <h2 id="h-owners">Sie besitzen. Wir kümmern uns.</h2>
+          <p>Ob eine Wohnung oder ein ganzes Haus: Wir übernehmen die Verwaltung, damit Sie sich nicht um Abrechnung, Handwerker und Mieter kümmern müssen.</p>
+          <a class="btn" href="#kontakt" data-enquiry="Verwaltung anfragen" data-topic="verwalten">Verwaltung anfragen <Fragment set:html={arrow} /></a>
+          <img class="owners-ill" src="/thumbs/main-a.jpg" alt="Mehrfamilienhaus mit Holztreppenhaus, gerenderte Ansicht" width="1200" height="800" loading="lazy" decoding="async" />
+        </div>
+        <ul class="services">
+          {site.services.map((s) => (
+            <li>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="tenants" id="mieter" aria-labelledby="h-tenants">
+      <div class="wrap tenants-grid">
+        <div>
+          <h2 id="h-tenants">Etwas kaputt? Sagen Sie es uns.</h2>
+          <p>Beschreiben Sie kurz, was los ist. Wir kümmern uns darum und melden uns bei Ihnen.</p>
+          <div class="emergency plate">
+            <strong>Notfall außerhalb der Geschäftszeiten</strong>
+            <a href={`tel:${site.emergencyPhone.replace(/\s/g, '')}`}>{site.emergencyPhone}</a>
+            <span>Platzhalternummer</span>
+          </div>
+          <ul class="links">
+            {site.tenantLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+          <img class="tenants-ill" src="/thumbs/main-b.jpg" alt="Mehrfamilienhaus von der anderen Seite, gerenderte Ansicht" width="1200" height="800" loading="lazy" decoding="async" />
+        </div>
+        <form class="plate form" id="damage-form" novalidate>
+          <fieldset>
+            <legend>Was ist betroffen?</legend>
+            <div class="chips">
+              {['Heizung', 'Wasser', 'Strom', 'Aufzug', 'Fenster und Türen', 'Sonstiges'].map((c, i) => (
+                <label><input type="radio" name="category" value={c} checked={i === 0} /><span>{c}</span></label>
+              ))}
+            </div>
+          </fieldset>
+          <label class="field"><span>Adresse der Wohnung <i class="req">Pflichtfeld</i></span><input class="input" name="address" required placeholder="Straße, Hausnummer" autocomplete="street-address" /></label>
+          <label class="field"><span>Was ist passiert? <i class="req">Pflichtfeld</i></span><textarea class="input" name="text" required placeholder="Zum Beispiel: Die Heizung im Wohnzimmer bleibt kalt."></textarea></label>
+          <div class="two">
+            <label class="field"><span>Ihr Name <i class="req">Pflichtfeld</i></span><input class="input" name="name" required placeholder=" " autocomplete="name" /></label>
+            <label class="field"><span>Telefon oder E-Mail <i class="req">Pflichtfeld</i></span><input class="input" name="contact" required placeholder=" " autocomplete="email" /></label>
+          </div>
+          <label class="check"><input type="checkbox" name="urgent" /> <span>Dringend, es entstehen gerade Schäden.</span></label>
+          <button class="btn dark" type="submit">Meldung senden <Fragment set:html={arrow} /></button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt" aria-labelledby="h-contact">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="h-contact">Sprechen wir über Ihr Haus.</h2>
+          <address>
+            <p>{site.name} Hausverwaltung<br />{site.address.join(', ')}</p>
+            <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          </address>
+        </div>
+        <form class="plate form" id="contact-form" novalidate>
+          <fieldset>
+            <legend>Worum geht es?</legend>
+            <div class="chips">
+              {[['mieten', 'Mieten'], ['kaufen', 'Kaufen'], ['verwalten', 'Verwalten lassen'], ['sonst', 'Etwas anderes']].map(([v, l], i) => (
+                <label><input type="radio" name="topic" value={v} checked={i === 0} /><span>{l}</span></label>
+              ))}
+            </div>
+          </fieldset>
+          <label class="field"><span>Ihre Nachricht <i class="req">Pflichtfeld</i></span><textarea class="input" name="text" required placeholder="Wie können wir helfen?"></textarea></label>
+          <div class="two">
+            <label class="field"><span>Ihr Name <i class="req">Pflichtfeld</i></span><input class="input" name="name" required placeholder=" " autocomplete="name" /></label>
+            <label class="field"><span>E-Mail <i class="req">Pflichtfeld</i></span><input class="input" type="email" name="contact" required placeholder=" " autocomplete="email" /></label>
+          </div>
+          <button class="btn dark" type="submit">Anfrage senden <Fragment set:html={arrow} /></button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot">
+      <p class="foot-name">{site.name}</p>
+      <p class="foot-note">Demo-Website mit fiktivem Unternehmen und Platzhalterinhalten. Impressum und Datenschutz folgen mit den echten Angaben des Kunden.</p>
+      <ul><li><a href="#top">Impressum</a></li><li><a href="#top">Datenschutz</a></li><li><a href="#top">Nach oben</a></li></ul>
+    </div>
+  </footer>
+
+  <script>
+    import '../scripts/scene/scene';
+    import '../scripts/ui';
+  </script>
+</Base>
+
+<style is:global>
+  /* ---------- nav ---------- */
+  .nav { position: fixed; z-index: 50; inset: 14px var(--gutter) auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; pointer-events: none; }
+  .nav > * { pointer-events: auto; }
+  .brand { display: grid; padding: 0.5rem 1rem 0.55rem; text-decoration: none; line-height: 1; }
+  .brand-name { font-weight: 500; font-size: 1.45rem; letter-spacing: -0.02em; }
+  .brand-sub { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 0.25rem; color: var(--muted-ink); }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: flex; }
+  .menu li + li { border-left: 1px solid var(--line-light); }
+  .menu a { display: block; padding: 0.85rem 1.15rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .menu a:hover { background: var(--ink); color: var(--chalk); }
+  .menu-toggle { display: none; }
+  @media (max-width: 760px) {
+    .menu-toggle { display: block; background: none; border: 0; padding: 0.9rem 1.1rem; font-weight: 500; cursor: pointer; }
+    .menu { position: relative; }
+    .menu ul { display: none; position: absolute; right: -1px; top: calc(100% + 6px); flex-direction: column; background: var(--chalk); border: 1px solid rgb(13 16 20 / 0.28); border-radius: 3px; min-width: 12rem; }
+    .menu li + li { border-left: 0; border-top: 1px solid var(--line-light); }
+    .menu[data-open="true"] ul { display: flex; }
+  }
+
+  /* ---------- stage: pinned 3D scene + chapters ---------- */
+  .stage { position: relative; background: var(--bg, var(--ink)); color: var(--chalk); }
+  .stage-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; z-index: 0; pointer-events: none; }
+  #scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stage-sticky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(13 16 20 / 0.82) 0%, rgb(13 16 20 / 0.55) 32%, rgb(13 16 20 / 0) 58%); }
+  @media (max-width: 1000px) { .stage-sticky::after { background: linear-gradient(0deg, rgb(13 16 20 / 0.85) 0%, rgb(13 16 20 / 0.5) 36%, rgb(13 16 20 / 0) 60%); } }
+  .stage-top { position: sticky; top: 0; height: 7rem; margin-bottom: -7rem; z-index: 2; pointer-events: none; background: linear-gradient(180deg, var(--bg, var(--ink)) 18%, rgb(13 16 20 / 0) 100%); }
+  .chapters { position: relative; z-index: 1; margin-top: -100svh; }
+  .chapter { position: relative; z-index: 1; min-height: 100svh; display: flex; align-items: center; padding: 6rem var(--gutter); color: var(--chalk); --btn-bg: var(--chalk); --btn-fg: var(--ink); }
+  .no-webgl .chapter { background: var(--graphite); }
+  .no-webgl .stage-sticky { display: none; }
+  .chapter.hero { min-height: 170svh; align-items: flex-start; padding-block: 0; }
+  .hero-copy { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 1.6rem; max-width: 36rem; padding-top: 5rem; }
+  .hero-copy h1 { font-size: clamp(2.8rem, 6.2vw, 5.6rem); }
+  .lede { font-size: 1.2rem; max-width: 34rem; color: rgb(243 243 241 / 0.86); }
+  .copy { max-width: 31rem; display: grid; gap: 1.4rem; justify-items: start; }
+  .copy h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); }
+  .copy p { color: rgb(243 243 241 / 0.86); }
+
+  .search { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 0.8rem; padding: 1.4rem; align-items: end; }
+  .search .seg-wrap { grid-column: 1 / -1; }
+  .search .btn { grid-column: 1 / -1; justify-content: space-between; }
+  .btn.dark { --btn-bg: var(--ink); --btn-fg: var(--chalk); }
+  .btn.dark:hover { background: var(--brass); color: var(--ink); }
+
+  @media (max-width: 1000px) {
+    .chapter { align-items: flex-end; padding-block: 3rem; }
+    .chapter.hero { align-items: flex-start; }
+    .hero-copy { justify-content: flex-end; padding-bottom: 1.2rem; gap: 1rem; }
+    .hero-copy h1 { font-size: clamp(2.35rem, 6.5vw, 3.8rem); }
+    .lede { font-size: 1rem; }
+    .copy h2 { font-size: clamp(2.3rem, 6vw, 3.6rem); }
+  }
+
+  /* ---------- listings ---------- */
+  .wrap { width: min(100% - 2 * var(--gutter), 78rem); margin-inline: auto; }
+  .listings { background: var(--stone); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .listings-head { display: grid; gap: 0.8rem; margin-bottom: 2rem; }
+  .listings-head h2 { font-size: clamp(2.4rem, 5.2vw, 4.8rem); max-width: 14ch; }
+  .note { font-size: 0.95rem; max-width: none; border-top: 1px solid var(--line-light); padding-top: 0.7rem; color: var(--muted-ink); }
+  .filters { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin-bottom: 1.5rem; }
+  .filters .field { min-width: 11rem; }
+  .count { margin-left: auto; font-weight: 500; }
+  .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .row { display: grid; grid-template-columns: 11rem minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.9fr); gap: 1.5rem; align-items: center; padding: 1.2rem 1rem; border-bottom: 1px solid var(--line-light); transition: background 0.35s var(--ease), color 0.35s; }
+  .row[hidden] { display: none; }
+  .row:hover, .row:focus-within { background: var(--ink); color: var(--chalk); }
+  .row:hover .btn, .row:focus-within .btn { --btn-bg: var(--chalk); --btn-fg: var(--ink); }
+  .row:hover .hausnr, .row:focus-within .hausnr { background: var(--chalk); color: var(--ink); outline-color: var(--ink); }
+  .ill img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 2px; }
+  .addr { display: flex; align-items: center; gap: 1rem; }
+  .hausnr { flex: none; display: grid; place-items: center; min-width: 3.4rem; height: 3.4rem; padding: 0 0.4rem; background: var(--ink); color: var(--chalk); font-weight: 500; font-size: 1.5rem; outline: 1px solid var(--brass); outline-offset: -5px; border-radius: 2px; transition: background 0.35s, color 0.35s; }
+  .addr h3 { font-size: 1.8rem; font-weight: 400; letter-spacing: -0.02em; }
+  .addr p { font-size: 1rem; }
+  .facts { display: flex; gap: 1.6rem; margin: 0; }
+  .facts dt { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+  .facts dd { margin: 0; font-weight: 500; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .price { display: grid; gap: 0.2rem; justify-items: start; }
+  .price strong { font-size: 2rem; font-weight: 400; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .price span { font-size: 0.85rem; opacity: 0.8; }
+  .listings .btn { --btn-bg: var(--ink); --btn-fg: var(--chalk); }
+  .btn.small { padding: 0.5rem 0.9rem; min-height: 2.5rem; font-size: 1rem; margin-top: 0.5rem; }
+  .empty { padding: 3rem 0; display: grid; gap: 1rem; justify-items: start; }
+  .empty h3 { font-size: 2.2rem; font-weight: 300; }
+  @media (max-width: 980px) {
+    .row { grid-template-columns: 7rem 1fr; }
+    .facts, .price { grid-column: 2; }
+    .ill { grid-row: span 3; }
+  }
+  @media (max-width: 560px) {
+    .row { grid-template-columns: 1fr; }
+    .facts, .price, .ill { grid-column: 1; grid-row: auto; }
+    .ill { width: 8rem; }
+    .addr h3 { font-size: 1.5rem; }
+    .count { margin-left: 0; width: 100%; }
+    .listings .filters .field { flex: 1 1 40%; min-width: 0; }
+  }
+
+  /* ---------- owners ---------- */
+  .owners { background: var(--graphite); color: var(--chalk); padding: clamp(4rem, 9vw, 8rem) 0; --btn-bg: var(--chalk); --btn-fg: var(--ink); }
+  .owners-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .owners-intro { display: grid; gap: 1.4rem; justify-items: start; }
+  .owners h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); }
+  .owners p { color: rgb(243 243 241 / 0.85); }
+  .owners-ill { width: min(100%, 30rem); height: auto; margin-top: 1.5rem; border-radius: 3px; }
+  .services { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-dark); }
+  .services li { padding: 1.5rem 1rem; border-bottom: 1px solid var(--line-dark); transition: background 0.3s var(--ease), color 0.3s; }
+  .services li > * { transition: transform 0.4s var(--ease); }
+  .services li:hover { background: var(--graphite-2); }
+  .services li:hover > * { transform: translateX(0.8rem); }
+  .services h3 { font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 300; margin-bottom: 0.3rem; }
+  @media (max-width: 860px) { .owners-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- tenants ---------- */
+  .tenants { background: var(--stone-2); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .tenants-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .tenants h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); margin-bottom: 1.2rem; }
+  .emergency { margin-top: 2rem; padding: 1.1rem 1.4rem; display: grid; gap: 0.2rem; max-width: 24rem; }
+  .emergency a { font-weight: 400; font-size: 1.8rem; letter-spacing: -0.01em; text-decoration: none; }
+  .emergency span { font-size: 0.85rem; color: var(--muted-ink); }
+  .tenants-ill { width: min(100%, 26rem); height: auto; margin-top: 2.5rem; border-radius: 3px; }
+  .links { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.4rem; }
+  @media (max-width: 860px) { .tenants-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- forms ---------- */
+  .form { display: grid; gap: 1.1rem; padding: clamp(1.4rem, 3vw, 2.2rem); }
+  .form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+  .chips label { position: relative; cursor: pointer; }
+  .chips input { position: absolute; opacity: 0; inset: 0; }
+  .chips span { display: block; padding: 0.5rem 0.95rem; border: 1px solid #7e848c; border-radius: 2px; font-weight: 500; min-height: 2.75rem; line-height: 1.7; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .chips input:checked + span { background: var(--ink); color: var(--chalk); border-color: var(--ink); }
+  .chips input:focus-visible + span { outline: 2px solid var(--brass-deep); outline-offset: 2px; }
+  .req { font-style: normal; font-weight: 400; font-size: 0.78rem; color: var(--muted-ink); margin-left: 0.35rem; }
+  .check { display: flex; gap: 0.7rem; align-items: center; cursor: pointer; }
+  .check input { width: 1.4rem; height: 1.4rem; accent-color: var(--ink); }
+  .form .btn { justify-self: start; }
+  .form-status { padding: 0.8rem 1rem; background: var(--ink); color: var(--chalk); max-width: none; border-radius: 2px; }
+  @media (max-width: 560px) { .form .two { grid-template-columns: 1fr; } }
+
+  /* ---------- contact + footer ---------- */
+  .contact { background: var(--graphite); color: var(--chalk); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .contact h2 { font-size: clamp(2.4rem, 5.2vw, 4.8rem); margin-bottom: 2rem; }
+  .contact address { font-style: normal; display: grid; gap: 1rem; color: rgb(243 243 241 / 0.88); }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+  .footer { background: var(--ink); color: var(--chalk); padding: 3rem 0 4rem; }
+  .foot { display: grid; gap: 1rem; }
+  .foot-name { font-weight: 300; font-size: clamp(3.5rem, 12vw, 9rem); letter-spacing: -0.04em; line-height: 0.9; }
+  .foot-note { font-size: 0.95rem; max-width: 50ch; color: var(--muted); }
+  .foot ul { list-style: none; display: flex; gap: 1.5rem; padding: 0; margin: 0; flex-wrap: wrap; }
+</style>
