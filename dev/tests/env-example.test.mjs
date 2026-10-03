@@ -14,6 +14,7 @@ test('starter ships .env.example with the disclaimer, tracked by git, no secrets
   assert.match(text.split('\n').slice(0, 3).join('\n'), /READ THIS FIRST/);
   assert.match(text, /Never paste/i);
   assert.match(text, /never to open, read or print/i);
+  assert.match(text, /instructed to warn you/i);
   const env = parseEnv(text);
   assert.equal(env.CMS_PROVIDER, 'files');
   assert.equal(env.WIX_API_KEY, '');
@@ -26,4 +27,12 @@ test('agent settings deny reading and editing .env', () => {
   const s = JSON.parse(readFileSync(join(root, '.claude', 'settings.json'), 'utf8'));
   assert.ok(s.permissions.deny.includes('Read(**/.env)'));
   assert.ok(s.permissions.deny.includes('Edit(**/.env)'));
+});
+
+test('instructions tell the agent to warn when a secret reaches it', () => {
+  for (const f of ['CLAUDE.md', '.claude/skills/launch-site/SKILL.md']) {
+    const t = readFileSync(join(root, f), 'utf8');
+    assert.match(t, /warn the user/i, f);
+    assert.match(t, /revok/i, f);
+  }
 });
