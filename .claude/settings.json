@@ -57,7 +57,9 @@
       "PowerShell(gh repo *)",
       "PowerShell(gh api *)",
       "PowerShell(gh auth *)",
-      "PowerShell(gh secret *)"
+      "PowerShell(gh secret *)",
+      "Read(**/.env)",
+      "Edit(**/.env)"
     ]
   }
 }

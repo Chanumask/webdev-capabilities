@@ -16,7 +16,7 @@ Phases A to F in the playbook: decide (one `AskUserQuestion` round with recommen
 ## Hard rules
 - **Never** create accounts, buy anything, change DNS, deploy, create or push repositories without the user's explicit yes for that action. The user does account, payment and domain-ownership steps; you say exactly what to click and verify the result with the tools.
 - The owner must own the domain and every account. Never use your own or the builder's login for the customer.
-- **Never ask for passwords or API keys in chat.** Tell the user to put keys in `sites/<slug>/.env` themselves (create `.env.example` listing the variable names); `.env` is never committed.
+- **Never ask for passwords or API keys in chat.** Tell the user to put keys in `sites/<slug>/.env` themselves (copy the site's `.env.example` to `.env`; it has a disclaimer at the top). Never open, read or print `.env`; only run commands such as `npm run cms:check -- <slug>` that read it; `.env` is never committed.
 - Check current prices and limits before quoting them; they change. Not legal advice for Impressum and privacy texts; real data comes from the owner.
 - Run `wrangler pages deploy` only after the user logged in themselves and said yes.
 

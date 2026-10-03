@@ -26,7 +26,9 @@ async function main() {
   if (!site) die(`Site "${slug}" not found. Run: npm run list`);
   const envFile = path.join(site.dir, '.env');
   if (!fs.existsSync(envFile))
-    die(`No .env in ${site.dir}. Create it from .env.example (CMS_PROVIDER=wix, WIX_API_KEY=..., WIX_SITE_ID=...).`);
+    die(
+      `No .env in ${site.dir}. Copy .env.example to .env in that folder and fill in the values yourself (do not paste them in the chat).`,
+    );
   const env = parseEnv(fs.readFileSync(envFile, 'utf8'));
   const provider = env.CMS_PROVIDER;
   if (!provider || provider === 'files') {
