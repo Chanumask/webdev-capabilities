@@ -15,10 +15,15 @@ Websites/
 - `npm audit` reports 2 high findings on `http-cache-semantics` via Astro. The suggested "fix" downgrades Astro to 2.x, so ignore it and watch for an Astro update. It is a build-tool dependency, not shipped to visitors.
 
 ## First site: examples/lindenhof (fictional property management)
-Astro + Three.js + GSAP + Lenis. One pinned axonometric house, scroll-driven: floors drop in, explode into plan views (Erdgeschoss = Mieterservice, 1. OG = Mieten, 2. OG = Kaufen, DG = Eigentümer), then pull back into a Siedlung. Design direction: *Das Neue Frankfurt* housing-reform graphics (drenched colour fields, chalk volumes with ink outlines, Jost + Atkinson Hyperlegible). Product truth in `PRODUCT.md`, direction contract in `.impeccable/surfaces/`, design system in `DESIGN.md` (written at finish).
+Astro + Three.js + GSAP + Lenis. This is version 2; the first flat "Neues Frankfurt" version (floor-by-floor exploding house, saturated colour fields) is archived in `examples/lindenhof-v1-flat`.
 
-- Run: `cd examples/lindenhof && npm run dev` (or `npx astro dev --background`).
-- Scene code: `src/scripts/scene/` (kit = merged-geometry builder, building = floors/roof, scene = state, camera and scroll timeline). Scroll anchors in `scene.ts` (`A`) must match the section heights in `index.astro`.
+**Scroll story:** the finished house is at the very top. Scrolling plays construction: it rewinds to the empty building site, an excavator and tipper dig the pit, a mixer pours the slab, a tower crane raises the shell inside scaffolding, facade, windows and interior are fitted floor by floor, crane and scaffold leave, the garden arrives, and the camera pulls back into a neighbourhood. Chapter copy follows the phases (Kaufen, Verwaltung, Mieten, Mieterservice).
+
+**Look:** restrained architectural visualisation. Blue-black graphite ground, stone-grey light sections, one brass accent, Hanken Grotesk (light display). Real materials from procedural canvas textures, ACES tone mapping, sun with soft shadows, environment reflections on glass. Product truth in `PRODUCT.md`, direction contract in `.impeccable/surfaces/`, design system in `DESIGN.md`.
+
+- Run: `npm run dev -- lindenhof` from the repository root.
+- Scene code: `src/scripts/scene/` (`materials.ts` textures and PBR materials, `kit.ts` bakes metre-authored primitives into one mesh per material, `building.ts` floors split into structure and finishing layers, `vehicles.ts` excavator, tipper, mixer, tower crane, scaffold, `props.ts` garden, street, cars, `scene.ts` state, timeline, camera). Scroll anchors in `scene.ts` (`A`) must match the section heights in `index.astro`. The reusable parts are extracted in `capabilities/3d-scroll-story/`.
+- Realism ceiling: everything is procedural primitives. For still more realism, replace the builders with Blender-modelled glTF files; the state, timeline and layout code can stay.
 - Content slots: `src/content/site.ts`, accessed only through `provider.ts`.
 - Demo only: sample listings, forms have no backend, placeholder phone numbers.
 - Lessons: GSAP scrub smoothing does not fire ScrollTrigger `onUpdate` (drive rendering from the timeline); never put negative margin on a sticky element, put it on the next sibling.
