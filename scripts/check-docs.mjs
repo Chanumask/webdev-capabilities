@@ -27,19 +27,16 @@ function walk(dir, out = []) {
 }
 
 const docsDir = join(root, 'docs');
+// Framework skills are every skill folder except the two third-party ones, which bring their own reference files.
+const skillsDir = join(root, '.claude', 'skills');
+const frameworkSkills = existsSync(skillsDir)
+  ? readdirSync(skillsDir).filter(
+      (n) => !['impeccable', 'playwright-cli'].includes(n) && statSync(join(skillsDir, n)).isDirectory(),
+    )
+  : [];
 const files = [
   ...walk(docsDir),
-  ...walk(join(root, '.claude', 'skills', 'new-site')),
-  ...walk(join(root, '.claude', 'skills', 'build-site')),
-  ...walk(join(root, '.claude', 'skills', 'change-site')),
-  ...walk(join(root, '.claude', 'skills', 'export-site')),
-  ...walk(join(root, '.claude', 'skills', 'onboard')),
-  ...walk(join(root, '.claude', 'skills', 'feature-workflow')),
-  ...walk(join(root, '.claude', 'skills', 'sanity-check')),
-  ...walk(join(root, '.claude', 'skills', 'session-start')),
-  ...walk(join(root, '.claude', 'skills', 'session-handover')),
-  ...walk(join(root, '.claude', 'skills', 'decision-log')),
-  ...walk(join(root, '.claude', 'skills', 'parallel-planning')),
+  ...frameworkSkills.flatMap((s) => walk(join(root, '.claude', 'skills', s))),
   ...walk(join(root, 'framework')),
   ...walk(join(root, 'capabilities')),
   join(root, 'CLAUDE.md'),

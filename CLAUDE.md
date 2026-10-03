@@ -13,7 +13,7 @@ Run the **`session-start`** skill. It picks exactly one mode from the user's fir
 | | Website mode | Maintainer mode |
 |---|---|---|
 | For | building, changing or exporting a customer website; running the question catalog | improving the framework: capabilities, catalog, tools, hooks, docs, skills, tests |
-| Skills | `onboard`, `new-site`, `build-site`, `change-site`, `export-site` | `feature-workflow`, `sanity-check`, `decision-log`, `session-handover`, `parallel-planning` |
+| Skills | `onboard`, `new-site`, `build-site`, `change-site`, `export-site`, `wrap-up` | `feature-workflow`, `sanity-check`, `decision-log`, `session-handover`, `parallel-planning`, `triage-feedback` |
 | May write | `sites/<slug>/**` (own git repo), `exports/**` | everything except `sites/**` |
 | Must not touch | framework files, the framework repo's branches | customer sites (unless the user names one) |
 | Process docs | [framework/WORKFLOW.md](framework/WORKFLOW.md), [framework/intake/](framework/intake/README.md) | [docs/process/](docs/process/README.md) |
@@ -32,7 +32,7 @@ Fresh clone (`.framework-state.json` missing) or "set up": `onboard` skill first
 
 ## Website mode in brief
 
-Do not start coding and do not ask free-form questions for a new site: run `new-site` (several rounds of `AskUserQuestion`, a recommended option for every technical choice, final review and explicit approval), then `build-site`. Feedback goes through `change-site` and is logged in `brief/CHANGELOG.md`. Framework gaps found on the way go to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md`; never edit the framework in this mode. Details: [framework/CONVENTIONS.md](framework/CONVENTIONS.md).
+Do not start coding and do not ask free-form questions for a new site: run `new-site` (several rounds of `AskUserQuestion`, a recommended option for every technical choice, final review and explicit approval), then `build-site`. Feedback goes through `change-site` and is logged in `brief/CHANGELOG.md`. Framework gaps found on the way go to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md`; never edit the framework in this mode. When the user is done (or says "wrap up"), run `wrap-up`: a session report and, with their agreement, an anonymised feedback file for the maintainer ([feedback loop](docs/process/feedback-loop.md)). Details: [framework/CONVENTIONS.md](framework/CONVENTIONS.md).
 
 ## Maintainer mode in brief
 
@@ -41,7 +41,7 @@ Do not start coding and do not ask free-form questions for a new site: run `new-
 3. **Quality gates without being asked:** `npm run check`, plus `npm run smoke` for starter changes ([quality gates](docs/process/quality-gates.md)). Tests for tool and hook changes.
 4. **Document as you go:** decisions in `docs/decisions/` when made, a changelog entry per session, handover block if work is in flight or `main` is ahead of `origin`. Budgets and rules: [documentation](docs/process/documentation.md).
 5. **Merge back locally** (squash into `main`), then stop and give the user the push command ([git workflow](docs/process/git-workflow.md)).
-6. Adding things: [extending](docs/process/extending.md). Ideas that appear mid-task go to [backlog](docs/product/backlog.md), not into the branch.
+6. Feedback from sites: `triage-feedback` (read only). 7. Adding things: [extending](docs/process/extending.md). Ideas that appear mid-task go to [backlog](docs/product/backlog.md), not into the branch.
 
 ## Map
 

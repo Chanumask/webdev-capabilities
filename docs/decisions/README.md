@@ -13,3 +13,4 @@ One short file per decision, format in [documentation.md](../process/documentati
 | [0005](0005-session-modes.md) | Two session modes: website mode and maintainer mode, chosen at session start | active | 2026-10-03 |
 | [0006](0006-tooling-and-quality-gates.md) | npm, Prettier, ESLint, node --test, docs check, starter smoke build | active | 2026-10-03 |
 | [0007](0007-localhost-and-single-file-export.md) | Localhost preview and a single-file offline export built from dist | active | 2026-10-03 |
+| [0008](0008-feedback-loop.md) | Feedback loop: wrap-up report in website sessions, optional anonymised bundle, triage-feedback in maintainer mode | active | 2026-10-03 |

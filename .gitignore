@@ -31,3 +31,6 @@ Thumbs.db
 sites/*
 !sites/README.md
 .smoke/
+
+# feedback bundles received from other users (read by triage-feedback)
+inbox/

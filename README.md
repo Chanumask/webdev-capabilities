@@ -50,6 +50,7 @@ The same procedure is available as the `onboard` skill (`.claude/skills/onboard`
 4. You approve the summary. Claude builds the site in one go.
 5. You look at it in your browser on **localhost** (Claude gives you the address) and send feedback in plain words.
 6. When you want to share it, ask for an **export**: one HTML file that opens by double-click, offline, with all animations.
+7. When you are done, say **"wrap up"**: the agent summarises the session, what worked, what was unclear, and what the framework should improve. You can send that summary (anonymised) to the maintainer.
 
 Other things you can say: "edit the Meyer site", "make it less colourful", "export the site", "what does this repository do?", "show me the example".
 

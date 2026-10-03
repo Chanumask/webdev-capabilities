@@ -10,7 +10,7 @@ Every session runs in exactly one of two modes. They have different goals, diffe
 | Typical user | Non-technical, describes a website | The maintainer, extends the repo |
 | Starts with | Onboarding or the design intake (`new-site`, `change-site`, `export-site`) | Reading principles, decision index and the top changelog entry |
 | May write | `sites/<slug>/**` (the site's own git repo), `exports/**` | everything except `sites/**` |
-| Must not touch | `framework/`, `capabilities/`, `templates/`, `tools/`, `scripts/`, `docs/`, `.claude/`, `CLAUDE.md`, `README.md` | `sites/**` (customer data), unless the user names a site explicitly |
+| Must not touch | `framework/`, `capabilities/`, `templates/`, `tools/`, `scripts/`, `docs/`, `.claude/`, `CLAUDE.md`, `README.md` | `sites/**` (customer data), except reading the two feedback files for `triage-feedback`, or a site the user names explicitly |
 | Git | commits in the site's own repo (milestones); the framework repo stays untouched | feature branch, local squash-merge, the user pushes `main` ([git workflow](git-workflow.md)) |
 | Quality gates | the site's acceptance checklist and Impeccable review | [quality gates](quality-gates.md) |
 | Ends with | localhost address, export path, feedback summary | changelog entry, handover block if work is in flight |
@@ -33,7 +33,7 @@ The user can switch by saying so; the agent restates the mode and its rules.
 
 ## Feedback from website mode to maintainer mode
 
-Website sessions do not edit the framework. When they notice something the framework should do better, they append a line to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md` (kind, what, why it mattered) and mention it to the user at the end ("I noted 2 framework improvements"). A maintainer session reads these files (`sites/*/brief/FRAMEWORK-FEEDBACK.md`, local only), asks the user which to take, and turns them into backlog items or branches.
+Website sessions do not edit the framework. They note gaps in `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md` as they go and end with the `wrap-up` skill: a session report, a short summary for the user and, if the user agrees, an anonymised file to send to the maintainer. A maintainer session runs `triage-feedback`, which **reads** `sites/*/brief/FRAMEWORK-FEEDBACK.md`, `sites/*/brief/SESSION-REPORT-*.md` and received bundles in `inbox/`, asks the user what to take, and turns it into backlog items or branches. Details: [feedback loop](feedback-loop.md), [0008](../decisions/0008-feedback-loop.md).
 
 ## Edge rules
 

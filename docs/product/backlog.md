@@ -19,4 +19,5 @@ Ideas for the framework, not yet built. A mid-task idea is written here, not sta
 | Intake dry-run fixtures (scripted answers) | test | verifies the question catalog produces a complete brief | medium |
 | Intake round for existing-site redesigns (audit first) | question | "improve my current site" is a frequent start | small |
 | Starter variants (one-pager, listings, portfolio) | template | faster start for common types | medium |
+| Automatic anonymisation check for feedback bundles (names, prices, emails) | tool | the wrap-up bundle is reviewed by hand today | small |
 | Setup check on macOS and Linux | tooling | only Windows was tested | small |

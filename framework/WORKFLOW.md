@@ -44,6 +44,9 @@ Work in this order; commit after each step (`build: <step>`).
 - Collect feedback in one batch. Do not fix piecemeal while the user is still looking.
 - Handle it with the change workflow below.
 
+## Stage 7: Wrap up
+When the user is done (or says "wrap up"), run the `wrap-up` skill: it writes `brief/SESSION-REPORT-<date>.md`, summarises key issues and feedback, proposes framework improvements by target (question catalog, agent instructions, capabilities and tools, user guidance) and, if the user agrees, creates an anonymised file in `exports/feedback/` that they can send to the maintainer ([feedback loop](../docs/process/feedback-loop.md)).
+
 ## Change requests
 Classify first, then act. Always record in `brief/CHANGELOG.md` (asked, decided, changed).
 

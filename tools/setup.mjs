@@ -113,6 +113,8 @@ if (fs.existsSync(imp)) {
 // 5. skills of this framework
 for (const s of [
   'session-start',
+  'wrap-up',
+  'triage-feedback',
   'onboard',
   'new-site',
   'build-site',
