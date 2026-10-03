@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { root } from '../../framework/tools/lib.mjs';
 import { parseFrontMatter, setFrontMatterText } from '../../framework/tools/brief.mjs';
-import { analyse, roundsDone, acceptanceProgress } from '../../framework/tools/status.mjs';
+import { analyse, roundsDone, acceptanceProgress, collectFacts } from '../../framework/tools/status.mjs';
 import { checkDist } from '../../framework/tools/launch-check.mjs';
 import { analyse as dnsAnalyse } from '../../framework/tools/dns-check.mjs';
 import { isDomain, routesOf, sitemapXml, robotsTxt, setAstroSite } from '../../framework/tools/launch-prep.mjs';
@@ -243,4 +243,44 @@ test('handover builds a package from a prepared site and marks the brief', () =>
   for (const f of ['README.md', 'CLIENT-GUIDE.md', 'ACCOUNTS-AND-ACCESS.md', 'LAUNCH-RECORD.md', 'records/BRIEF.md'])
     assert.ok(existsSync(join(out, f)), f);
   assert.equal(parseFrontMatter(readFileSync(join(dir, 'brief', 'BRIEF.md'), 'utf8')).handover, 'done');
+});
+
+test('status offers "Set up Wix as CMS" only while the brief names Wix and there is no .env', () => {
+  const f = (fm, extra) => ({
+    slug: 's',
+    fm,
+    rounds: 6,
+    acceptance: { done: 0, total: 5 },
+    hasExport: false,
+    hasReport: false,
+    ...extra,
+  });
+  const ids = (r) => r.nextSteps.map((s) => s.id);
+  assert.ok(ids(analyse(f({ status: 'approved' }, { wantsWix: true, hasEnv: false }))).includes('connect-cms'));
+  assert.ok(
+    ids(analyse(f({ status: 'built', launch: 'none' }, { wantsWix: true, hasEnv: false }))).includes('connect-cms'),
+  );
+  assert.ok(
+    !ids(analyse(f({ status: 'built', launch: 'none' }, { wantsWix: true, hasEnv: true }))).includes('connect-cms'),
+  );
+  assert.ok(
+    !ids(analyse(f({ status: 'built', launch: 'none' }, { wantsWix: false, hasEnv: false }))).includes('connect-cms'),
+  );
+});
+
+test('collectFacts detects Wix in the CMS row of the brief and the existence of .env', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'cms-facts-'));
+  mkdirSync(join(dir, 'brief'));
+  writeFileSync(
+    join(dir, 'brief', 'BRIEF.md'),
+    '---\nstatus: built\n---\n| Decision | Choice |\n|---|---|\n| CMS | Wix (headless) | x |\n',
+  );
+  let facts = collectFacts(dir, 's');
+  assert.equal(facts.wantsWix, true);
+  assert.equal(facts.hasEnv, false);
+  writeFileSync(join(dir, '.env'), 'CMS_PROVIDER=wix\n');
+  facts = collectFacts(dir, 's');
+  assert.equal(facts.hasEnv, true);
+  writeFileSync(join(dir, 'brief', 'BRIEF.md'), '---\nstatus: built\n---\n| CMS | none | x |\n');
+  assert.equal(collectFacts(dir, 's').wantsWix, false);
 });

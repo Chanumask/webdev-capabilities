@@ -6,6 +6,13 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-03 (feat) Wix setup guide and connect-cms option
+
+- New guide [wix/SETUP.md](../../framework/capabilities/cms-providers/wix/SETUP.md): the steps we actually took, with German menu names and pitfalls (no CMS in the sidebar, App Market, `CMS for Harmony`, site ID from the dashboard URL, API key with specific site and read-only data permission, `.env`, `cms:check` error table). Labels not seen on screen are marked as not confirmed.
+- New skill `connect-cms` walks the owner through it (keys never in chat). `npm run status` offers **"Set up Wix as CMS and link your account"** in the build and review stages while the brief names Wix in the CMS row and the site has no `.env` (existence check only). 3 new tests.
+
+---
+
 ## 2026-10-03 (fix) Wix provider verified against a real account
 
 - `npm run cms:check` against a real Wix site (Harmony editor, `CMS for Harmony`): connection OK, items returned flat (`id` plus fields), header `wix-site-id` confirmed. See [0011](decisions/0011-pluggable-cms-providers.md).

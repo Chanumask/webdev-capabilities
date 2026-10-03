@@ -13,7 +13,7 @@ Run the **`session-start`** skill. It picks exactly one mode from the user's fir
 | | Website mode | Maintainer mode |
 |---|---|---|
 | For | building, changing or exporting a customer website; running the question catalog | improving the framework: capabilities, catalog, tools, hooks, docs, skills, tests |
-| Skills | `onboard`, `new-site`, `build-site`, `change-site`, `export-site`, `launch-site`, `handover-site`, `wrap-up` | `feature-workflow`, `sanity-check`, `decision-log`, `session-handover`, `parallel-planning`, `triage-feedback` |
+| Skills | `onboard`, `new-site`, `build-site`, `change-site`, `export-site`, `launch-site`, `handover-site`, `connect-cms`, `wrap-up` | `feature-workflow`, `sanity-check`, `decision-log`, `session-handover`, `parallel-planning`, `triage-feedback` |
 | May write | `sites/<slug>/**` (own git repo), `exports/**` | everything except `sites/**` |
 | Must not touch | framework files, the framework repo's branches | customer sites (unless the user names one) |
 | Process docs | [framework/WORKFLOW.md](framework/WORKFLOW.md), [framework/intake/](framework/intake/README.md) | [dev/docs/process/](dev/docs/process/README.md) |

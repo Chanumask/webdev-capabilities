@@ -16,7 +16,7 @@ In website mode **the agent leads**. The user should never have to know what to 
 | `intake` | rounds 1 to 6 not all answered | continue with the next round | `new-site` |
 | `lock` | all rounds answered, not approved | show the summary and ask for approval | `new-site` |
 | `build` | approved, not built | build and show on localhost | `build-site` |
-| `review` | built, user has not signed off | walk through it and collect all feedback in one batch; alternatives: export a copy, or "I'm happy, launch" | `change-site`, `export-site`, `launch-site` |
+| `review` | built, user has not signed off | walk through it and collect all feedback in one batch; alternatives: export a copy, or "I'm happy, launch"; **"Set up Wix as CMS and link your account"** when the brief names Wix and there is no `.env` yet (also offered in `build`) | `change-site`, `export-site`, `launch-site`, `connect-cms` |
 | `launch-prepare` | launch decisions made | prepare files, run the pre-launch check, write the guide | `launch-site` |
 | `deploy` | prepared, not online | guided deployment and domain connection | `launch-site` |
 | `verify` | deployed, domain not verified | check DNS, HTTPS and live pages | `launch-site` |

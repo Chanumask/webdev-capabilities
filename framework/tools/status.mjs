@@ -40,6 +40,19 @@ export function acceptanceProgress(text) {
 
 const step = (id, label, skill, why, recommended = false) => ({ id, label, skill, why, recommended });
 
+/** Offered while the brief names Wix as CMS and the site has no .env yet (the owner creates it). */
+const cmsSteps = (f) =>
+  f.wantsWix && !f.hasEnv
+    ? [
+        step(
+          'connect-cms',
+          'Set up Wix as CMS and link your account',
+          'connect-cms',
+          'Guided, about 20 minutes; you click, I check the connection. Your keys stay in a local file, never in the chat.',
+        ),
+      ]
+    : [];
+
 /** Pure: facts in, stage and proposals out. */
 export function analyse(f) {
   const fm = f.fm;
@@ -110,6 +123,7 @@ export function analyse(f) {
           'The brief is approved.',
           true,
         ),
+        ...cmsSteps(f),
       ],
     };
   }
@@ -132,6 +146,7 @@ export function analyse(f) {
           'Collect all feedback in one batch, then I change it together.',
           true,
         ),
+        ...cmsSteps(f),
         step(
           'export',
           'Export one file to send to someone for a first opinion',
@@ -253,6 +268,11 @@ export function analyse(f) {
   };
 }
 
+/** The CMS line of the technology table in the brief. */
+function cmsRow(brief) {
+  return brief.split(/\r?\n/).find((l) => /^\|\s*CMS\s*\|/i.test(l)) ?? '';
+}
+
 export function collectFacts(siteDir, slug) {
   const read = (rel) => {
     const p = path.join(siteDir, rel);
@@ -277,6 +297,8 @@ export function collectFacts(siteDir, slug) {
     hasLaunchDir: fs.existsSync(path.join(siteDir, 'launch')),
     hasReport: fs.existsSync(briefDir) && fs.readdirSync(briefDir).some((n) => n.startsWith('SESSION-REPORT')),
     hasRemote,
+    wantsWix: /\bwix\b/i.test(cmsRow(read('brief/BRIEF.md'))),
+    hasEnv: fs.existsSync(path.join(siteDir, '.env')), // existence only, the file is never read here
   };
 }
 

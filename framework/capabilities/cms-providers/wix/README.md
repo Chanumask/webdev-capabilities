@@ -4,6 +4,8 @@ Reads Wix CMS (Wix Data) collections at build time over the REST API with an **A
 
 Status: the core (`wix.mjs`) is unit-tested against a fake of the documented endpoint. **Verified against a real Wix account on 2026-10-03** (collection read, 3 items, header `wix-site-id` correct); images and a full build from live data are still untested. Verify your own with `npm run cms:check -- <site>` (below).
 
+Step-by-step setup with the German menu names and pitfalls: **[SETUP.md](SETUP.md)** (the `connect-cms` skill walks the user through it).
+
 ## What Wix needs (owner or builder, once)
 1. A Wix account with a **site or headless project** that has the CMS (every Wix Headless project includes it; connecting is free, premium plans unlock things like custom domains for Wix-hosted frontends).
 2. A **collection** per content type in the Wix dashboard: CMS → Create Collection. Use simple field ids (`title`, `price`, `rooms`, `image`). Note the **collection ID** (not the display name).

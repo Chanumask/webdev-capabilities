@@ -116,6 +116,7 @@ for (const s of [
   'wrap-up',
   'launch-site',
   'handover-site',
+  'connect-cms',
   'triage-feedback',
   'onboard',
   'new-site',
