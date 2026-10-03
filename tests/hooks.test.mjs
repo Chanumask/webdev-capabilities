@@ -111,7 +111,7 @@ test('pre-push blocks main unless the user sets the override', () => {
   const line = `refs/heads/main ${SHA} refs/heads/main ${ZERO}`;
   const blocked = prePush(URL_OK, line);
   assert.notEqual(blocked.status, 0);
-  assert.match(blocked.stderr, /user's job/);
+  assert.match(blocked.stderr, /explicit approval each time/);
   const allowed = prePush(URL_OK, line, { WEBDEV_ALLOW_MAIN_PUSH: '1' });
   assert.equal(allowed.status, 0, allowed.stderr);
 });

@@ -13,4 +13,4 @@ Orchestrator's decision skill. Policy: [parallel agents](../../../docs/process/p
 4. **Brief each worker** (self-contained, pointing at docs): task, owned files, explicit no-touch list, start at `CLAUDE.md`, use `feature-workflow`, report format, boundaries (no push, no merge, no changelog or decision edits, no installs).
 5. **Serialize** installs, lockfile changes, fixed-port dev servers, browser checks of the reference example, hook and settings changes.
 6. **Spawn** with `isolation: "worktree"` and branch names per the git workflow, in the background unless the next step depends on one.
-7. **After reports:** consolidate docs once, squash-merge one branch at a time into local `main`, stop, and give the user the push command. Never push `main`.
+7. **After reports:** consolidate docs once, squash-merge one branch at a time into local `main`, then ask whether to push `main` (explicit approval each time).

@@ -6,7 +6,7 @@ In maintainer mode the agent may spawn worker subagents for independent, paralle
 
 ## Roles
 
-- **Orchestrator:** the main session and the user's only interface. Decides what to split, briefs workers, collects reports, consolidates docs, merges locally, and never pushes `main` ([git workflow](git-workflow.md)).
+- **Orchestrator:** the main session and the user's only interface. Decides what to split, briefs workers, collects reports, consolidates docs, merges locally, and pushes only after the user approves each push ([git workflow](git-workflow.md)).
 - **Worker:** one per independent unit, in its own worktree and branch, following the [feature-workflow](../../.claude/skills/feature-workflow/SKILL.md) up to the commit. Never talks to the user, never pushes, never merges, never edits the changelog or decision log.
 
 ## When to parallelize
@@ -29,4 +29,4 @@ A worker starts cold. The brief points at the docs: start at `CLAUDE.md`, use th
 
 ## Orchestrator merge sequence
 
-1. Collect reports. 2. Run serialized checks per branch. 3. Consolidate docs once: one decision per decision, one changelog entry for the batch. 4. Squash-merge one branch at a time into local `main`; a conflict beyond docs means the tasks were not independent. 5. Stop and give the user the push command. 6. After the user pushed, delete merged branches and worktrees (standing approval for merged feature branches, [0004](../decisions/0004-no-deletion-without-approval.md)).
+1. Collect reports. 2. Run serialized checks per branch. 3. Consolidate docs once: one decision per decision, one changelog entry for the batch. 4. Squash-merge one branch at a time into local `main`; a conflict beyond docs means the tasks were not independent. 5. Ask whether to push `main` (explicit approval each time). 6. After the user pushed, delete merged branches and worktrees (standing approval for merged feature branches, [0004](../decisions/0004-no-deletion-without-approval.md)).

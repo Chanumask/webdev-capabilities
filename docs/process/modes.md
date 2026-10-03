@@ -11,7 +11,7 @@ Every session runs in exactly one of two modes. They have different goals, diffe
 | Starts with | Onboarding or the design intake (`new-site`, `change-site`, `export-site`) | Reading principles, decision index and the top changelog entry |
 | May write | `sites/<slug>/**` (the site's own git repo), `exports/**` | everything except `sites/**` |
 | Must not touch | `framework/`, `capabilities/`, `templates/`, `tools/`, `scripts/`, `docs/`, `.claude/`, `CLAUDE.md`, `README.md` | `sites/**` (customer data), except reading the two feedback files for `triage-feedback`, or a site the user names explicitly |
-| Git | commits in the site's own repo (milestones); the framework repo stays untouched | feature branch, local squash-merge, the user pushes `main` ([git workflow](git-workflow.md)) |
+| Git | commits in the site's own repo (milestones); the framework repo stays untouched | feature branch, local squash-merge, pushes only after asking each time ([git workflow](git-workflow.md)) |
 | Quality gates | the site's acceptance checklist and Impeccable review | [quality gates](quality-gates.md) |
 | Ends with | localhost address, export path, feedback summary | changelog entry, handover block if work is in flight |
 

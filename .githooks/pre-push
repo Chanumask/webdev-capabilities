@@ -1,7 +1,8 @@
 #!/bin/sh
 # Push guard (docs/decisions/0002-git-workflow.md).
 #   - Only the repo Chanumask/webdev-capabilities may be pushed to.
-#   - main may not be pushed unless WEBDEV_ALLOW_MAIN_PUSH=1 (the user sets it, never the agent).
+#   - main may not be pushed unless WEBDEV_ALLOW_MAIN_PUSH=1. The agent sets it only on the one command the user just
+#     approved (decision 0012); the user may set it any time.
 #   - main may never be force-pushed (non-fast-forward) or deleted.
 #   - Deleting any remote branch needs WEBDEV_ALLOW_DELETE=1 after explicit approval (decision 0004).
 # Feature branches may be pushed, and force-pushed with --force-with-lease after a rebase.
@@ -28,8 +29,8 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     exit 1
   fi
   if [ "$WEBDEV_ALLOW_MAIN_PUSH" != "1" ]; then
-    printf >&2 '%s\n' "pre-push: pushing main is the user's job (decision 0002)." \
-      "User: WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main"
+    printf >&2 '%s\n' "pre-push: pushing main needs the user's explicit approval each time (decision 0012)." \
+      "After approval: WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main"
     exit 1
   fi
   if [ "$remote_sha" != "$zero" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then

@@ -93,7 +93,7 @@ Node.js 22.12 or newer, npm, git, Chrome or Edge, and Claude Code. The Impeccabl
 At the start of every chat the agent decides (or asks) which mode applies:
 
 - **Website mode:** you build, change or export a website. The agent works only inside `sites/<slug>` (each site is its own private git repository) and never edits the framework.
-- **Maintainer mode:** you improve the framework itself (capabilities, the question catalog, tools, docs). The agent works on a **feature branch**, runs the quality gates (`npm run check`), merges locally and stops. **The agent never pushes `main`; you do**: `WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main`.
+- **Maintainer mode:** you improve the framework itself (capabilities, the question catalog, tools, docs). The agent works on a **feature branch**, runs the quality gates (`npm run check`), merges locally and stops. **The agent may push, but asks for your explicit approval every time** (and never force-pushes).
 
 Rules and reasons: `docs/process/modes.md`, `docs/process/git-workflow.md`, `docs/decisions/`.
 

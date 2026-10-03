@@ -24,5 +24,5 @@ Policy: [modes](../../../docs/process/modes.md), [decision 0005](../../../docs/d
 1. Read [principles](../../../docs/product/principles.md), the [decision index](../../../docs/decisions/README.md), and only the **top entry** of [changelog](../../../docs/changelog.md). Do not read whole logs.
 2. If that entry ends with a `**Next session** →` block, it is this session's focus: verify the environment it describes (`git branch --show-current`, `git status -sb`, `git rev-list --count origin/main..main`), then act (see `session-handover`).
 3. Otherwise ask what the focus is (or take it from the user's message) and read only the docs that topic needs. When the user asks what to improve, or feedback files exist, run `triage-feedback`.
-4. Before writing anything: `git branch --show-current`. On `main`, create a feature branch first (`feature-workflow` skill). Never commit on `main`; never push `main`.
+4. Before writing anything: `git branch --show-current`. On `main`, create a feature branch first (`feature-workflow` skill). Never commit on `main` (except the local squash-merge); pushing needs approval each time.
 5. Run `node scripts/check-docs.mjs` if the session will touch docs.

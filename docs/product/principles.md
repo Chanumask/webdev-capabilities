@@ -20,7 +20,7 @@ The rules every decision is checked against. If a proposal breaks one, either ch
 ## Engineering principles
 
 1. **Decide before code.** Non-obvious choices are logged in [decisions](../decisions/README.md) when made. Alternatives are evaluated before implementing.
-2. **One branch, one topic.** Work happens on feature branches; unrelated findings get their own branch. Squash merge keeps `main` readable. `main` changes only by the user's push ([0002](../decisions/0002-git-workflow.md)).
+2. **One branch, one topic.** Work happens on feature branches; unrelated findings get their own branch. Squash merge keeps `main` readable. `main` changes only by the local squash-merge and a push the user approved ([0012](../decisions/0012-push-with-approval.md)).
 3. **Tests run, not just exist.** Format, lint, tests and the docs check are green before every commit ([quality gates](../process/quality-gates.md)).
 4. **Docs are code.** Docs are indexed, linked, size-budgeted and checked by `scripts/check-docs.mjs`.
 5. **Capabilities come from shipped work.** A capability is extracted from a finished site and documented with its pitfalls, never invented in the abstract.

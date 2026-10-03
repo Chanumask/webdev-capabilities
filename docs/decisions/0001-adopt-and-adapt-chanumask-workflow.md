@@ -8,7 +8,7 @@ Date: 2026-10-03 · Status: active
 
 **Changed.**
 - Two session modes instead of one ([0005](0005-session-modes.md)).
-- `main` is never pushed by the agent and never committed to except the local squash-merge; the user pushes ([0002](0002-git-workflow.md)). Chanumask lets the agent push `main`.
+- `main` is never committed to except the local squash-merge, and every push needs the user's approval each time ([0002](0002-git-workflow.md), amended by [0012](0012-push-with-approval.md)). Chanumask pre-authorizes pushes of feature branches and `main`.
 - Docs-only changes also go through a branch.
 - Customer sites live in their own repositories ([0003](0003-sites-own-repos.md)).
 - Tooling is npm and plain Node (`node --test`), not pnpm, Vitest and TypeScript project references, because this repository holds scripts, docs and templates rather than an application ([0006](0006-tooling-and-quality-gates.md)).

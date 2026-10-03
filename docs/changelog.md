@@ -6,6 +6,14 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-03 (feat) Pushes need approval each time
+
+- New rule [0012](decisions/0012-push-with-approval.md): the agent may push (feature branches and `main`) but asks with `AskUserQuestion` before **every** push, naming branch and commits; one approval covers one push. Amends the push part of [0002](decisions/0002-git-workflow.md).
+- Hooks keep blocking `main` pushes without `WEBDEV_ALLOW_MAIN_PUSH=1`; the agent sets it only on the command the user just approved. `.claude/settings.json` puts every `git push` on the ask list and keeps force-pushes, `main` deletion, remote changes and `gh repo|api|auth` denied; `tests/settings.test.mjs` locks that in.
+- CLAUDE.md, git workflow, feature-workflow, parallel-planning, session-start, modes and README updated.
+
+---
+
 ## 2026-10-03 (feat) Launch, handover, agent-led mode, pluggable CMS
 
 - **Agent-led website mode** ([0009](decisions/0009-agent-led-website-mode.md)): `npm run status` derives the stage from the brief and proposes next steps; `framework/NEXT-STEPS.md`; every website skill ends with the proposal.

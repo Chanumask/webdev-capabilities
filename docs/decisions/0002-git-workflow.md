@@ -1,4 +1,4 @@
-# 0002: Feature branches, local squash-merge, the user pushes main
+# 0002: Feature branches and local squash-merge
 
 Date: 2026-10-03 · Status: active
 
@@ -8,7 +8,7 @@ Date: 2026-10-03 · Status: active
 - All work happens on `<type>/<topic>` branches (Conventional Commit types), one topic per branch, docs included.
 - The agent commits on branches freely and may push feature branches to `origin`.
 - The agent merges a finished, gated branch into **local** `main` with `git merge --squash` and one commit, using `WEBDEV_ALLOW_MAIN=1` for that single commit, then stops.
-- **The agent never pushes `main`.** The user does: `WEBDEV_ALLOW_MAIN_PUSH=1 git push origin main`. The agent reports how far `main` is ahead of `origin`.
+- Pushing: **amended by [0012](0012-push-with-approval.md)**: every push needs the user's explicit approval each time (originally: the agent never pushes `main`).
 - Pull requests, issues, releases and tags only on request. Never force-push or delete `main`, never add another remote, never change repository or account settings, never write through `gh api`.
 
 **Why.** The maintainer (the user) keeps the final say over what reaches GitHub, and merge-back stays a cheap local operation that the agent can do reliably. Squash keeps history readable.
