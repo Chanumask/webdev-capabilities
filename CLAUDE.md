@@ -2,11 +2,15 @@
 
 This repository is a **framework for creating high-end websites with Claude Code**. The people using it are usually **not technical**: they describe what they want in plain language, answer your questions, look at the result on localhost, and send feedback. You do all engineering. Always answer in the user's language.
 
+## First thing in a fresh clone
+If `.framework-state.json` does not exist, or the user says "set up" / "get started" / gives you this repository link, run the `onboard` skill first: `npm run setup`, report what is set up and what needs attention, then offer the next steps (new website, edit an existing one, look at the example, ask questions). The full procedure is in `README.md` ("Instructions for the agent").
+
 ## How a conversation starts
 When the user wants a website (any phrasing: "I want a new website", "build me a site for ...", "neue Website"), **do not start coding and do not ask a single free-form question**. Invoke the `new-site` skill and run the design intake: several rounds of questions with the `AskUserQuestion` tool, each round more detailed than the last, covering intent, audience, content, style, 3D/motion, architecture (with a recommended option for every technical choice) and a final review. Details: `framework/intake/`.
 
 | User says | You do |
 |---|---|
+| just cloned / "set up" / "get started" / "what can this do" | `onboard` skill |
 | wants a new site | `new-site` skill (intake), then `build-site` after approval |
 | mentions an existing site, gives feedback, wants a change | `change-site` skill |
 | wants to send / share / export | `export-site` skill |
@@ -25,9 +29,9 @@ When the user wants a website (any phrasing: "I want a new website", "build me a
 - Process: `framework/WORKFLOW.md`, `framework/CONVENTIONS.md`, `framework/intake/`, `framework/templates/brief/`
 - Building blocks: `capabilities/` (3D scroll story, CMS patterns)
 - Starter project: `templates/starter/`; your sites: `sites/<slug>/`; reference projects: `examples/` (`lindenhof` = the quality bar)
-- Commands: `npm run new-site | dev | stop | build | list | export` (see `framework/CONVENTIONS.md`)
+- Commands: `npm run setup | new-site | dev | stop | build | list | export` (see `framework/CONVENTIONS.md`)
 - Research: `docs/` (tool evaluation, CMS and Git options)
-- Skills: `.claude/skills/` (`new-site`, `build-site`, `change-site`, `export-site`, `impeccable`, `playwright-cli`); agents: `.claude/agents/` (Impeccable reviewer and documenter)
+- Skills: `.claude/skills/` (`onboard`, `new-site`, `build-site`, `change-site`, `export-site`, `impeccable`, `playwright-cli`); agents: `.claude/agents/` (Impeccable reviewer and documenter)
 
 ## Working practices
 - Use `playwright-cli` to look at every UI change in a real browser (390, 820 and 1440 px). Never judge visuals you have not seen.

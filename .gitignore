@@ -24,3 +24,6 @@ Thumbs.db
 
 # downloaded Impeccable engine binary (the launcher fetches it on first run)
 .claude/skills/impeccable/scripts/bin/
+
+# local setup state
+.framework-state.json

@@ -42,6 +42,7 @@ Slug rules: lowercase letters, numbers, dashes; short; no dates (`meyer-architek
 
 | Command | What it does |
 |---|---|
+| `npm run setup` | checks Node, git, browser tooling, prepares the design tool, builds the example as a smoke test (`:quick` skips it) |
 | `npm run new-site -- <slug> "Name"` | creates `sites/<slug>` from the starter, with the brief templates, and installs dependencies |
 | `npm run dev -- <slug>` | starts the site on localhost (first free port from 4321) and prints the address |
 | `npm run stop -- <slug>` | stops that dev server |
