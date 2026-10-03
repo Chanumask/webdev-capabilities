@@ -9,7 +9,7 @@ Date: 2026-10-03 · Status: active
 - Wix provider: self-managed headless. The Astro site is static and hosted elsewhere; at build time it reads collections with `POST https://www.wixapis.com/wix-data/v2/items/query`, using an API key (permission "Read Data Items") and the site id. Publishing triggers a rebuild through a Wix Automation (collection trigger, "Send HTTP request") calling the host's deploy hook.
 - Wix-hosted frontends (domain handled inside Wix, premium plan for custom domains) stay an alternative documented in `hosting-options.md`, not the default.
 - `npm run cms:check -- <slug>` tests the connection read only and explains failures (401, 403, 404) in plain language.
-- Status: the core is unit-tested against a fake of the documented endpoint; verification against a real Wix account is pending and tracked in the backlog.
+- Status: the core is unit-tested against a fake of the documented endpoint; verified on 2026-10-03 against a real Wix account (free plan, site on the Harmony editor, `CMS for Harmony` app): API key with read permission for data items, header `wix-site-id`, query endpoint and flat item shape all work. Not yet verified: images (wix:image references) and a full site build from live data.
 
 **Why.** No first-client choice is baked into the framework, switching providers touches one file, and the launch workflow stays CMS-agnostic.
 

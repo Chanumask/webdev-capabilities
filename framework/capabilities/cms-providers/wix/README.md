@@ -2,7 +2,7 @@
 
 Reads Wix CMS (Wix Data) collections at build time over the REST API with an **API key**. The Astro site is hosted somewhere else (self-managed headless); Wix is only where editors edit content. Replaceable: see the [contract](../README.md).
 
-Status: the core (`wix.mjs`) is unit-tested against a fake of the documented endpoint. **Not yet verified against a real Wix account.** Verify with `npm run cms:check -- <site>` (below).
+Status: the core (`wix.mjs`) is unit-tested against a fake of the documented endpoint. **Verified against a real Wix account on 2026-10-03** (collection read, 3 items, header `wix-site-id` correct); images and a full build from live data are still untested. Verify your own with `npm run cms:check -- <site>` (below).
 
 ## What Wix needs (owner or builder, once)
 1. A Wix account with a **site or headless project** that has the CMS (every Wix Headless project includes it; connecting is free, premium plans unlock things like custom domains for Wix-hosted frontends).

@@ -36,7 +36,7 @@ CMS, hosting and domain are independent. A Wix CMS does **not** mean Wix hosts t
 | Provider | Status | Files |
 |---|---|---|
 | files | default, proven | `framework/templates/starter/src/content/` |
-| [wix](wix/README.md) | core tested against a mock of the Wix API; **not yet verified against a real Wix account** | `wix/wix.mjs`, `dev/tests/wix.test.mjs` |
+| [wix](wix/README.md) | core tested against a mock and **verified against a real Wix account** (reading items; images untested) | `wix/wix.mjs`, `dev/tests/wix.test.mjs` |
 | Sanity, Storyblok | not built; write the same contract | backlog |
 
 ## Verification

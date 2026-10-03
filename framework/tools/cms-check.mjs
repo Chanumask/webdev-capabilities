@@ -50,7 +50,8 @@ async function main() {
     .filter(Boolean);
   const rows = await mod.checkConnection(env, collections);
   for (const r of rows) console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.collection} - ${r.message}`);
-  process.exit(rows.every((r) => r.ok) ? 0 : 1);
+  // exitCode instead of process.exit(): exiting while the HTTP connection is closing crashes Node on Windows
+  process.exitCode = rows.every((r) => r.ok) ? 0 : 1;
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) await main();
