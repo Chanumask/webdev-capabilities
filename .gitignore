@@ -26,7 +26,7 @@ Thumbs.db
 .claude/skills/impeccable/scripts/bin/
 
 # local setup state
-.framework-state.json
+.claude/framework-state.json
 # customer sites live in their own repositories (decision 0003)
 sites/*
 !sites/README.md

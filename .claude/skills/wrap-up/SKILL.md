@@ -5,7 +5,7 @@ description: Wrap up a website-mode session with a structured report of key issu
 
 # Wrap-up (website mode)
 
-Policy: [feedback loop](../../../docs/process/feedback-loop.md), [decision 0008](../../../docs/decisions/0008-feedback-loop.md). Website mode applies: write only in `sites/<slug>` and `exports/`, never edit the framework. This skill does not apply in maintainer mode (use `triage-feedback` there).
+Policy: [feedback loop](../../../dev/docs/process/feedback-loop.md), [decision 0008](../../../dev/docs/decisions/0008-feedback-loop.md). Website mode applies: write only in `sites/<slug>` and `exports/`, never edit the framework. This skill does not apply in maintainer mode (use `triage-feedback` there).
 
 ## 1. Identify and gather
 - The site: the one worked on in this session (ask if unclear).

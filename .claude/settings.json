@@ -10,7 +10,7 @@
       "Bash(npm run check*)",
       "Bash(npm run list*)",
       "Bash(npm run status*)",
-      "Bash(node scripts/check-docs.mjs*)",
+      "Bash(node dev/scripts/check-docs.mjs*)",
       "PowerShell(Get-ChildItem *)"
     ],
     "ask": [

@@ -1,6 +1,6 @@
 # Agent-led conversations (website mode)
 
-In website mode **the agent leads**. The user should never have to know what to ask for next. At the start of every website session, after every stage and at the end of every reply, the agent says where things stand and proposes the next step. Principle: [product principles](../docs/product/principles.md), decision [0009](../docs/decisions/0009-agent-led-website-mode.md).
+In website mode **the agent leads**. The user should never have to know what to ask for next. At the start of every website session, after every stage and at the end of every reply, the agent says where things stand and proposes the next step. Principle: [product principles](../dev/docs/product/principles.md), decision [0009](../dev/docs/decisions/0009-agent-led-website-mode.md).
 
 ## The loop
 1. **Orient:** `npm run status -- <slug>` (or `--json`). It reads the brief, intake log, acceptance list and launch state, and prints the stage with proposed next steps. No site yet: offer to start one.

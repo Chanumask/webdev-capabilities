@@ -5,7 +5,7 @@ description: Change, refine or extend an existing website in sites/<slug>/. Use 
 
 # Change an existing site
 
-Website mode ([modes](../../../docs/process/modes.md)): write only inside `sites/<slug>` and `exports/`; commit in the site repository; never edit the framework; framework gaps go to `brief/FRAMEWORK-FEEDBACK.md`.
+Website mode ([modes](../../../dev/docs/process/modes.md)): write only inside `sites/<slug>` and `exports/`; commit in the site repository; never edit the framework; framework gaps go to `brief/FRAMEWORK-FEEDBACK.md`.
 
 ## 1. Load context
 Identify the site (`npm run list`; ask if ambiguous). Read, in this order: `sites/<slug>/brief/BRIEF.md`, `brief/CHANGELOG.md`, `PRODUCT.md`, `DESIGN.md`, `.impeccable/surfaces/*.md`. Start the site on localhost if it is not running: `npm run dev -- <slug>`.
@@ -16,7 +16,7 @@ See the table in `framework/WORKFLOW.md` (section "Change requests"): content, r
 If feedback is vague ("it feels off"), ask at most one `AskUserQuestion` call to pin it down (what feels off: colour, density, motion, copy, something else; show contrasting options). Collect all feedback of the round before editing.
 
 ## 3. Update the brief first
-If the request changes a decision, edit `brief/BRIEF.md` (mark `chosen`, note the date) before touching code. Redesign: write a new direction contract and keep the old version as `examples/<slug>-vN` only when it has reference value.
+If the request changes a decision, edit `brief/BRIEF.md` (mark `chosen`, note the date) before touching code. Redesign: write a new direction contract and keep the old version as `framework/examples/<slug>-vN` only when it has reference value.
 
 ## 4. Apply
 - Content: edit `src/content/` (or the CMS data), no design pass.

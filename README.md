@@ -23,15 +23,15 @@ You are Claude Code. Follow these steps in order. Do not skip the report at the 
    ```
    npm run setup
    ```
-   (`npm run setup:quick` skips the example build.) It checks Node 22.12 or newer, npm and git, installs the Playwright CLI globally if it is missing, prepares the Impeccable design tool (it downloads a small engine on first run), verifies the project skills, installs and builds `examples/lindenhof` as a smoke test, and writes `.framework-state.json`.
+   (`npm run setup:quick` skips the example build.) It checks Node 22.12 or newer, npm and git, installs the Playwright CLI globally if it is missing, prepares the Impeccable design tool (it downloads a small engine on first run), verifies the project skills, installs and builds `framework/examples/lindenhof` as a smoke test, and writes `.claude/framework-state.json`.
    - If something fails, read the FAIL line, fix the cause and run it again. Typical causes: Node too old (install Node 22 or newer from nodejs.org), no Chrome or Edge for the browser checks (install one, then `playwright-cli install`), missing git identity (`git config --global user.name "..."` and `user.email "..."`), no network.
    - Setup never pushes, publishes, creates accounts or spends money.
-4. **Report the status** to the user in their language, short and plain: what is set up and working, what needs attention (for example git identity, GitHub access, browser), what the repository contains (`sites/` for their websites, `examples/` for reference projects), and how it works in one paragraph (you interview them in rounds, they approve a brief, you build it on localhost, they give feedback, you export one HTML file).
+4. **Report the status** to the user in their language, short and plain: what is set up and working, what needs attention (for example git identity, GitHub access, browser), what the repository contains (`sites/` for their websites, `framework/examples/` for reference projects), and how it works in one paragraph (you interview them in rounds, they approve a brief, you build it on localhost, they give feedback, you export one HTML file).
 5. **Offer the next steps** with one `AskUserQuestion` call, then continue with their choice:
    - **Start a new website** (Recommended): design intake with several rounds of questions, then the build. Skill: `new-site`.
    - **Edit an existing website**: pick a site from `sites/`, describe the change. Skill: `change-site`.
    - **Look at the example**: `npm run dev -- lindenhof`, give them the localhost address and explain how to scroll through it.
-   - **Ask questions about this repository**: workflow, question rounds, tools, CMS options, costs, limits. Answer from this README, `CLAUDE.md`, `framework/` and `docs/`.
+   - **Ask questions about this repository**: workflow, question rounds, tools, CMS options, costs, limits. Answer from this README, `CLAUDE.md`, `framework/` and `dev/docs/`.
 
 The same procedure is available as the `onboard` skill (`.claude/skills/onboard`). If the user later says "set up" or "get started" again, run it again.
 
@@ -57,16 +57,29 @@ Other things you can say: "edit the Meyer site", "make it less colourful", "expo
 
 ## What is in here
 
-| Folder | Purpose |
-|---|---|
-| `sites/` | your websites, one folder each (starts empty) |
-| `examples/` | finished reference projects (`lindenhof`: a scroll-driven 3D construction story) |
-| `templates/starter/` | the empty project every new site starts from |
-| `framework/` | the process: workflow, question catalog, brief templates, conventions |
-| `capabilities/` | reusable building blocks (3D scroll story, CMS patterns, listings, forms) |
-| `docs/` | research on tools, CMS and Git |
-| `tools/` | the scripts behind the commands |
-| `.claude/` | Claude Code setup: skills and agents |
+If you only build websites, you only ever look at **`sites/`** (your websites) and **`exports/`** (files to send). The rest is the machinery.
+
+```
+README.md        start here
+CLAUDE.md        instructions for the AI agent (it reads this first)
+package.json     the commands (npm run ...)
+sites/           YOUR websites, one folder per site (each its own git repository, starts empty)
+exports/         single-file exports and handover packages (created when needed, git-ignored)
+framework/       how websites are made; the agent works from this
+  WORKFLOW.md  CONVENTIONS.md  NEXT-STEPS.md
+  intake/          the question catalog: six rounds of questions
+  launch/          domains explained, hosting options, going online, handover
+  templates/       brief and launch templates, and the starter project every site is created from
+  capabilities/    reusable building blocks (3D scroll story, CMS providers, listings, forms)
+  examples/        finished reference projects (lindenhof)
+  tools/           the scripts behind the npm commands
+dev/             only for people improving the framework: docs, tests, scripts, git hooks, config
+.claude/         the agent's skills, helpers and permission settings
+```
+
+- **`framework/`** is what the agent builds from: the questions it asks you, the guides for going online, the templates and building blocks. Edit it only when you want to change how the framework works.
+- **`dev/`** is for maintainers: documentation of decisions and process, tests, git hooks, formatting and lint configuration.
+- Hidden entries (`.git`, `.claude`, `.zed`, `.gitignore`, ...) are configuration; you can ignore them.
 
 ## Commands (Claude runs them for you)
 
@@ -95,7 +108,7 @@ At the start of every chat the agent decides (or asks) which mode applies:
 - **Website mode:** you build, change or export a website. The agent works only inside `sites/<slug>` (each site is its own private git repository) and never edits the framework.
 - **Maintainer mode:** you improve the framework itself (capabilities, the question catalog, tools, docs). The agent works on a **feature branch**, runs the quality gates (`npm run check`), merges locally and stops. **The agent may push, but asks for your explicit approval every time** (and never force-pushes).
 
-Rules and reasons: `docs/process/modes.md`, `docs/process/git-workflow.md`, `docs/decisions/`.
+Rules and reasons: `dev/docs/process/modes.md`, `dev/docs/process/git-workflow.md`, `dev/docs/decisions/`.
 
 ## For maintainers
 
@@ -105,12 +118,12 @@ npm run check          format, lint, tests, docs check
 npm run smoke          starter template installs and builds from scratch
 ```
 
-Extend the repo with `docs/process/extending.md` (capability, intake question, skill, tool, template, example). Ideas live in `docs/product/backlog.md`; things found while building sites arrive in `sites/*/brief/FRAMEWORK-FEEDBACK.md`.
+Extend the repo with `dev/docs/process/extending.md` (capability, intake question, skill, tool, template, example). Ideas live in `dev/docs/product/backlog.md`; things found while building sites arrive in `sites/*/brief/FRAMEWORK-FEEDBACK.md`.
 
 ## Where to read more
 - `CLAUDE.md`: how the agent behaves here
 - `framework/WORKFLOW.md`: the stages from idea to delivery
 - `framework/intake/`: the question catalog (six rounds)
 - `framework/CONVENTIONS.md`: structure and naming
-- `capabilities/`: reusable parts
-- `docs/`: tool and CMS research
+- `framework/capabilities/`: reusable parts
+- `dev/docs/`: tool and CMS research

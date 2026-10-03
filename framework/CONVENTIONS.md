@@ -2,23 +2,27 @@
 
 ## Repository layout
 
+A website-mode user only ever needs `sites/` and `exports/`. Everything else is the machinery.
+
 ```
-CLAUDE.md                  how the agent behaves in this repository (always read first)
-README.md                  human introduction
-package.json               root commands (new-site, dev, stop, build, list, export)
-framework/                 the process: workflow, intake questions, brief templates
-  WORKFLOW.md  CONVENTIONS.md
-  intake/                  round-1 ... round-6 question catalogs
-  templates/brief/         BRIEF, INTAKE, ACCEPTANCE, CHANGELOG templates
-capabilities/              reusable building blocks and patterns (3D scroll story, CMS providers, ...)
-templates/starter/         the empty Astro project every new site is copied from
-sites/<slug>/              YOUR websites (one folder per site)
-examples/<slug>/           finished reference projects to learn from (not edited for clients)
-exports/                   generated single-file exports (git-ignored)
-tools/                     command scripts behind the npm commands
-docs/                      research notes (tool evaluation, CMS options)
-.claude/                   Claude Code setup: skills (new-site, build-site, change-site, export-site, impeccable, playwright-cli) and agents
+README.md        start here
+CLAUDE.md        instructions for the AI agent (it reads this first)
+package.json     the commands (npm run ...)
+sites/           YOUR websites, one folder per site (each its own git repository, starts empty)
+exports/         single-file exports and handover packages (created when needed, git-ignored)
+framework/       how websites are made; the agent works from this
+  WORKFLOW.md  CONVENTIONS.md  NEXT-STEPS.md
+  intake/          the question catalog: six rounds of questions
+  launch/          domains explained, hosting options, going online, handover
+  templates/       brief and launch templates, and the starter project every site is created from
+  capabilities/    reusable building blocks (3D scroll story, CMS providers, listings, forms)
+  examples/        finished reference projects (lindenhof)
+  tools/           the scripts behind the npm commands
+dev/             only for people improving the framework: docs, tests, scripts, git hooks, config
+.claude/         the agent's skills, helpers and permission settings
 ```
+
+Hidden entries in the root (`.git`, `.claude`, `.zed`, `.gitignore`, `.gitattributes`, `.editorconfig`) are tool configuration. Local tool output (`.playwright*`, `.impeccable`, `dev/.smoke`) is git-ignored.
 
 ## One site = one folder
 
@@ -56,37 +60,37 @@ Slug rules: lowercase letters, numbers, dashes; short; no dates (`meyer-architek
 | `npm run handover -- <slug>` | handover package in `exports/<slug>-handover/` |
 | `npm run list` | lists sites, examples and templates |
 
-Sites in `examples/` and `templates/` work with the same commands.
+Sites in `framework/examples/` and `framework/templates/` work with the same commands.
 
 ## Adding a site
 1. User says what they want. The agent runs `/new-site`.
 2. `npm run new-site -- <slug> "Name"`, then the intake rounds, then the lock.
 3. Build, review on localhost, export.
-Never copy another site's folder by hand. Reuse ideas through `capabilities/` and `examples/`.
+Never copy another site's folder by hand. Reuse ideas through `framework/capabilities/` and `framework/examples/`.
 
 ## Continuing or changing a site
 Open the chat, name the site ("the Meyer site"). The agent reads `brief/BRIEF.md`, `PRODUCT.md`, `DESIGN.md` and `brief/CHANGELOG.md` first, then follows the change workflow in `WORKFLOW.md`.
 
 ## Capabilities
-`capabilities/<name>/README.md` describes when to use it, what it needs, how to integrate it, and what to watch for; code lives next to it. A capability is copied into a site (not linked), then adapted. If a site improves a capability, port the improvement back into `capabilities/` in the same change.
+`framework/capabilities/<name>/README.md` describes when to use it, what it needs, how to integrate it, and what to watch for; code lives next to it. A capability is copied into a site (not linked), then adapted. If a site improves a capability, port the improvement back into `framework/capabilities/` in the same change.
 
 ## Code conventions inside a site
 - Content never sits inside components or scene code; it comes from `src/content/` through `provider.ts`.
 - Colour and type tokens are CSS custom properties in `src/styles/global.css`.
 - Interactive code lives in `src/scripts/`, one module per concern, imported from the page with a `<script>` tag.
 - Scroll-driven scenes: one timeline module drives a single `state` object; render only when state changed; respect `prefers-reduced-motion`; keep anchors (scroll positions) in one constant that matches the CSS section heights.
-- 3D geometry is authored in real-world units and baked per material (few draw calls). See `capabilities/3d-scroll-story/`.
+- 3D geometry is authored in real-world units and baked per material (few draw calls). See `framework/capabilities/3d-scroll-story/`.
 - Fonts come from `@fontsource` packages (no third-party font requests).
 - Language: copy in the site language, code and comments in English, commit messages in English.
 - No invented facts. Placeholders are visibly labelled ("Beispiel", "Platzhalter").
 
 ## What is committed, and where
-- **Framework repository** (this one): framework, capabilities, templates, examples, tools, docs. `sites/*` is git-ignored here ([decision 0003](../docs/decisions/0003-sites-own-repos.md)).
+- **Framework repository** (this one): framework, capabilities, templates, examples, tools, docs. `sites/*` is git-ignored here ([decision 0003](../dev/docs/decisions/0003-sites-own-repos.md)).
 - **Each site is its own git repository** (`npm run new-site` runs `git init` and makes the first commit). Website sessions commit milestones there. Publishing a site is a separate repository the user creates.
 - Never committed anywhere: `node_modules`, `dist`, `.astro`, `exports/`, `.env*`, Impeccable review screenshots (`.impeccable/review`, `.impeccable/mocks`), Playwright output.
 
 ## Two session modes
-Building and changing sites is **website mode** (write only in `sites/<slug>` and `exports/`, never edit the framework, note gaps in `brief/FRAMEWORK-FEEDBACK.md`). Improving the framework is **maintainer mode** on feature branches ([modes](../docs/process/modes.md), [git workflow](../docs/process/git-workflow.md)).
+Building and changing sites is **website mode** (write only in `sites/<slug>` and `exports/`, never edit the framework, note gaps in `brief/FRAMEWORK-FEEDBACK.md`). Improving the framework is **maintainer mode** on feature branches ([modes](../dev/docs/process/modes.md), [git workflow](../dev/docs/process/git-workflow.md)).
 
 ## Documentation
-Site decisions and changes go to the site's `brief/CHANGELOG.md`. Framework decisions, process and research go to `docs/`. Update `CLAUDE.md` when the process itself changes (maintainer mode).
+Site decisions and changes go to the site's `brief/CHANGELOG.md`. Framework decisions, process and research go to `dev/docs/`. Update `CLAUDE.md` when the process itself changes (maintainer mode).

@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-export
+exports
+.smoke
+sites
+framework/examples
+framework/templates
+framework/capabilities
+.claude
+.zed
+dev/hooks
+.impeccable
+*.md
+package-lock.json

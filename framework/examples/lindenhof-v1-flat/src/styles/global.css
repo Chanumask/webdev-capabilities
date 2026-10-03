@@ -1,0 +1,293 @@
+@import '@fontsource-variable/jost';
+@import '@fontsource-variable/atkinson-hyperlegible-next';
+
+:root {
+  --blue: #1c3fd8;
+  --yellow: #f4b81a;
+  --red: #c4300f;
+  --green: #1a6b50;
+  --chalk: #eceeef;
+  --chalk-2: #dfe2e4;
+  --ink: #0d1224;
+  --font-display: 'Jost Variable', 'Jost', system-ui, sans-serif;
+  --font-text: 'Atkinson Hyperlegible Next Variable', system-ui, sans-serif;
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  background: var(--ink);
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--ink) var(--chalk);
+  scrollbar-width: thin;
+}
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--chalk);
+  text-rendering: optimizeLegibility;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+  max-width: 62ch;
+}
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+input,
+textarea {
+  caret-color: var(--red);
+}
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+.plate :focus-visible,
+.btn:focus-visible {
+  outline-color: var(--ink);
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--chalk);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 3px solid var(--chalk);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- name-plate (Klingelschild) vocabulary: engraved inset, four screws, colour header ---- */
+.plate {
+  background: var(--chalk);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 0 10px 24px -14px rgb(13 18 36 / 0.55);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.25rem;
+  min-height: 3rem;
+  background: var(--btn-bg, var(--ink));
+  color: var(--btn-fg, var(--chalk));
+  border: 2px solid var(--btn-border, var(--ink));
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--ease),
+    background 0.25s,
+    color 0.25s;
+}
+.btn svg {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform 0.35s var(--ease);
+}
+.btn:hover svg {
+  transform: translateX(4px);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- fields ---- */
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+.field > span,
+legend {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+.input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0.85rem;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+}
+.input::placeholder {
+  color: #55597a;
+}
+textarea.input {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+.input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.input.touched:invalid:not(:focus) {
+  border-color: var(--red);
+  background: #fff3ef;
+}
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.seg {
+  display: inline-grid;
+  grid-auto-flow: column;
+  border: 2px solid var(--ink);
+}
+.seg label {
+  position: relative;
+  cursor: pointer;
+}
+.seg input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+.seg span {
+  display: block;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  min-height: 2.75rem;
+  line-height: 1.7;
+}
+.seg input:checked + span {
+  background: var(--ink);
+  color: var(--chalk);
+}
+.seg input:focus-visible + span {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.seg label + label {
+  border-left: 2px solid var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+.plate.form,
+.plate.search,
+.plate.emergency {
+  --screw: radial-gradient(circle at center, #8d949c 0 28%, var(--ink) 30% 40%, transparent 42%);
+  position: relative;
+  padding-top: calc(var(--pad-top, 1rem) + 0.9rem);
+  box-shadow:
+    inset 0 0 0 5px var(--chalk),
+    inset 0 0 0 6px rgb(13 18 36 / 0.35),
+    0 10px 24px -14px rgb(13 18 36 / 0.55);
+}
+.plate.form::before,
+.plate.search::before,
+.plate.emergency::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0.7rem;
+  background: var(--strip, var(--blue));
+}
+.plate.form::after,
+.plate.search::after,
+.plate.emergency::after {
+  content: '';
+  position: absolute;
+  inset: 1.1rem 0.5rem 0.5rem;
+  pointer-events: none;
+  background:
+    var(--screw) top left / 0.7rem 0.7rem no-repeat,
+    var(--screw) top right / 0.7rem 0.7rem no-repeat,
+    var(--screw) bottom left / 0.7rem 0.7rem no-repeat,
+    var(--screw) bottom right / 0.7rem 0.7rem no-repeat;
+}
+.plate.form {
+  padding-inline: clamp(1.4rem, 3vw, 2.2rem);
+}
+.search {
+  --strip: var(--yellow);
+  padding-inline: 1.4rem;
+}
+#damage-form {
+  --strip: var(--red);
+}
+#contact-form {
+  --strip: var(--yellow);
+}
+.emergency {
+  --strip: var(--red);
+  padding-inline: 1.4rem;
+}

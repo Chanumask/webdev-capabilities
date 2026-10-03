@@ -22,4 +22,4 @@ npm run handover -- <site>                    handover package in exports/<site>
 ```
 
 ## Boundaries
-No account creation, payment, DNS change, deployment or repository creation without the user's explicit yes for that action. No secrets in chat or in files that are committed. Decision: [0010](../../docs/decisions/0010-launch-and-handover.md).
+No account creation, payment, DNS change, deployment or repository creation without the user's explicit yes for that action. No secrets in chat or in files that are committed. Decision: [0010](../../dev/docs/decisions/0010-launch-and-handover.md).

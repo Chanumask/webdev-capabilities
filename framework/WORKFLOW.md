@@ -34,8 +34,8 @@ Use the Impeccable skill (installed in `.claude/skills/impeccable`) with the bri
 Work in this order; commit after each step (`build: <step>`).
 1. **Content layer**: `src/content/site.ts` and `provider.ts` filled from the brief (placeholders marked). Define types for every dynamic collection.
 2. **Fonts, tokens, base styles**: self-hosted fonts via `@fontsource` packages, colour and type tokens in `src/styles/global.css`, focus, selection, scrollbars, reduced motion.
-3. **Structure and copy**: all sections in order with the real or drafted copy, navigation, forms, filters (see `capabilities/` for reusable patterns).
-4. **Motion and 3D**: from the approved storyboard. Reuse `capabilities/3d-scroll-story/`. Keep scene state separate from layout, keep a calm fallback.
+3. **Structure and copy**: all sections in order with the real or drafted copy, navigation, forms, filters (see `framework/capabilities/` for reusable patterns).
+4. **Motion and 3D**: from the approved storyboard. Reuse `framework/capabilities/3d-scroll-story/`. Keep scene state separate from layout, keep a calm fallback.
 5. **Responsive and accessibility**: phone first, tablet, desktop; contrast; keyboard; reduced-motion pose per chapter; no-WebGL fallback.
 6. **Verify (bounded)**: `npm run dev -- <slug>`; `playwright-cli` screenshots at 390, 820, 1440 px (and key scroll positions for scroll stories). One batched inspection round, fix everything in one batch, at most one confirming round. Watch the console for errors.
 7. **Detect and review**: Impeccable `detect` once on the changed UI, then spawn `impeccable-finish-reviewer` with the contract, screenshots and brief. Apply the fix batch, recapture, send the same reviewer a verdict pass.
@@ -54,7 +54,7 @@ When the user is happy, the `launch-site` skill takes over ([launch playbook](la
 The `handover-site` skill creates the handover package (`npm run handover`), checks account ownership, and walks the owner through editing, costs and support ([handover](launch/handover.md)).
 
 ## Stage 9: Wrap up
-When the user is done (or says "wrap up"), run the `wrap-up` skill: it writes `brief/SESSION-REPORT-<date>.md`, summarises key issues and feedback, proposes framework improvements by target (question catalog, agent instructions, capabilities and tools, user guidance) and, if the user agrees, creates an anonymised file in `exports/feedback/` that they can send to the maintainer ([feedback loop](../docs/process/feedback-loop.md)).
+When the user is done (or says "wrap up"), run the `wrap-up` skill: it writes `brief/SESSION-REPORT-<date>.md`, summarises key issues and feedback, proposes framework improvements by target (question catalog, agent instructions, capabilities and tools, user guidance) and, if the user agrees, creates an anonymised file in `exports/feedback/` that they can send to the maintainer ([feedback loop](../dev/docs/process/feedback-loop.md)).
 
 ## Change requests
 Classify first, then act. Always record in `brief/CHANGELOG.md` (asked, decided, changed).
@@ -63,7 +63,7 @@ Classify first, then act. Always record in `brief/CHANGELOG.md` (asked, decided,
 |---|---|---|
 | Content | text, numbers, images, listings | edit `src/content/` or the CMS data; no design pass |
 | Refine | spacing, one colour, button style | scoped Impeccable command (`polish`, `typeset`, `layout`, `colorize`, `animate`); preserves the identity |
-| Redesign | "less colourful", "different feel" | new direction contract; archive the previous version as `examples/<slug>-vN` if worth keeping; replace `DESIGN.md` |
+| Redesign | "less colourful", "different feel" | new direction contract; archive the previous version as `framework/examples/<slug>-vN` if worth keeping; replace `DESIGN.md` |
 | New feature | new section, filter, form | brief update first, then build the feature with the same standards |
 | Tech change | switch CMS, add language | update the brief's technology table, then implement behind the provider layer |
 

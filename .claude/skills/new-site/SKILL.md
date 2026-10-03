@@ -30,7 +30,7 @@ Open and follow, in order, with the `AskUserQuestion` tool (max 4 questions per 
 Between rounds: recap in 2 to 4 lines, append the raw answers to `brief/INTAKE.md`, update `brief/BRIEF.md`. Ask the next round from what you learned; skip answered questions; add follow-ups where an answer opens a new dimension.
 
 ## Mode
-This is **website mode** ([modes](../../../docs/process/modes.md)): write only inside `sites/<slug>`; never edit framework files. If a question is missing, an option is wrong or a capability would have helped, append a line to `brief/FRAMEWORK-FEEDBACK.md` and mention it to the user at the end.
+This is **website mode** ([modes](../../../dev/docs/process/modes.md)): write only inside `sites/<slug>`; never edit framework files. If a question is missing, an option is wrong or a capability would have helped, append a line to `brief/FRAMEWORK-FEEDBACK.md` and mention it to the user at the end.
 
 ## Hard rules
 - Ask in the user's language. Plain words. Explain any technical term in one sentence.

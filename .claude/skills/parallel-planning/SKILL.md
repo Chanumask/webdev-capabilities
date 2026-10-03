@@ -5,7 +5,7 @@ description: Decide whether a framework task should be split across parallel wor
 
 # Parallel planning
 
-Orchestrator's decision skill. Policy: [parallel agents](../../../docs/process/parallel-agents.md).
+Orchestrator's decision skill. Policy: [parallel agents](../../../dev/docs/process/parallel-agents.md).
 
 1. **Split** the task into the smallest units that make sense as separate branches. One unit means no parallelism: run `feature-workflow` directly.
 2. **Check overlap** for each pair: intake files and the brief template, the starter, `package.json` and lockfile, hooks and settings, `CLAUDE.md`, docs indexes and the changelog. Deep overlap means do not parallelize.
