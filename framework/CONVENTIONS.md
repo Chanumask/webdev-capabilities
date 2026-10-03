@@ -48,6 +48,12 @@ Slug rules: lowercase letters, numbers, dashes; short; no dates (`meyer-architek
 | `npm run stop -- <slug>` | stops that dev server |
 | `npm run build -- <slug>` | production build into `sites/<slug>/dist` |
 | `npm run export -- <slug>` | single-file offline export into `exports/<slug>/` (add `-- --zip`) |
+| `npm run status -- <slug>` | stage of a site and proposed next steps (the agent runs it to lead the conversation) |
+| `npm run launch-prep -- <slug> --domain d.de` | prepares launch guide, robots, sitemap, headers, site address (no network) |
+| `npm run launch-check -- <slug>` | pre-launch checks on the built site |
+| `npm run cms:check -- <slug>` | tests the CMS connection from the site's `.env` (read only) |
+| `npm run dns-check -- <domain>` | what the internet sees for a domain, in plain language |
+| `npm run handover -- <slug>` | handover package in `exports/<slug>-handover/` |
 | `npm run list` | lists sites, examples and templates |
 
 Sites in `examples/` and `templates/` work with the same commands.

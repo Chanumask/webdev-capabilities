@@ -5,7 +5,7 @@ Reusable building blocks. Each folder says **when to use it**, **what it needs**
 | Capability | Use when | Status |
 |---|---|---|
 | [3d-scroll-story](3d-scroll-story/README.md) | scroll-driven 3D narrative or scene | proven (examples/lindenhof) |
-| [cms-providers](cms-providers/README.md) | editors must change content without a developer | patterns + Wix skeleton (needs account to test) |
+| [cms-providers](cms-providers/README.md) | editors must change content without a developer; the CMS is a plug-in (Wix first) | contract + Wix core tested against a mock; real Wix account pending |
 | [listings-filter](listings-filter/README.md) | many similar items with filters (properties, jobs, products) | proven (examples/lindenhof) |
 | [forms](forms/README.md) | enquiry, contact, damage report, booking request | proven as demo; sending needs a service |
 | Single-file export | send a site to someone | `tools/export-site.mjs` (proven) |

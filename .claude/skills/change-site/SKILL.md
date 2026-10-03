@@ -27,3 +27,6 @@ Keep bounded verification: one batched screenshot round at 390/820/1440 px (and 
 
 ## 5. Record and show
 Append to `brief/CHANGELOG.md` (asked, decided, changed). Commit `change: <what>`. Tell the user what changed in plain words and how to look at it. If the user shares files, re-export: `npm run export -- <slug>`.
+
+## Next step
+Agent-led ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)): when this skill finishes, run `npm run status -- <slug>`, say where the site stands and offer the next step with `AskUserQuestion` (recommended first). Never end with an open "let me know".

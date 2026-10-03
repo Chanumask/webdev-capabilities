@@ -6,7 +6,10 @@ Ideas for the framework, not yet built. A mid-task idea is written here, not sta
 
 | Item | Kind | Why | Cost |
 |---|---|---|---|
-| Wix Headless provider (tested against a real Wix site) | capability | first client wants Wix; the provider skeleton is untested | needs the client's Wix account |
+| Verify the Wix provider against a real Wix site (collection, API key, automation to a deploy hook) | capability | core is only tested against a mock of the documented API | needs a Wix account (the maintainer has one) |
+| Deploy automation (wrangler pages deploy, deploy hooks) behind explicit approval | tool | launch is guided by hand today | medium, needs accounts |
+| Registrar and DNS provider specific click-by-click guides | docs | the launch guide is generic | small |
+| Next-step driver as a real state machine with tests per skill | tool | status.mjs infers state from files | medium |
 | Sanity provider with schema generator from the brief | capability | default CMS recommendation | small |
 | Image gallery with lightbox | capability | common portfolio need | small |
 | Multi-language routing (de/en) | capability | intake offers it, nothing implements it | medium |

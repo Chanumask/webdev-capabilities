@@ -19,7 +19,13 @@
     "check:docs": "node scripts/check-docs.mjs",
     "smoke": "node tools/smoke.mjs",
     "smoke:examples": "node tools/smoke.mjs --examples",
-    "check": "npm run format:check && npm run lint && npm run test && npm run check:docs"
+    "check": "npm run format:check && npm run lint && npm run test && npm run check:docs",
+    "status": "node tools/status.mjs",
+    "launch-prep": "node tools/launch-prep.mjs",
+    "launch-check": "node tools/launch-check.mjs",
+    "cms:check": "node tools/cms-check.mjs",
+    "dns-check": "node tools/dns-check.mjs",
+    "handover": "node tools/handover.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -28,4 +28,5 @@ Never start the build without an explicit yes.
 1. Mark the brief `status: approved` with the date.
 2. Commit the brief (`brief: approved <slug>`).
 3. Continue with the build workflow in `framework/WORKFLOW.md` (stage "Build").
-4. Tell the user how to look at the result: run `npm run dev -- <slug>`, open the printed localhost address, and where the export file will appear.
+4. Mention the road ahead: after build and review comes the guided launch (domain, hosting, handover); the agent will lead each step.
+5. Tell the user how to look at the result: run `npm run dev -- <slug>`, open the printed localhost address, and where the export file will appear.

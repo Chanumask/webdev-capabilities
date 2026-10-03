@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { getSite } from '../content/provider';
+const site = await getSite();
+---
+
+<Base title={`Seite nicht gefunden – ${site.name}`}>
+  <main style="min-height:100svh;display:grid;place-items:center;padding:var(--gutter)">
+    <div>
+      <h1>Seite nicht gefunden</h1>
+      <p><a href="/">Zur Startseite</a></p>
+    </div>
+  </main>
+</Base>

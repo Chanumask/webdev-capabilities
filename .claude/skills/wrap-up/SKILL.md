@@ -34,3 +34,6 @@ Outcome of the session; the 3 to 5 most important findings; what you would impro
 - Quote the user sparingly, only generic feedback, never private details.
 - Be honest about the agent's own mistakes; they are the most useful findings.
 - If the user already left, still write the report and the FRAMEWORK-FEEDBACK lines, skip the questions, and say where the files are next time.
+
+## Next step
+Agent-led ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)): when this skill finishes, run `npm run status -- <slug>`, say where the site stands and offer the next step with `AskUserQuestion` (recommended first). Never end with an open "let me know".

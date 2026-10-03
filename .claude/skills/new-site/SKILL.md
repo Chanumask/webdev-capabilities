@@ -41,3 +41,6 @@ This is **website mode** ([modes](../../../docs/process/modes.md)): write only i
 
 ## When done
 Brief is `status: approved`. Commit it in the site repository (`brief: approved <slug>`), then continue with the `build-site` skill (read `.claude/skills/build-site/SKILL.md`) in the same chat unless the user wants to wait.
+
+## Next step
+Agent-led ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)): when this skill finishes, run `npm run status -- <slug>`, say where the site stands and offer the next step with `AskUserQuestion` (recommended first). Never end with an open "let me know".

@@ -15,6 +15,7 @@ Goal: close every gap that would otherwise cause a correction round. Do **not** 
 | 5I Brand gaps | name, logo or tagline missing |
 | 5J Legal and privacy data | German or EU site with forms |
 | 5K Handover | client project |
+| 5L Launch details | always (short) |
 
 ## 5A Listings or catalogue data
 Propose a data model, then ask for corrections:
@@ -90,6 +91,13 @@ For Wix Headless also ask: Does the Wix site exist? Is Headless enabled? Who cre
 
 ## 5K Handover
 - Who maintains the site afterwards; how change requests reach the agent; training notes for editors; domain and email responsibilities.
+
+## 5L Launch details
+- Name ideas for the domain (3 options, with a fallback) and the country/audience for the extension (.de, .com).
+- Who is the legal owner of the website (company or person) and which role email can be used for all accounts?
+- Legal data available now (company name, address, register, VAT id, responsible person) or "owner provides later".
+- Who pays for domain, hosting extras, email, CMS plan, and who is the contact for renewals?
+- Who will change content after launch: the owner (needs a CMS) or a helper? How fast should changes appear?
 
 ## Round 5 output
 Update INTAKE.md and BRIEF fully (storyboard, content model, data). All proposals marked `approved`. Recap and go to round 6.

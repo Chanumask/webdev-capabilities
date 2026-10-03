@@ -4,6 +4,10 @@ name: __NAME__
 status: draft            # draft | approved | built | delivered
 created: __DATE__
 approved:                # date, set in round 6
+launch: none             # none | decided | prepared | deployed | live
+handover: none           # none | done
+domain:                  # set by launch-prep
+host:                    # cloudflare-pages | netlify | vercel | github-pages | own-hosting | wix-hosted
 ---
 
 # Brief: __NAME__
@@ -99,6 +103,14 @@ Terms, places, targets:
 
 ## 16. Risks and open questions
 -
+
+## 17. Launch
+- Domain: owned already / to be bought (name ideas, registrar preference):
+- Hosting (recommended: Cloudflare Pages; with CMS auto-publish: git-based host plus deploy hook):
+- Email on the domain (keep existing / new mailboxes / none):
+- Account owner (must be the website owner):
+- Legal data for Impressum and privacy text (owner provides):
+- Handover: who maintains content, who handles technical changes, who pays for what:
 
 ## Delivery
 - Local: `npm run dev -- __SLUG__`

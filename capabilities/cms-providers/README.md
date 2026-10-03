@@ -1,51 +1,43 @@
 # Capability: CMS providers
 
-Goal: non-technical editors change content without the developer, and the site design stays safe.
+Goal: non-technical editors change content without the developer, and the design stays safe. **The CMS is a plug-in, never baked in.** Wix is one provider (the first client's choice); files, Sanity, Storyblok and others implement the same contract, and switching changes one file.
 
-## The pattern (always)
-Pages never import data files. They call functions in `src/content/provider.ts`, which return typed content. Switching from files to a CMS changes only the provider.
+## The contract
+Pages never import data files or CMS clients. They call functions in `src/content/provider.ts`, which return typed content:
 
 ```ts
-// src/content/provider.ts
-import { site, listings } from './site';           // start: files
+// src/content/provider.ts (default: content in files)
+import { site, listings } from './site';
 export const getSite = async () => site;
 export const getListings = async () => listings;
 ```
+Rules every provider follows:
+1. Same function names and return shapes as the files version (types live in `src/content/site.ts`).
+2. Runs at **build time** (static sites). Secrets only in the site's `.env`, never committed, never shipped to the browser.
+3. Maps CMS fields to the site's types in one place (`toListing()` etc.); media references become plain https URLs.
+4. Offers `checkConnection(env, collections)` so `npm run cms:check -- <site>` can test it; read only.
+5. Content that is not in the CMS (layout, scenes, animation) stays in code. Editors change content slots only.
+6. A rebuild is needed when content changes: the CMS calls the host's **deploy hook** on publish ([hosting options](../../framework/launch/hosting-options.md)). Without a hook, content changes go through the agent or developer.
 
-Editors change **content slots**: texts, items, images, a few options from fixed lists. Layout, 3D scenes and motion stay in code.
-
-Static builds (Astro) need a **rebuild** when content changes: the CMS calls a deploy hook on publish (Cloudflare Pages, Netlify and Vercel offer build hooks). Alternative: server rendering for pages that must update instantly.
+Selection: `.env` has `CMS_PROVIDER=files|wix|...`; the provider module in `src/content/` is chosen at build time. Providers live in `capabilities/cms-providers/<name>/` and export `<name>.mjs` (core, no dependencies, unit-testable).
 
 ## Choosing (recommendation logic)
 | Situation | Recommend |
 |---|---|
-| Content rarely changes | no CMS, files |
-| Client already uses Wix, wants the Wix dashboard | Wix Headless |
-| Regularly edited items or news, editors comfortable with a form-style editor | Sanity (free plan is generous) |
-| Editors must click on the page and see the live site | Storyblok (more complex, paid) |
-| Technical editors, content in Git | Decap or Tina (needs GitHub accounts) |
+| Content rarely changes | files (no CMS) |
+| Client already uses Wix and wants the Wix dashboard | wix |
+| Regularly edited items or news, form-style editor, generous free plan | Sanity |
+| Editors must click on the page itself | Storyblok (more complex, paid) |
+| Technical editors, content in Git | Decap or Tina |
 
-## Wix Headless (client's preference on the first project)
-- Wix keeps its dashboard (CMS collections, media), and an external Astro frontend reads the data through Wix's SDK. Wix publishes Astro integration and templates.
-- Needs: a Wix site/project with Headless enabled, collections created (e.g. `Listings`), an API key or OAuth client id.
-- Sketch (verify against the current Wix docs when implementing):
+CMS, hosting and domain are independent. A Wix CMS does **not** mean Wix hosts the site or holds the domain.
 
-```ts
-// src/content/provider.ts (Wix variant)
-import { createClient, ApiKeyStrategy } from '@wix/sdk';
-import { items } from '@wix/data';
-const wix = createClient({ modules: { items }, auth: ApiKeyStrategy({ apiKey: import.meta.env.WIX_API_KEY, siteId: import.meta.env.WIX_SITE_ID }) });
-export async function getListings() {
-  const res = await wix.items.query('Listings').find();
-  return res.items.map(toListing);          // map Wix fields to the Listing type
-}
-```
-- Keep keys in `.env` (never committed). Build-time access is fine for a static site.
-- Not yet verified here: plan/price needed for Headless, webhook options, image URL handling (a community thread reports problems). Check with the client's account before promising anything.
-- Docs: Wix Headless, Astro templates, `@wix/data` quick start.
-
-## Sanity (default recommendation for regular editing)
-Schema in code, hosted Studio, free tier. Use `@sanity/client` in the provider with GROQ queries; webhook to the host's build hook.
+## Providers
+| Provider | Status | Files |
+|---|---|---|
+| files | default, proven | `templates/starter/src/content/` |
+| [wix](wix/README.md) | core tested against a mock of the Wix API; **not yet verified against a real Wix account** | `wix/wix.mjs`, `tests/wix.test.mjs` |
+| Sanity, Storyblok | not built; write the same contract | backlog |
 
 ## Verification
-Provider returns the same shapes as the file version; a fixture test or a build with seeded CMS data; editors tried a real edit and saw it live after rebuild; `.env.example` documents the keys.
+The provider returns the same shapes as the files version; `npm run cms:check -- <site>` is green with real credentials; editors made a real edit, published, and saw it live after the rebuild; `.env.example` documents every variable.

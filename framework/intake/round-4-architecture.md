@@ -42,17 +42,17 @@ Options:
 - CSS and video only: lightest, no real 3D
 Writes: BRIEF.tech.motion
 
-## Q4.4 Hosting and delivery
-Ask: Where should the finished website live?
-Why: deployment setup, forms, domain.
+## Q4.4 Hosting
+Ask: Where should the finished website be served from, once you are happy with it?
+Why: deployment setup and whether editors can publish by themselves. Hosting is independent of the CMS and the domain.
 Type: single
 Options:
-- Not yet, only preview and export (Recommended at the start): review on localhost, send the exported file, decide hosting later
-- Cloudflare Pages: free, fast, global, simple domains
-- Netlify or Vercel: similar, good form and preview features
-- The client's existing hosting: needs access details
+- Cloudflare Pages (Recommended): free, fast worldwide, free HTTPS, easy rollback; with a CMS that should publish automatically it is connected through a git repository and a deploy hook
+- Netlify: similar, with built-in forms
+- The owner's existing web space (IONOS, Strato and similar): nothing new to pay for; files are uploaded; content changes then go through a developer
+- Not decided yet, preview and export only: fine for now; the launch is guided later when you are happy
 Writes: BRIEF.tech.hosting
-Note: a GitHub repository per client is needed for automatic deployment; ask in Q4.7.
+Note: the agent never creates accounts or deploys without an explicit yes; see `framework/launch/`.
 
 ## Q4.5 Forms
 Ask: What should happen when someone sends a form?
@@ -94,6 +94,26 @@ Options:
 - Playwright browser checks (Recommended): the agent looks at the result in a real browser at phone, tablet and desktop widths, and tests forms
 - Taste skill (optional): an alternative style guide; try it when Impeccable's result feels too generic
 Writes: BRIEF.tech.tools
+
+## Q4.10 Domain
+Ask: Do you already have a domain name (the web address, like meyer-architekten.de)?
+Why: decides the launch path. Many people have never bought one; the agent explains and guides later (framework/launch/domains-explained.md).
+Type: single
+Options:
+- Yes, I own one: tell me the name and where it is registered
+- No, I need one (Recommended to decide later): I will explain how it works and guide you when you are happy with the site
+- Use the free preview address for now: the site runs on an address like my-site.pages.dev
+Writes: BRIEF.launch (domain)
+
+## Q4.11 Email on the domain
+Ask: Do you use or need email addresses at the domain (info@...)?
+Why: changing DNS or name servers can break existing email, so this must be known before any domain work.
+Type: single
+Options:
+- Yes, email already works at this domain: I will not touch it without copying its settings first
+- I need new mailboxes: I will explain the options (registrar, hosting package, Google or Microsoft)
+- No email needed
+Writes: BRIEF.launch (email)
 
 ## Q4.9 Languages (only if two or more)
 Ask: How should the language switch work?

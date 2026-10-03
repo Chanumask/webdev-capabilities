@@ -6,6 +6,27 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-03 (feat) Launch, handover, agent-led mode, pluggable CMS
+
+- **Agent-led website mode** ([0009](decisions/0009-agent-led-website-mode.md)): `npm run status` derives the stage from the brief and proposes next steps; `framework/NEXT-STEPS.md`; every website skill ends with the proposal.
+- **Launch and handover** ([0010](decisions/0010-launch-and-handover.md)): skills `launch-site` and `handover-site`, guides in `framework/launch/` (domains explained from scratch, hosting options, playbook, handover), templates, tools `launch-prep`, `launch-check`, `dns-check`, `handover`; starter gets 404, robots, headers, canonical.
+- **CMS plug-ins** ([0011](decisions/0011-pluggable-cms-providers.md)): provider contract; Wix provider (REST, API key) with `cms:check`; tested against a mock of the documented API only, real Wix account pending; research facts in [02](research/02-cms-and-git.md).
+- Intake: hosting recommendation, domain and email questions (4.10, 4.11), launch module 5L; brief gets `launch`, `handover`, `domain`, `host` fields and a launch section.
+- 48 tests; launch-check run on the Lindenhof example blocks it as intended (placeholders).
+
+**Next session** →
+
+Paste-to-start prompt:
+> Maintainer mode: after the user pushes main, verify the Wix provider with the user's real Wix account (npm run cms:check) and fix what differs from the docs.
+
+- **Branch:** main, none open after the local merge; `main` is ahead of `origin`.
+- **State:** launch, handover, status driver and Wix provider are merged locally; Wix provider verified against a mock only.
+- **Do next:** the user pushes main; then test Wix: create collection, API key (Read Data Items), site id in `sites/<slug>/.env`, run cms:check; check the `wix-site-id` header and fix the provider if needed.
+- **Watch for:** never paste the API key into the chat; `.env` is git-ignored.
+- **Environment:** `npm run check` green; `git rev-list --count origin/main..main` shows the unpushed commits.
+
+---
+
 ## 2026-10-03 (feat) Session wrap-up and feedback loop
 
 - New `wrap-up` skill for website sessions: session report from a template, short summary for the user, optional anonymised file in `exports/feedback/` ([0008](decisions/0008-feedback-loop.md), [feedback loop](process/feedback-loop.md)).

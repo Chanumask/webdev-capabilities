@@ -41,3 +41,6 @@ Standards: no invented facts, no third-party requests, content only via the prov
 
 ## 5. Hand over to the user
 Start the dev server, give the localhost address, say in two sentences what to look at (and how to scroll through animations), mention the export file path, and ask for feedback in one batch. Switch to the `change-site` skill for feedback.
+
+## Next step
+Agent-led ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)): when this skill finishes, run `npm run status -- <slug>`, say where the site stands and offer the next step with `AskUserQuestion` (recommended first). Never end with an open "let me know".

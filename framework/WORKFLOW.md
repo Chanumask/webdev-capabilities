@@ -8,7 +8,10 @@ One repository, many websites. Claude Code (the agent in this repository) runs t
                                                                    ^______ change requests ______|
 ```
 
-Skills that run these stages: `/new-site` (stages 1 and 2), `/build-site` (3 and 4), `/change-site` (5), `/export-site` (6). The user does not need to know the names; saying "I want a new website" is enough (see `CLAUDE.md`).
+Skills that run these stages: `/new-site` (stages 1 and 2), `/build-site` (3 and 4), `/change-site` (5), `/export-site` (6), `/launch-site` (7), `/handover-site` (8), `/wrap-up` (9). The user does not need to know the names; saying "I want a new website" is enough (see `CLAUDE.md`).
+
+## The agent leads
+In website mode the agent drives: at the start of each session and after each stage it runs `npm run status -- <slug>`, says where things stand, and proposes the next step with `AskUserQuestion` (recommended option first). See [NEXT-STEPS](NEXT-STEPS.md).
 
 ## Stage 1: Intake
 - Create the site folder first so answers can be saved: `npm run new-site -- <slug> "<Name>"`.
@@ -44,7 +47,13 @@ Work in this order; commit after each step (`build: <step>`).
 - Collect feedback in one batch. Do not fix piecemeal while the user is still looking.
 - Handle it with the change workflow below.
 
-## Stage 7: Wrap up
+## Stage 7: Launch
+When the user is happy, the `launch-site` skill takes over ([launch playbook](launch/launch-playbook.md)): decide (domain, hosting, email, ownership), prepare (`launch-prep`, `launch-check`, `cms:check`), deploy, connect the domain, verify (`dns-check`). The user does account, payment and domain steps; the agent explains domains and hosting from scratch, guides each click and verifies. Never without the user's explicit yes per action.
+
+## Stage 8: Handover
+The `handover-site` skill creates the handover package (`npm run handover`), checks account ownership, and walks the owner through editing, costs and support ([handover](launch/handover.md)).
+
+## Stage 9: Wrap up
 When the user is done (or says "wrap up"), run the `wrap-up` skill: it writes `brief/SESSION-REPORT-<date>.md`, summarises key issues and feedback, proposes framework improvements by target (question catalog, agent instructions, capabilities and tools, user guidance) and, if the user agrees, creates an anonymised file in `exports/feedback/` that they can send to the maintainer ([feedback loop](../docs/process/feedback-loop.md)).
 
 ## Change requests

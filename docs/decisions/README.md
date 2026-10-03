@@ -14,3 +14,6 @@ One short file per decision, format in [documentation.md](../process/documentati
 | [0006](0006-tooling-and-quality-gates.md) | npm, Prettier, ESLint, node --test, docs check, starter smoke build | active | 2026-10-03 |
 | [0007](0007-localhost-and-single-file-export.md) | Localhost preview and a single-file offline export built from dist | active | 2026-10-03 |
 | [0008](0008-feedback-loop.md) | Feedback loop: wrap-up report in website sessions, optional anonymised bundle, triage-feedback in maintainer mode | active | 2026-10-03 |
+| [0009](0009-agent-led-website-mode.md) | Website mode is agent-led: status driver, proposed next step after every stage | active | 2026-10-03 |
+| [0010](0010-launch-and-handover.md) | Launch and handover workflow: owner owns accounts, no account or payment without a yes, tools to prepare and verify | active | 2026-10-03 |
+| [0011](0011-pluggable-cms-providers.md) | CMS providers are plug-ins behind one contract; Wix is the first provider, REST with an API key | active | 2026-10-03 |

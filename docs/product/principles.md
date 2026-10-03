@@ -8,12 +8,14 @@ The rules every decision is checked against. If a proposal breaks one, either ch
 
 1. **One shot, little tuning.** The intake captures the full context up front, so the first build is close to what the user wants. Every feature that reduces correction rounds beats one that adds options.
 2. **The user is not technical.** They answer questions, look at the result, give feedback in plain words. The agent does all engineering and explains consequences, not jargon.
-3. **Recommend, never dictate.** Every technical question has a recommended option with the reason, and the user can always write their own.
-4. **Always visible, always shareable.** Every site runs on localhost and exports to one offline HTML file. Nothing requires a deployment to be judged.
-5. **High quality is restrained.** Real materials, quiet palettes, one authored motion moment, readable text over scenes, calm fallbacks. Colourful and busy is an explicit choice, not a default.
-6. **No invented facts.** Prices, testimonials, statistics, legal data and people are real or visibly marked placeholders.
-7. **Customer work stays private.** Sites live in their own repositories, never in the shared framework repo.
-8. **Free by default.** The framework uses open-source tools. Anything that can charge money (CMS plans, hosting, form services) is proposed with its cost and never enabled without the user's explicit yes.
+3. **The agent leads.** Website sessions are driven by the agent's questions and proposals; the user never has to know what to ask next. Every reply ends with the next step ([0009](../decisions/0009-agent-led-website-mode.md)).
+4. **Recommend, never dictate.** Every technical question has a recommended option with the reason, and the user can always write their own.
+5. **Always visible, always shareable.** Every site runs on localhost and exports to one offline HTML file. Nothing requires a deployment to be judged.
+6. **High quality is restrained.** Real materials, quiet palettes, one authored motion moment, readable text over scenes, calm fallbacks. Colourful and busy is an explicit choice, not a default.
+7. **No invented facts.** Prices, testimonials, statistics, legal data and people are real or visibly marked placeholders.
+8. **Customer work stays private.** Sites live in their own repositories, never in the shared framework repo.
+9. **Free by default.** Everything that can cost money is proposed with its price and the owner owns every account and the domain ([0010](../decisions/0010-launch-and-handover.md)).
+10. **Components are replaceable.** CMS, hosting and domain are independent plug-ins behind small contracts ([0011](../decisions/0011-pluggable-cms-providers.md)); no choice of the first client is baked in. The framework uses open-source tools.
 
 ## Engineering principles
 

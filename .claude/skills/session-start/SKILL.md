@@ -15,7 +15,7 @@ Policy: [modes](../../../docs/process/modes.md), [decision 0005](../../../docs/d
 - Crossing modes mid-session: finish the current mode's work, note the gap, offer a separate session.
 
 ## 2a. Website mode start
-1. Fresh clone (`.framework-state.json` missing) or "set up": run the `onboard` skill.
+1. Fresh clone (`.framework-state.json` missing) or "set up": run the `onboard` skill. Otherwise, if a site exists, run `npm run status -- <slug>` and lead with its proposed next step ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)).
 2. New website: `new-site` skill (intake). Existing site: `change-site`. Export: `export-site`.
 3. End of the session: when the user is done or says "wrap up", run the `wrap-up` skill (session report, feedback summary, optional shareable file).
 4. Rules: write only inside `sites/<slug>` and `exports/`; never edit framework files; framework gaps go to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md`; commit milestones in the site's own repo; never touch the framework repo's branch state.

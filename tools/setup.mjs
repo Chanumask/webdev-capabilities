@@ -114,6 +114,8 @@ if (fs.existsSync(imp)) {
 for (const s of [
   'session-start',
   'wrap-up',
+  'launch-site',
+  'handover-site',
   'triage-feedback',
   'onboard',
   'new-site',
