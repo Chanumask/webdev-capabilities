@@ -67,4 +67,4 @@ For listing thumbnails or section images, render the same scene objects to still
 Screenshots at 390, 820 and 1440 px for the hero and each chapter anchor; check console; test `prefers-reduced-motion`; export and open from `file://`.
 
 ## Realism ceiling
-Everything here is procedural primitives. For still more realism, replace the building/vehicle builders with Blender-modelled glTF files (Draco/meshopt, under about 2 MB) loaded with `GLTFLoader`; the state, timeline, camera and layout code stays the same.
+Everything here is procedural primitives (realism tier T0, decision 0015). Photographic results come from the [blender-pipeline](../blender-pipeline/README.md) (T3 rendered frames, T2 real-time models); HDRI and AO alone close only a fifth of the gap. For still more realism, replace the building/vehicle builders with Blender-modelled glTF files (Draco/meshopt, under about 2 MB) loaded with `GLTFLoader`; the state, timeline, camera and layout code stays the same.

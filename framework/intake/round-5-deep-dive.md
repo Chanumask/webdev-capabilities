@@ -58,6 +58,7 @@ Cover: the first screen (what is visible before any scrolling, and its text), ea
 - Where the text sits and how it stays readable (scrim, quiet side).
 - Mobile composition (scene above, text below) and the reduced-motion / no-3D fallback (one still pose per chapter).
 - Performance budget (target 60 fps on a mid-range laptop, smooth on recent phones; scenes built from merged geometry).
+- **Realism tier (T0 to T3) and weight:** for T3 list the shots (camera start and end per chapter), 60 frames per sequence as default, HD 1920 px for desktop and a separate portrait set for phones, 4K only as an optional hosted set; the single-file export must stay under 25 MB (warning at 15 MB). List every third-party model, texture and HDRI with licence in `ASSETS.md`.
 Ask: Approve the storyboard / Change chapters / Simplify. Offer to show a quick rough preview only after the brief is locked.
 
 ## 5F CMS content model

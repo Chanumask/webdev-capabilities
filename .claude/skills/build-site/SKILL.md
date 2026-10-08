@@ -10,7 +10,7 @@ Input: `sites/<slug>/brief/BRIEF.md` with `status: approved`. If the status is n
 Website mode ([modes](../../../dev/docs/process/modes.md)): write only inside `sites/<slug>` (its own git repository, commit milestones there) and `exports/`; never edit the framework. Framework gaps go to `brief/FRAMEWORK-FEEDBACK.md`.
 
 ## 0. Read
-`framework/WORKFLOW.md` (stage 3 and 4), `framework/CONVENTIONS.md`, the brief, `brief/ACCEPTANCE.md`, and the relevant `framework/capabilities/*/README.md`. Look at `framework/examples/lindenhof` for the expected level of finish (3D scroll story, realism, copy tone, forms, listings).
+`framework/WORKFLOW.md` (stage 3 and 4), `framework/CONVENTIONS.md`, the brief, `brief/ACCEPTANCE.md`, and the relevant `framework/capabilities/*/README.md`. Look at `framework/examples/lindenhof` for the expected level of finish (3D scroll story, copy tone, forms, listings); its realism is tier T0. For tiers T2 and T3 read `framework/capabilities/blender-pipeline/README.md` and decisions 0014 to 0017.
 
 ## 1. Design context (Impeccable)
 Work inside `sites/<slug>` as the project root.
@@ -22,7 +22,7 @@ Work inside `sites/<slug>` as the project root.
 1. content layer (`src/content/site.ts`, `provider.ts`, types, marked placeholders)
 2. fonts, tokens, base styles (`@fontsource` self-hosted, CSS variables, focus/selection/scrollbar, reduced motion)
 3. structure and copy, all sections, navigation, forms, filters
-4. motion and 3D from the approved storyboard (start from `framework/capabilities/3d-scroll-story/`)
+4. motion and 3D from the approved storyboard (start from `framework/capabilities/3d-scroll-story/`). **Realism tier T2 or T3** (brief section 9): follow `framework/capabilities/blender-pipeline/README.md`. Fetch assets with `npm run assets -- add`, write the scene script, **render one still first, show it to the user and wait for a yes** (stop gate, decision 0015; frame time is cheap, a wrong direction is not), then render both sets (desktop and portrait phone), `npm run blender -- frames`, and build the canvas scrub with a poster and a reduced-motion still per chapter. Check `npm run weight -- <slug>` against the budget before the export. Needs Blender 5.x (`npm run blender -- check`); if it is missing, tell the user and offer T1 or client footage instead of improvising
 5. responsive and accessibility (360 to 1920 px, contrast, keyboard, calm fallbacks)
 
 Standards: no invented facts, no third-party requests, content only via the provider, one authored motion moment, text readable over scenes (scrim or quiet area), mobile composition designed (not just shrunk).

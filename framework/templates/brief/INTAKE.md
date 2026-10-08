@@ -4,6 +4,11 @@ Raw answers per round with question ids (see `framework/intake/`). Appended afte
 
 Started: __DATE__
 
+Entry: _not asked yet_ (`prompt`, `catalog` or `notes`, see `framework/intake/entry.md`)
+
+## Prompt coverage
+_only for the prompt path: one line per question id, `from-prompt`, `inferred` or `open`_
+
 ## Round 1: Basics and intent
 _not started_
 

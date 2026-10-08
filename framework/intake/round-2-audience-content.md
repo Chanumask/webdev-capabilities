@@ -66,10 +66,24 @@ Why: asset pipeline, licensing and performance.
 Type: multi
 Options:
 - 3D scenes and animation built in code: no image files needed, high impact (Recommended when the user wants an extraordinary or animated result)
+- Photographic renders made for the project: rendered with Blender from scanned models and real light, looks like photos or film (see Q3.8b for the cost and the choice)
 - My own photos or videos: supplied by the user (ask when they will arrive)
 - Illustrations or icons drawn for the project
 - Stock photography: needs licensing; we only suggest sources and never download unlicensed images
 Writes: BRIEF.media
+
+## Q2.6b What can you supply for realism (only if Q2.6 or Q3.6 is photographic or realistic)
+Ask: What do you already have that shows the real thing?
+Why: real material beats anything generated. It decides whether the agent can build a photographic result and from what. Photographs of real places and products are the most convincing basis.
+Type: multi
+Options:
+- Photos of the subject: the agent can use them as they are, as a reference for lighting and materials, or as textures
+- Video of the subject (for example a walk-through or a drone flight): the best basis for a real place; the scroll animation is cut from it
+- 3D or CAD files (GLB, FBX, OBJ, STEP, SketchUp, IFC): the agent builds the scene from them
+- Existing renders or brand images: used as reference or directly
+- Nothing yet: the agent picks free models and materials (CC0 libraries with checked licences) and says what is invented
+Follow-up: ask when files will arrive and in which folder; never ask for passwords or links that need a login in the chat.
+Writes: BRIEF.assets.supplied
 
 ## Q2.7 What changes over time
 Ask: Which content will be updated regularly after launch, and by whom?

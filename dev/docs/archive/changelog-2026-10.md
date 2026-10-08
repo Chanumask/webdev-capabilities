@@ -6,6 +6,23 @@ Entries moved verbatim from the live changelog, newest first.
 
 ---
 
+## 2026-10-03 (feat) .env.example for every site
+
+- The starter ships `.env.example` (copied into each new site) with a disclaimer at the top: secrets only here, never in chat or other files, the agent never opens `.env`, it is never committed or exported. Variables: `CMS_PROVIDER`, `WIX_API_KEY`, `WIX_SITE_ID`, `WIX_COLLECTIONS`.
+- Starter `.gitignore` keeps `.env.example` tracked; `.claude/settings.json` denies Read and Edit of `**/.env` (commands such as `cms:check` still read it). Shell `cat` is not covered by the deny rule, so the instruction in the skill and the file remains the main guard.
+- `cms:check` error and `launch-site` skill point to the file; test `dev/tests/env-example.test.mjs`.
+
+---
+
+## 2026-10-03 (refactor) Clean repository root
+
+- Root reduced from about 30 entries to `README.md`, `CLAUDE.md`, `package.json`, `sites/`, `exports/`, `framework/`, `dev/` plus tool config. Decision [0013](../decisions/0013-repository-structure.md).
+- `framework/`: workflow, conventions, intake, launch, templates (incl. starter), capabilities, examples, tools. `dev/`: docs, scripts, tests, hooks, config.
+- README, CLAUDE.md and conventions show the new tree; `.zed/settings.json` hides tool output; new `dev/tests/imports.test.mjs` catches stale imports and npm script paths.
+- **Existing clones: run `npm run setup` once** (`core.hooksPath` moved from `.githooks` to `dev/hooks`).
+
+---
+
 ## 2026-10-03 (feat) Pushes need approval each time
 
 - New rule [0012](../decisions/0012-push-with-approval.md): the agent may push (feature branches and `main`) but asks with `AskUserQuestion` before **every** push, naming branch and commits; one approval covers one push. Amends the push part of [0002](../decisions/0002-git-workflow.md).

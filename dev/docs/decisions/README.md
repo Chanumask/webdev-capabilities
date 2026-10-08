@@ -23,3 +23,4 @@ One short file per decision, format in [documentation.md](../process/documentati
 | [0015](0015-realism-tiers.md) | Realism tiers T0 to T3 (T4 backlog), defaults by subject, a stop gate before long renders | active | 2026-10-08 |
 | [0016](0016-blender-as-local-asset-tool.md) | Blender 5.2 as a local tool: headless scripts for batch work, blender-mcp only in the main session, GLB validation | active | 2026-10-08 |
 | [0017](0017-asset-licensing-and-ledger.md) | Asset licensing: CC0 and CC-BY only, vendored files, an ASSETS.md ledger per site | active | 2026-10-08 |
+| [0018](0018-intake-entry-path.md) | The intake starts with an entry question: prompt (extract, ask only the gaps) or the question catalog | active | 2026-10-08 |

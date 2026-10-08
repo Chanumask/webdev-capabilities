@@ -8,10 +8,11 @@ description: Start a new website project. Use when the user wants a new website,
 You are starting a new website for a user who is usually **not technical**. Your job in this skill is to capture the full context through several rounds of questions so the later build succeeds in one pass. You do not write site code here.
 
 ## Before you ask anything
-1. Read `framework/intake/README.md` (rules for asking) and `framework/WORKFLOW.md` (stages).
-2. Look at what the user already said. Extract answers from it. Fetch any URLs they mentioned (existing site, references) and summarise what you saw.
-3. Tell the user in 3 lines how this goes: several short rounds with more detail each time, a summary to approve at the end, then the site is built in one go and shown on localhost; quick answers or "you decide" are fine, more answers mean fewer corrections.
-4. Run `npm run list` to see existing sites (avoid slug clashes, offer to continue an existing one if the user means that).
+1. Read `framework/intake/README.md` (rules for asking), `framework/intake/entry.md` and `framework/WORKFLOW.md` (stages).
+2. **Entry first:** ask with `AskUserQuestion` whether the user has a prompt or description or wants to go through the questions (exact question and the three paths in `framework/intake/entry.md`). If the first message already is a long description, take it as the prompt without asking. On the prompt path you extract, show what you understood and ask only the gaps; never drop the final review.
+3. Look at what the user already said. Extract answers from it. Fetch any URLs they mentioned (existing site, references) and summarise what you saw.
+4. Tell the user in 3 lines how this goes: several short rounds with more detail each time, a summary to approve at the end, then the site is built in one go and shown on localhost; quick answers or "you decide" are fine, more answers mean fewer corrections.
+5. Run `npm run list` to see existing sites (avoid slug clashes, offer to continue an existing one if the user means that).
 
 ## Create the project folder
 As soon as the name is known (Q1.1), propose a kebab-case slug, confirm it, and run:

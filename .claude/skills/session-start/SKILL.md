@@ -16,7 +16,7 @@ Policy: [modes](../../../dev/docs/process/modes.md), [decision 0005](../../../de
 
 ## 2a. Website mode start
 1. Fresh clone (`.claude/framework-state.json` missing) or "set up": run the `onboard` skill. Otherwise, if a site exists, run `npm run status -- <slug>` and lead with its proposed next step ([NEXT-STEPS](../../../framework/NEXT-STEPS.md)).
-2. New website: `new-site` skill (intake). Existing site: `change-site`. Export: `export-site`.
+2. New website: `new-site` skill (intake). It starts by asking whether the user has a prompt or description (then the agent extracts the answers and asks only the gaps) or wants the question catalog; a first message that already is a long description counts as the prompt ([entry](../../../framework/intake/entry.md)). Existing site: `change-site`. Export: `export-site`.
 3. End of the session: when the user is done or says "wrap up", run the `wrap-up` skill (session report, feedback summary, optional shareable file).
 4. Rules: write only inside `sites/<slug>` and `exports/`; never edit framework files; framework gaps go to `sites/<slug>/brief/FRAMEWORK-FEEDBACK.md`; commit milestones in the site's own repo; never touch the framework repo's branch state.
 

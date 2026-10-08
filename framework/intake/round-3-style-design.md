@@ -64,7 +64,8 @@ Ask: What should the images look like?
 Why: asset direction.
 Type: single
 Options:
-- Realistic renders: believable materials and light (Recommended with 3D scenes)
+- Photographic renders: rendered with real light and scanned materials so it looks like a photo (Recommended when quality is the goal; choose the level in Q3.8b)
+- Stylised 3D: simple forms and calm colour, clearly not a photo
 - Photography: real photos supplied by the client
 - Illustration or graphic shapes: stylised, flat, graphic
 - Mostly typography, almost no images
@@ -93,10 +94,22 @@ Options (use `preview` to show a three-line sketch for each):
 - Product tour: the camera moves around one object and highlights parts
 Follow-up questions (ask as needed, one call):
 - Subject and setting: what exactly is shown? (free text)
-- Realism: stylised and graphic, or realistic materials and light (Recommended: realistic when quality is the goal)
+- Realism: ask Q3.8b
 - Start and end: what does the first screen show, what is the last? (many sites work well when the finished result is shown first, then the story rewinds)
 - Phones: same animation simplified, or a calm alternative
 Writes: BRIEF.motion3d (subject, story archetype, realism, start/end state, mobile plan). The full storyboard is built in round 5.
+
+## Q3.8b Realism level (only if the 3D or animation idea is realistic or photographic)
+Ask: How real should it look? Each level costs more effort and download size.
+Why: decides the whole production route, the file size and which tools run. Decision 0015 (tiers). Recommend by subject: buildings, interiors and places photographic frames; a single product real-time models; abstract or brand subjects lit stylised 3D.
+Type: single
+Options:
+- Photographic frames (T3, Recommended for buildings, places, interiors and when the best quality matters): rendered with Blender and played by scrolling, looks like film or photos. About 8 to 15 MB for the whole page, works even without 3D support, no free rotation. Needs Blender on this computer and rendering time (about 10 to 30 minutes per sequence). Built from free scanned models and materials, or from your files
+- Real-time 3D models (T2, Recommended for one product the visitor should turn and inspect): the visitor can rotate and zoom. Looks like a good product viewer, not like a photo. About 6 to 14 MB
+- Lit stylised 3D (T1): simple forms with realistic light and materials. About 3 to 6 MB, no extra tools
+- Stylised 3D in code (T0): the look of the reference example `lindenhof`. Under 2 MB
+Follow-up: for T2 and T3 the agent shows one finished still first and waits for a yes before any long rendering (stop gate). Buildings need good models or CAD files to look photographic; say so honestly and ask Q2.6b. Phones get their own portrait render.
+Writes: BRIEF.motion3d.tier
 
 ## Q3.9 Layout character
 Ask: How should the page be laid out?

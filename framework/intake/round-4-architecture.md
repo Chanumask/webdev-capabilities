@@ -36,8 +36,9 @@ Ask: How should the 3D and animation be made?
 Why: asset needs, performance, who can maintain it.
 Type: single
 Options:
-- Built in code with Three.js, GSAP and smooth scrolling (Recommended): no model files, small download, fully controllable, consistent look
-- Ready-made 3D models (glTF files): most realistic if a 3D artist supplies models; needs files and larger downloads
+- Rendered frames with Blender (Recommended when Q3.8b is photographic frames): photographic result, played by scrolling, small to medium download, works without 3D support
+- Ready-made 3D models in real time, glTF (Recommended when Q3.8b is real-time models): the visitor can turn the object; needs model files (supplied or from free libraries) and a medium download
+- Built in code with Three.js, GSAP and smooth scrolling (Recommended when Q3.8b is lit or stylised 3D): no model files, small download, fully controllable, consistent look
 - Spline or similar visual 3D editor embed: quick for simple objects, less control, external dependency
 - CSS and video only: lightest, no real 3D
 Writes: BRIEF.tech.motion

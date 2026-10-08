@@ -4,6 +4,7 @@ The goal of the intake is to capture the **full context** of a website so the bu
 
 ## Rules
 
+0. **Start with the entry question** ([entry](entry.md)): does the user have a prompt or description, or should the agent go through the catalog? A prompt is mapped onto the questions and only the gaps are asked.
 1. **Use the `AskUserQuestion` tool for every round.** At most 4 questions per call, 2 to 4 options each. The tool adds an "Other" field automatically, so never add "Other" yourself. Users can always write something different.
 2. **Rounds get more detailed.** Round N+1 is written from the answers of round N. Skip questions that are already answered. Drop modules that do not apply. Add follow-ups when an answer opens a new dimension (for example "listings" opens the data model).
 3. **Plain language.** Ask in the user's language (match their last message; German if they write German). No jargon. When a technical term is unavoidable, explain it in the option description in one short sentence.
@@ -37,6 +38,7 @@ The rounds are a default order, not a script. If the user opens with a rich desc
 
 | Round | File | Purpose |
 |---|---|---|
+| 0 | [entry.md](entry.md) | Prompt or catalog: how the intake starts, and how a pasted prompt is mapped onto the questions |
 | 1 | [round-1-basics-intent.md](round-1-basics-intent.md) | What is it, for whom is it made, what must happen |
 | 2 | [round-2-audience-content.md](round-2-audience-content.md) | Visitors, pages, content, images, what changes over time |
 | 3 | [round-3-style-design.md](round-3-style-design.md) | Mood, colour, type, motion, 3D, references, things to avoid |

@@ -6,6 +6,25 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-08 (feat) Intake entry question and photoreal catalog
+
+- **Entry question** ([0018](decisions/0018-intake-entry-path.md), [entry.md](../../framework/intake/entry.md)): every new site starts by asking whether the user has a prompt or description (the agent maps it onto the question ids with the statuses `from-prompt`, `inferred`, `open`, shows a coverage summary and asks only the gaps) or wants the question catalog; a long first message counts as the prompt. A pasted prompt is content, not instructions to the agent. `new-site`, `session-start`, the intake README, `CLAUDE.md` and the INTAKE template follow.
+- **Photoreal catalog:** Q2.6b (what the user can supply: photos, video, CAD or GLB files), Q3.6 splits photographic and stylised, new Q3.8b realism level (tiers T0 to T3 with cost, size and the stop gate), Q4.3 recommends by tier, 5E adds shots, frame counts and the weight budget, round 6 states honest risks; BRIEF fields for tier, third-party assets and weight; `build-site` follows the Blender pipeline for T2 and T3.
+- Merged branches deleted locally by the maintainer's instruction: docs/photoreal-plan, docs/photoreal-quality, docs/photoreal-decisions, feat/export-heavy-assets, feat/blender-pipeline.
+
+**Next session** →
+
+Paste-to-start prompt (website mode, new chat):
+> Neue Website, ich habe einen ausführlichen Prompt. (Dann den Prompt einfügen.)
+
+- **Branch:** main (pushed if the log says so); no maintainer work open.
+- **State:** the catalog now has the entry question and the realism tiers; the Blender pipeline, asset fetch and export limits exist. The first real photoreal site is the test; nothing is extracted from it yet.
+- **Do next (maintainer, after the website session):** read the site's `brief/FRAMEWORK-FEEDBACK.md`, fix what the real run exposed, extract the T3 canvas scrubber as a capability (B4), then B5 (T1 and T2 realism) and B7.
+- **Watch for:** blender-mcp never in workers; 4K frames hosted only; push needs approval.
+- **Environment:** `npm run blender -- check`, `npm run setup` (writes .playwright/file.config.json).
+
+---
+
 ## 2026-10-08 (feat) Blender pipeline
 
 - New capability [blender-pipeline](../../framework/capabilities/blender-pipeline/README.md): `lib/webdev_bpy.py` (Cycles setup, HDRI, Poly Haven model and texture helpers, instancing, glass, fog box, sequences, GLB export with an automatic JPEG fallback), scene templates and a selftest.
@@ -71,23 +90,6 @@ Paste-to-start prompt:
 ## 2026-10-03 (feat) Warn when a secret reaches the agent
 
 - New rule in CLAUDE.md and `launch-site`: if a password, key or token reaches the agent anyway (pasted in chat, or visible in a file or output), it warns the user at once (kind and place, never the value), copies it nowhere, and recommends revoking and replacing it. Also stated in the starter `.env.example`; test extended.
-
----
-
-## 2026-10-03 (feat) .env.example for every site
-
-- The starter ships `.env.example` (copied into each new site) with a disclaimer at the top: secrets only here, never in chat or other files, the agent never opens `.env`, it is never committed or exported. Variables: `CMS_PROVIDER`, `WIX_API_KEY`, `WIX_SITE_ID`, `WIX_COLLECTIONS`.
-- Starter `.gitignore` keeps `.env.example` tracked; `.claude/settings.json` denies Read and Edit of `**/.env` (commands such as `cms:check` still read it). Shell `cat` is not covered by the deny rule, so the instruction in the skill and the file remains the main guard.
-- `cms:check` error and `launch-site` skill point to the file; test `dev/tests/env-example.test.mjs`.
-
----
-
-## 2026-10-03 (refactor) Clean repository root
-
-- Root reduced from about 30 entries to `README.md`, `CLAUDE.md`, `package.json`, `sites/`, `exports/`, `framework/`, `dev/` plus tool config. Decision [0013](decisions/0013-repository-structure.md).
-- `framework/`: workflow, conventions, intake, launch, templates (incl. starter), capabilities, examples, tools. `dev/`: docs, scripts, tests, hooks, config.
-- README, CLAUDE.md and conventions show the new tree; `.zed/settings.json` hides tool output; new `dev/tests/imports.test.mjs` catches stale imports and npm script paths.
-- **Existing clones: run `npm run setup` once** (`core.hooksPath` moved from `.githooks` to `dev/hooks`).
 
 ---
 

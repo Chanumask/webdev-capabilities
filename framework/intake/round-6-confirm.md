@@ -10,7 +10,7 @@ List separately, in plain words:
 - **Decisions I made for you** (delegated) with a one-line reason each.
 - **Placeholders** that will be clearly marked (texts, images, data, legal data, phone numbers).
 - **Not included** in this build (for example checkout, bookings, logins, real deployment, domain setup, final legal texts).
-- **Risks** worth knowing (for example "3D scenes are built in code, so realism has a ceiling; a 3D artist's models can raise it later").
+- **Risks** worth knowing (for example "stylised 3D is built in code, so realism has a ceiling"; "photographic frames cannot be rotated and buildings need good models to look like photos").
 
 ## Step 3: Acceptance checklist
 Generate `brief/ACCEPTANCE.md` from the brief: a checklist the finished site must satisfy (primary action reachable in the first screen, every section present, copy in the right language and tone, contrast and keyboard checks, reduced-motion fallback, phone/tablet/desktop screenshots reviewed, forms behave, export file opens offline, no invented facts). The build ends only when it is checked off.

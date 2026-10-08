@@ -49,7 +49,8 @@ host:                    # cloudflare-pages | netlify | vercel | github-pages | 
 
 ## 7. Media and assets
 - Imagery plan:
-- Assets supplied (logo, colours, photos), with paths in `assets/`:
+- Assets supplied (logo, colours, photos, video, 3D or CAD files), with paths in `assets/`:
+- Third-party assets (every one listed with source and licence in `ASSETS.md`):
 - Assets still missing:
 
 ## 8. Style and design
@@ -68,9 +69,9 @@ host:                    # cloudflare-pages | netlify | vercel | github-pages | 
 - Motion level:
 - Signature animation: subject, story, start state, end state:
 - Storyboard (table from round 5):
-- Realism level and scene elements:
+- Realism tier (T0 stylised in code, T1 lit stylised, T2 real-time models, T3 photographic frames) and scene elements:
 - Mobile plan and reduced-motion fallback:
-- Performance budget:
+- Performance budget (frame time, page weight; single-file export under 25 MB):
 
 ## 10. Technology
 | Decision | Choice | Status | Reason |
