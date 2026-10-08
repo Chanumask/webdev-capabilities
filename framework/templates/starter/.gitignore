@@ -6,3 +6,4 @@ dist/
 !.env.example
 .impeccable/review/
 .impeccable/mocks/
+renders/

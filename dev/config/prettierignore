@@ -14,3 +14,4 @@ dev/hooks
 *.md
 package-lock.json
 .playwright-cli/
+.astro

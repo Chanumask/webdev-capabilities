@@ -12,6 +12,7 @@ import { execSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { root, listSites } from './lib.mjs';
+import { locateBlender } from './blender-lib.mjs';
 
 const quick = process.argv.includes('--quick');
 const win = process.platform === 'win32';
@@ -95,6 +96,16 @@ if (pw) {
     fs.existsSync(cfg)
       ? 'configured (.playwright/cli.config.json)'
       : 'no browser configured; install Chrome or Edge, then run: playwright-cli install',
+  );
+}
+
+// optional: Blender for photoreal sites (tiers T2 and T3, decision 0016). Informational, never a failure.
+{
+  const exe = locateBlender();
+  console.log(
+    exe
+      ? `INFO Blender found: ${exe}`
+      : 'INFO Blender not found (optional, only needed for photoreal scenes): install Blender 5.x or set BLENDER',
   );
 }
 

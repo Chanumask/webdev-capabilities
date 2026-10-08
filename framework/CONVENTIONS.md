@@ -53,6 +53,8 @@ Slug rules: lowercase letters, numbers, dashes; short; no dates (`meyer-architek
 | `npm run build -- <slug>` | production build into `sites/<slug>/dist` |
 | `npm run export -- <slug>` | single-file offline export into `exports/<slug>/` (add `-- --zip`, `-- --light`); warns above 15 MB, fails above 25 MB |
 | `npm run weight -- <slug>` | page weight of the build and the estimated size of the single file |
+| `npm run assets -- add <slug> models/<id>` | downloads a CC0 Poly Haven model, texture or HDRI once into the site and lists it in `ASSETS.md` |
+| `npm run blender -- check | render | frames | run | validate` | headless Blender pipeline for photoreal scenes ([capability](capabilities/blender-pipeline/README.md)) |
 | `npm run status -- <slug>` | stage of a site and proposed next steps (the agent runs it to lead the conversation) |
 | `npm run launch-prep -- <slug> --domain d.de` | prepares launch guide, robots, sitemap, headers, site address (no network) |
 | `npm run launch-check -- <slug>` | pre-launch checks on the built site |

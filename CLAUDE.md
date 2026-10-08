@@ -56,4 +56,4 @@ Do not start coding and do not ask free-form questions for a new site: run `new-
 
 Layout rules and reasons: [structure decision](dev/docs/decisions/0013-repository-structure.md), [conventions](framework/CONVENTIONS.md).
 
-Commands: `npm run setup | new-site | dev | stop | build | list | export | weight | status | launch-prep | launch-check | cms:check | dns-check | handover | check | smoke`.
+Commands: `npm run setup | new-site | dev | stop | build | list | export | weight | blender | assets | status | launch-prep | launch-check | cms:check | dns-check | handover | check | smoke`.

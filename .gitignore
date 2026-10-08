@@ -34,3 +34,7 @@ sites/*
 
 # feedback bundles received from other users (read by triage-feedback)
 inbox/
+
+# python bytecode (Blender imports the pipeline library)
+__pycache__/
+*.pyc
