@@ -19,3 +19,7 @@ One short file per decision, format in [documentation.md](../process/documentati
 | [0011](0011-pluggable-cms-providers.md) | CMS providers are plug-ins behind one contract; Wix is the first provider, REST with an API key | active | 2026-10-03 |
 | [0012](0012-push-with-approval.md) | The agent may push, but only after asking for explicit approval each time; amends the push rule of 0002 | active | 2026-10-03 |
 | [0013](0013-repository-structure.md) | Clean repository root: sites/ and exports/ for users, framework/ for the machinery, dev/ for maintainers | active | 2026-10-03 |
+| [0014](0014-export-budgets-and-variants.md) | Export budgets (warn 15 MB, error 25 MB), `--light`, script-referenced assets inlined, meshopt only, HD frames in the file, 4K hosted only; amends 0007 | active | 2026-10-08 |
+| [0015](0015-realism-tiers.md) | Realism tiers T0 to T3 (T4 backlog), defaults by subject, a stop gate before long renders | active | 2026-10-08 |
+| [0016](0016-blender-as-local-asset-tool.md) | Blender 5.2 as a local tool: headless scripts for batch work, blender-mcp only in the main session, GLB validation | active | 2026-10-08 |
+| [0017](0017-asset-licensing-and-ledger.md) | Asset licensing: CC0 and CC-BY only, vendored files, an ASSETS.md ledger per site | active | 2026-10-08 |

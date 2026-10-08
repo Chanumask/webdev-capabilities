@@ -24,3 +24,9 @@ Ideas for the framework, not yet built. A mid-task idea is written here, not sta
 | Starter variants (one-pager, listings, portfolio) | template | faster start for common types | medium |
 | Automatic anonymisation check for feedback bundles (names, prices, emails) | tool | the wrap-up bundle is reviewed by hand today | small |
 | Setup check on macOS and Linux | tooling | only Windows was tested | small |
+| Paid AI generation of frames and 3D (fal, Replicate, Meshy) | capability | maintainer chose to keep the photoreal programme free; rules if built: price first, approval per spend, key only in `.env`, per-model licence check | medium, costs money |
+| Gaussian splats (Spark) for real places | capability | tier T4; files are tens of MB, WASM and workers untested from `file://` | medium |
+| Path-traced stills in the browser (three-gpu-pathtracer) as a Blender-free renderer | tool | alternative when Blender is missing | medium |
+| WebGPU and TSL track | capability | file:// behaviour unproven | large |
+| Image-to-3D (TRELLIS.2, Stable Fast 3D) | capability | Linux or licence limits; single-view meshes are weak | medium |
+| Lazy 4K upgrade for hosted frame sequences | capability | 4K does not fit the single file | small |

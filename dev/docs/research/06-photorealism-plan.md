@@ -2,7 +2,7 @@
 
 ← [CLAUDE.md](../../../CLAUDE.md) · [research index](README.md) · [04 problem](04-photorealism-problem.md) · [05 candidates](05-photorealism-candidates.md)
 
-Status: **proposed, awaiting approval** (2026-10-08, revised after the maintainer's answers: new example, Blender 5.2 and blender-mcp already available, single-file export with 25 MB cap, paid generation to the backlog). Decisions below are drafts; they are logged with the `decision-log` skill only when approved.
+Status: **approved 2026-10-08, decisions 0014 to 0017 logged**; originally proposed (2026-10-08, revised after the maintainer's answers: new example, Blender 5.2 and blender-mcp already available, single-file export with 25 MB cap, paid generation to the backlog). Decisions below are drafts; they are logged with the `decision-log` skill only when approved.
 
 ## Summary
 

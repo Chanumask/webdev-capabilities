@@ -2,6 +2,8 @@
 
 Date: 2026-10-03 · Status: active
 
+Amended by [0014](0014-export-budgets-and-variants.md) (size budgets, `--light`, assets loaded by scripts).
+
 **Context.** Users judge a site by looking at it and want to send it to someone who has no tooling. Sites include scroll-driven 3D with modules and fonts.
 
 **Decision.**
