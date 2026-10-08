@@ -6,6 +6,18 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-08 (feat) People: Rocketbox avatars and the Mixamo rules
+
+- Test renders with four Microsoft Rocketbox avatars: clearly not toy figures at medium and long distance (faces, clothes, a little subsurface skin); close-ups show game-era hair cards ([research 08](research/08-people-and-characters.md)).
+- Decision [0020](decisions/0020-human-figures.md): Rocketbox (MIT) is the default; Mixamo only for rendered frames, downloaded by the user with their own Adobe ID, raw files never shipped; no invented faces; MPFB2, MetaHuman and animated people go to the backlog.
+- `npm run assets -- add <site> people/<id>` (TGA textures converted by a small decoder, licence file and `ASSETS.md` row), `webdev_bpy.import_person`, catalog question Q3.8c and brief field, `build-site` and the capability README updated. 4 new tests.
+
+**Next session** →
+
+Same handover as the entries below (website test session with a real prompt, then the maintainer reads its `FRAMEWORK-FEEDBACK.md`).
+
+---
+
 ## 2026-10-08 (docs) Delivery routes for heavy sites and server apps
 
 - Decision [0019](decisions/0019-delivery-routes.md): one file up to 25 MB, a hosted preview link for heavier static sites, hosting for sites with a live server (virtual rooms like `custom_tabletop`); no folder export, because `file://` blocks fetch, workers and WASM. Amends the promise of 0007 and principle 5.
@@ -87,14 +99,6 @@ Paste-to-start prompt:
 
 - New guide [wix/SETUP.md](../../framework/capabilities/cms-providers/wix/SETUP.md): the steps we actually took, with German menu names and pitfalls (no CMS in the sidebar, App Market, `CMS for Harmony`, site ID from the dashboard URL, API key with specific site and read-only data permission, `.env`, `cms:check` error table). Labels not seen on screen are marked as not confirmed.
 - New skill `connect-cms` walks the owner through it (keys never in chat). `npm run status` offers **"Set up Wix as CMS and link your account"** in the build and review stages while the brief names Wix in the CMS row and the site has no `.env` (existence check only). 3 new tests.
-
----
-
-## 2026-10-03 (fix) Wix provider verified against a real account
-
-- `npm run cms:check` against a real Wix site (Harmony editor, `CMS for Harmony`): connection OK, items returned flat (`id` plus fields), header `wix-site-id` confirmed. See [0011](decisions/0011-pluggable-cms-providers.md).
-- Fix: `cms-check` ended with `process.exit()`, which crashed Node on Windows (libuv assertion, exit 127) while the HTTP connection was closing; now sets `process.exitCode`.
-- Still open: images (`wix:image://`) from live data and a full site build from Wix content.
 
 ---
 

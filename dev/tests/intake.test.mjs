@@ -64,3 +64,17 @@ test('delivery routes: Q4.12 asks how to show the site, virtual rooms are named 
   assert.match(read('dev', 'docs', 'decisions', 'README.md'), /\[0019\]\(0019-delivery-routes\.md\)/);
   assert.match(read('CLAUDE.md'), /0019/);
 });
+
+test('people: Q3.8c asks how people appear, decision 0020 is indexed, the library imports them', () => {
+  const style = read('framework', 'intake', 'round-3-style-design.md');
+  const q = style.split('## Q3.8c')[1].split('## Q3.9')[0];
+  assert.match(q, /Writes: BRIEF\.motion3d\.people/);
+  assert.match(q, /never invents faces/);
+  assert.match(read('dev', 'docs', 'decisions', 'README.md'), /\[0020\]\(0020-human-figures\.md\)/);
+  assert.match(read('framework', 'templates', 'brief', 'BRIEF.md'), /People in the scene/);
+  assert.match(read('framework', 'capabilities', 'blender-pipeline', 'lib', 'webdev_bpy.py'), /def import_person/);
+  assert.match(
+    read('framework', 'capabilities', 'blender-pipeline', 'README.md'),
+    /Mixamo files may only be used in rendered frames/,
+  );
+});

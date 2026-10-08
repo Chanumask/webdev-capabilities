@@ -103,6 +103,78 @@ def import_model(name):
     return root, new
 
 
+def import_person(pid, loc=(0, 0, 0), rot_z=0.0, arm_deg=48):
+    """Microsoft Rocketbox avatar (MIT) fetched with `npm run assets -- add <site> people/<id>`.
+    Wires the converted textures (assets/people/<id>/<prefix>_<part>_<kind>.jpg|png) into Principled materials with
+    a little subsurface for skin, and lowers the arms from the T-pose. Returns (root, armature, objects).
+    Suitable for rendered frames at medium and long distance; close-ups show game-era hair cards."""
+    d = os.path.join(ASSETS, 'assets', 'people', pid)
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.fbx(filepath=os.path.join(d, pid + '.fbx'))
+    new = [o for o in bpy.data.objects if o not in before]
+
+    def find(prefix, part, kind):
+        for ext in ('jpg', 'png'):
+            p = os.path.join(d, f'{prefix}_{part}_{kind}.{ext}')
+            if os.path.exists(p):
+                return p
+        return None
+
+    for o in new:
+        if o.type != 'MESH':
+            continue
+        for slot in o.material_slots:
+            m = slot.material
+            if not m:
+                continue
+            low = m.name.lower()
+            part = 'opacity' if 'opacity' in low else ('head' if 'head' in low else 'body')
+            prefix = m.name.split('_')[0]
+            m.use_nodes = True
+            nt = m.node_tree
+            nt.nodes.clear()
+            out = nt.nodes.new('ShaderNodeOutputMaterial')
+            bs = nt.nodes.new('ShaderNodeBsdfPrincipled')
+            nt.links.new(bs.outputs['BSDF'], out.inputs['Surface'])
+
+            def tex(kind, cs):
+                p = find(prefix, part, kind)
+                if not p:
+                    return None
+                n = nt.nodes.new('ShaderNodeTexImage')
+                n.image = bpy.data.images.load(p)
+                n.image.colorspace_settings.name = cs
+                return n
+
+            c = tex('color', 'sRGB')
+            if c:
+                nt.links.new(c.outputs['Color'], bs.inputs['Base Color'])
+                if part == 'opacity':
+                    nt.links.new(c.outputs['Alpha'], bs.inputs['Alpha'])
+            nrm = tex('normal', 'Non-Color')
+            if nrm:
+                nn = nt.nodes.new('ShaderNodeNormalMap')
+                nt.links.new(nrm.outputs['Color'], nn.inputs['Color'])
+                nt.links.new(nn.outputs['Normal'], bs.inputs['Normal'])
+            bs.inputs['Roughness'].default_value = 0.55 if part != 'opacity' else 0.8
+            if part in ('head', 'body'):
+                bs.inputs['Subsurface Weight'].default_value = 0.15
+                bs.inputs['Subsurface Radius'].default_value = (1.0, 0.35, 0.2)
+                bs.inputs['Subsurface Scale'].default_value = 0.02
+    arm = [o for o in new if o.type == 'ARMATURE'][0]
+    for side, sign in (('L', 1), ('R', -1)):
+        b = arm.pose.bones.get(f'Bip01 {side} UpperArm')
+        if b:
+            b.rotation_mode = 'XYZ'
+            b.rotation_euler = (0, math.radians(arm_deg * sign), 0)
+    root = bpy.data.objects.new(pid, None)
+    bpy.context.collection.objects.link(root)
+    arm.parent = root
+    root.location = loc
+    root.rotation_euler = (0, 0, math.radians(rot_z))
+    return root, arm, new
+
+
 def bbox(objs):
     pts = []
     for o in objs:

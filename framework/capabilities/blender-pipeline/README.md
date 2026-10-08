@@ -31,6 +31,9 @@ The brief picks realism tier **T3** (rendered frames scrubbed by scroll) or **T2
 ## Flow for T2 models
 `templates/export-glb.py` exports models as web GLBs (1024 px WebP textures, meshopt, no lights). The tool validates the result. If WebP leaves a missing image (single-channel maps such as Poly Haven glass roughness) the library writes that GLB with JPEG textures and says so.
 
+## People
+`npm run assets -- add <site> people/<id>` fetches a Microsoft Rocketbox avatar (MIT; for example `Male_Adult_05`, `Female_Adult_03`, `Business_Male_01`; 115 in total) into `assets/people/<id>/`, converts its TGA textures to JPEG and PNG and keeps the licence file next to them. In the scene script `wb.import_person(id, (x, y, z), rot_z)` imports it, wires the materials and lowers the arms. Tested at medium and long distance: figures read as real people. Close-ups show game-era hair cards and flat eyes, so portraits come from the client's own photos or video. Mixamo files may only be used in rendered frames, supplied by the user, and never shipped as raw files ([0020](../../../dev/docs/decisions/0020-human-figures.md), [research 08](../../../dev/docs/research/08-people-and-characters.md)).
+
 ## Design rules that worked
 - Scanned models and materials carry the realism; hand-built boxes read as CG. Use as little self-made geometry as possible, and say so when a building needs it.
 - A real HDRI for ambient light, one key light, long lens (85 mm) and f/2.8 to f/5.6 for objects; a level camera for buildings.

@@ -25,3 +25,4 @@ One short file per decision, format in [documentation.md](../process/documentati
 | [0017](0017-asset-licensing-and-ledger.md) | Asset licensing: CC0 and CC-BY only, vendored files, an ASSETS.md ledger per site | active | 2026-10-08 |
 | [0018](0018-intake-entry-path.md) | The intake starts with an entry question: prompt (extract, ask only the gaps) or the question catalog | active | 2026-10-08 |
 | [0019](0019-delivery-routes.md) | Delivery routes by weight and type: one file up to 25 MB, hosted preview link above, server apps by hosting; no folder export | active | 2026-10-08 |
+| [0020](0020-human-figures.md) | Human figures: Rocketbox (MIT) by default, Mixamo only for rendered frames and supplied by the user, no invented faces | active | 2026-10-08 |

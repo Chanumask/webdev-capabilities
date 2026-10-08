@@ -71,6 +71,7 @@ host:                    # cloudflare-pages | netlify | vercel | github-pages | 
 - Storyboard (table from round 5):
 - Realism tier (T0 stylised in code, T1 lit stylised, T2 real-time models, T3 photographic frames) and scene elements:
 - Mobile plan and reduced-motion fallback:
+- People in the scene (none, stylised, background figures from a licensed library, real photos with consent; Q3.8c):
 - Performance budget (frame time, page weight; single-file export under 25 MB):
 
 ## 10. Technology

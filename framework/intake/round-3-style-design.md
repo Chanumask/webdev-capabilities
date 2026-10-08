@@ -111,6 +111,18 @@ Options:
 Follow-up: for T2 and T3 the agent shows one finished still first and waits for a yes before any long rendering (stop gate). Buildings need good models or CAD files to look photographic; say so honestly and ask Q2.6b. Phones get their own portrait render.
 Writes: BRIEF.motion3d.tier
 
+## Q3.8c People in the scene (only if the scene or imagery shows people)
+Ask: Should people be visible, and how?
+Why: people decide whether a scene feels alive or empty, and they are the hardest thing to make look real. Decision 0020: licensed human models are reliable at medium and long distance in rendered frames; portraits come from real photos or video.
+Type: single
+Options:
+- Background and mid-distance people (Recommended for buildings, places and interiors): realistic figures with real clothes and faces that give scale and life; fetched from a licensed library
+- No people: calm and empty, safest for products and abstract scenes
+- Silhouettes or stylised figures: simple forms, clearly not photographic
+- Close-ups of real people: the agent uses your photos or video and needs the consent of the people shown; it never invents faces, names or quotes
+Follow-up: close-up portraits made from 3D models are not promised (hair and eyes look game-like); walking or talking people are not part of this version. Ask Q2.6b about photos or video of people.
+Writes: BRIEF.motion3d.people
+
 ## Q3.9 Layout character
 Ask: How should the page be laid out?
 Why: density and rhythm.

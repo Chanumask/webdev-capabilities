@@ -32,4 +32,6 @@ Ideas for the framework, not yet built. A mid-task idea is written here, not sta
 | Virtual room and multiplayer capability (from `custom_tabletop`: Blender room to GLB, three.js client, WebSocket server, hosting with a server) | capability | new site type outside the catalog; cannot be a single file ([0019](../decisions/0019-delivery-routes.md)) | large |
 | Screen-recorded preview video of a scroll story | tool | a lightweight way to show a heavy site without hosting | small |
 | Hosted preview link for heavy static sites (Cloudflare Pages preview deploy with approval) | tool | the route for sites over 25 MB, overlaps the deploy workflow item | medium, needs the owner's account |
+| Animated people: retarget Mixamo or Rocketbox animations (walk, idle) for T3 sequences, generic importer for user-supplied Mixamo FBX | capability | people stand still today | medium |
+| MPFB2 (MakeHuman) and MetaHuman as higher-realism human sources | capability | better hair, eyes and close-ups; add-on install and terms to be checked | medium |
 | Lazy 4K upgrade for hosted frame sequences | capability | 4K does not fit the single file | small |

@@ -80,6 +80,7 @@ Options:
 - Photos of the subject: the agent can use them as they are, as a reference for lighting and materials, or as textures
 - Video of the subject (for example a walk-through or a drone flight): the best basis for a real place; the scroll animation is cut from it
 - 3D or CAD files (GLB, FBX, OBJ, STEP, SketchUp, IFC): the agent builds the scene from them
+- Photos or video of people: only with their consent; they are the only honest basis for portraits, team pages and testimonials
 - Existing renders or brand images: used as reference or directly
 - Nothing yet: the agent picks free models and materials (CC0 libraries with checked licences) and says what is invented
 Follow-up: ask when files will arrive and in which folder; never ask for passwords or links that need a login in the chat.

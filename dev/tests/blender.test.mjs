@@ -229,3 +229,36 @@ test(
     assert.equal(m.fmt, 'webp');
   },
 );
+
+import { decodeTga, convertedName, textureParts } from '../../framework/tools/people-lib.mjs';
+
+function tga({ w, h, bpp, topOrigin, px }) {
+  const head = Buffer.alloc(18);
+  head[2] = 2;
+  head.writeUInt16LE(w, 12);
+  head.writeUInt16LE(h, 14);
+  head[16] = bpp;
+  head[17] = topOrigin ? 0x20 : 0;
+  return Buffer.concat([head, Buffer.from(px), Buffer.alloc(26)]);
+}
+
+test('TGA decoder: BGR to RGB, origin flip, alpha channel', () => {
+  // 1 x 2 image, bottom-left origin: first stored row is the bottom row
+  const bottomFirst = tga({ w: 1, h: 2, bpp: 24, topOrigin: false, px: [1, 2, 3, 10, 20, 30] }); // BGR bottom, BGR top
+  const a = decodeTga(bottomFirst);
+  assert.deepEqual([a.width, a.height, a.channels], [1, 2, 3]);
+  assert.deepEqual([...a.data], [30, 20, 10, 3, 2, 1], 'top row first, RGB order');
+  const top = decodeTga(tga({ w: 1, h: 2, bpp: 24, topOrigin: true, px: [1, 2, 3, 10, 20, 30] }));
+  assert.deepEqual([...top.data], [3, 2, 1, 30, 20, 10]);
+  const rgba = decodeTga(tga({ w: 1, h: 1, bpp: 32, topOrigin: true, px: [1, 2, 3, 200] }));
+  assert.deepEqual([...rgba.data], [3, 2, 1, 200]);
+  assert.throws(() => decodeTga(Buffer.alloc(10)), /not a TGA/);
+  assert.throws(() => decodeTga(tga({ w: 4, h: 4, bpp: 24, topOrigin: true, px: [1, 2, 3] })), /truncated/);
+});
+
+test('Rocketbox texture names are converted and understood', () => {
+  assert.equal(convertedName('m009_body_color.tga'), 'm009_body_color.jpg');
+  assert.equal(convertedName('m009_opacity_color.tga'), 'm009_opacity_color.png');
+  assert.deepEqual(textureParts('f003_head_normal.jpg'), { prefix: 'f003', part: 'head', kind: 'normal' });
+  assert.equal(textureParts('readme.txt'), null);
+});

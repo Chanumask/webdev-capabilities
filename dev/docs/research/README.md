@@ -13,6 +13,7 @@ Research behind tool and CMS choices, written 2026-10-03. Star counts and versio
 | [05-photorealism-candidates.md](05-photorealism-candidates.md) | Verified versions, licences, prices and export impact of photoreal tools, assets and skills |
 | [06-photorealism-plan.md](06-photorealism-plan.md) | The proposed realism tiers, branches, acceptance and draft decisions (awaiting approval) |
 | [07-photorealism-quality-spikes.md](07-photorealism-quality-spikes.md) | What photorealism the tiers actually reach (images, byte and render numbers, pitfalls found) |
+| [08-people-and-characters.md](08-people-and-characters.md) | Where human models come from (Rocketbox, Mixamo, MPFB2, MetaHuman), their licences and what a test render showed |
 
 ## TL;DR
 - **Use:** Impeccable (design quality), Playwright CLI (the agent sees the result), Astro + Three.js + GSAP (stack).
