@@ -115,4 +115,5 @@ Terms, places, targets:
 
 ## Delivery
 - Local: `npm run dev -- __SLUG__`
-- Export: `npm run export -- __SLUG__` (single offline HTML in `exports/__SLUG__/`)
+- Export: `npm run export -- __SLUG__` (single offline HTML in `exports/__SLUG__/`, up to 25 MB)
+- Preview for others (one file, hosted preview link or only localhost; Q4.12):

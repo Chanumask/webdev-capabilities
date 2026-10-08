@@ -37,7 +37,7 @@ The same procedure is available as the `onboard` skill (`.claude/skills/onboard`
 
 ### What the agent can rely on
 - Commands (run from the repository root): `npm run setup | new-site | dev | stop | build | list | export`. Details in `framework/CONVENTIONS.md`.
-- Every site is shown on **localhost** (`npm run dev -- <slug>` prints the address) and can be **exported as one offline HTML file** (`npm run export -- <slug>`, result in `exports/<slug>/index.html`).
+- Every site is shown on **localhost** (`npm run dev -- <slug>` prints the address) and static sites can be **exported as one offline HTML file** up to 25 MB (`npm run export -- <slug>`, result in `exports/<slug>/index.html`). Heavier sites are shared with a hosted preview link, and sites with a live server (virtual rooms, logins) are delivered by hosting.
 - Nothing is pushed, published or deleted without the user's explicit approval.
 
 ---
@@ -49,7 +49,7 @@ The same procedure is available as the `onboard` skill (`.claude/skills/onboard`
 3. Claude asks you questions in several rounds: what and why, who it is for, content, look and feel, animation, technology (with a recommended answer for every technical choice), and a final review. Answer quickly or in detail. "You decide" is always allowed.
 4. You approve the summary. Claude builds the site in one go.
 5. You look at it in your browser on **localhost** (Claude gives you the address) and send feedback in plain words.
-6. When you want to share it, ask for an **export**: one HTML file that opens by double-click, offline, with all animations.
+6. When you want to share it, ask for an **export**: one HTML file that opens by double-click, offline, with all animations (for very heavy sites the agent offers a preview link instead).
 7. When you are happy, the agent guides you through **going online**: choosing hosting and a domain (it explains everything from scratch, you do the account and payment steps), checking that it works, and a **handover** package for the owner.
 8. When you are done, say **"wrap up"**: the agent summarises the session, what worked, what was unclear, and what the framework should improve. You can send that summary (anonymised) to the maintainer.
 

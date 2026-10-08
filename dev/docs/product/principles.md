@@ -10,7 +10,7 @@ The rules every decision is checked against. If a proposal breaks one, either ch
 2. **The user is not technical.** They answer questions, look at the result, give feedback in plain words. The agent does all engineering and explains consequences, not jargon.
 3. **The agent leads.** Website sessions are driven by the agent's questions and proposals; the user never has to know what to ask next. Every reply ends with the next step ([0009](../decisions/0009-agent-led-website-mode.md)).
 4. **Recommend, never dictate.** Every technical question has a recommended option with the reason, and the user can always write their own.
-5. **Always visible, always shareable.** Every site runs on localhost and exports to one offline HTML file. Nothing requires a deployment to be judged.
+5. **Always visible, always shareable.** Every site runs on localhost. Static sites export to one offline HTML file up to 25 MB; heavier sites get a hosted preview link, and server apps are delivered by hosting ([0019](../decisions/0019-delivery-routes.md)). Nothing requires a deployment to be judged on this computer.
 6. **High quality is restrained.** Real materials, quiet palettes, one authored motion moment, readable text over scenes, calm fallbacks. Colourful and busy is an explicit choice, not a default.
 7. **No invented facts.** Prices, testimonials, statistics, legal data and people are real or visibly marked placeholders.
 8. **Customer work stays private.** Sites live in their own repositories, never in the shared framework repo.

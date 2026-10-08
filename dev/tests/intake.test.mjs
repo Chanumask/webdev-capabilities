@@ -53,3 +53,14 @@ test('the catalog offers the realism tiers and the brief has the fields', () => 
   assert.match(brief, /ASSETS\.md/);
   assert.match(read('.claude', 'skills', 'build-site', 'SKILL.md'), /blender-pipeline/);
 });
+
+test('delivery routes: Q4.12 asks how to show the site, virtual rooms are named as a gap, 0019 is indexed', () => {
+  const q4 = read('framework', 'intake', 'round-4-architecture.md');
+  const q = q4.split('## Q4.12')[1].split('## Q4.9')[0];
+  assert.match(q, /Writes: BRIEF\.tech\.preview/);
+  assert.match(q, /preview link/);
+  assert.match(read('framework', 'intake', 'round-1-basics-intent.md'), /virtual room/);
+  assert.match(read('framework', 'templates', 'brief', 'BRIEF.md'), /Preview for others/);
+  assert.match(read('dev', 'docs', 'decisions', 'README.md'), /\[0019\]\(0019-delivery-routes\.md\)/);
+  assert.match(read('CLAUDE.md'), /0019/);
+});

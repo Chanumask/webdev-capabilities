@@ -6,6 +6,12 @@ Entries moved verbatim from the live changelog, newest first.
 
 ---
 
+## 2026-10-03 (feat) Warn when a secret reaches the agent
+
+- New rule in CLAUDE.md and `launch-site`: if a password, key or token reaches the agent anyway (pasted in chat, or visible in a file or output), it warns the user at once (kind and place, never the value), copies it nowhere, and recommends revoking and replacing it. Also stated in the starter `.env.example`; test extended.
+
+---
+
 ## 2026-10-03 (feat) .env.example for every site
 
 - The starter ships `.env.example` (copied into each new site) with a disclaimer at the top: secrets only here, never in chat or other files, the agent never opens `.env`, it is never committed or exported. Variables: `CMS_PROVIDER`, `WIX_API_KEY`, `WIX_SITE_ID`, `WIX_COLLECTIONS`.

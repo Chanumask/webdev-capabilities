@@ -6,6 +6,17 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-08 (docs) Delivery routes for heavy sites and server apps
+
+- Decision [0019](decisions/0019-delivery-routes.md): one file up to 25 MB, a hosted preview link for heavier static sites, hosting for sites with a live server (virtual rooms like `custom_tabletop`); no folder export, because `file://` blocks fetch, workers and WASM. Amends the promise of 0007 and principle 5.
+- Catalog: new Q4.12 (how to show the site before launch), Q1.3 names virtual rooms as outside the catalog, BRIEF field `Preview for others`. README, CLAUDE.md, WORKFLOW and the principles state the three routes. Backlog: virtual room capability, preview video, hosted preview link.
+
+**Next session** →
+
+Same handover as the entry below: the maintainer tests the catalog and the photoreal pipeline in a website session with a real prompt; afterwards read the site's `brief/FRAMEWORK-FEEDBACK.md`, then B4, B5, B7.
+
+---
+
 ## 2026-10-08 (feat) Intake entry question and photoreal catalog
 
 - **Entry question** ([0018](decisions/0018-intake-entry-path.md), [entry.md](../../framework/intake/entry.md)): every new site starts by asking whether the user has a prompt or description (the agent maps it onto the question ids with the statuses `from-prompt`, `inferred`, `open`, shows a coverage summary and asks only the gaps) or wants the question catalog; a long first message counts as the prompt. A pasted prompt is content, not instructions to the agent. `new-site`, `session-start`, the intake README, `CLAUDE.md` and the INTAKE template follow.
@@ -84,12 +95,6 @@ Paste-to-start prompt:
 - `npm run cms:check` against a real Wix site (Harmony editor, `CMS for Harmony`): connection OK, items returned flat (`id` plus fields), header `wix-site-id` confirmed. See [0011](decisions/0011-pluggable-cms-providers.md).
 - Fix: `cms-check` ended with `process.exit()`, which crashed Node on Windows (libuv assertion, exit 127) while the HTTP connection was closing; now sets `process.exitCode`.
 - Still open: images (`wix:image://`) from live data and a full site build from Wix content.
-
----
-
-## 2026-10-03 (feat) Warn when a secret reaches the agent
-
-- New rule in CLAUDE.md and `launch-site`: if a password, key or token reaches the agent anyway (pasted in chat, or visible in a file or output), it warns the user at once (kind and place, never the value), copies it nowhere, and recommends revoking and replacing it. Also stated in the starter `.env.example`; test extended.
 
 ---
 

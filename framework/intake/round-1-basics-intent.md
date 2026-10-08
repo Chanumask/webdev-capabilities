@@ -34,7 +34,7 @@ Options:
 - Portfolio or showcase: shows work or an experience; the design is the product
 - Event, campaign or landing page: one goal, one page, focused or time-limited
 Writes: BRIEF.type
-Follow-up: "Other" covers shop, blog or magazine, community, booking. Checkout, booking and login are not part of a pure static build: say so and propose an integration in round 4.
+Follow-up: "Other" covers shop, blog or magazine, community, booking. Checkout, booking and login are not part of a pure static build: say so and propose an integration in round 4. A **virtual room, multiplayer space or anything with a live server** (like a shared meeting room) is outside this catalog: say so honestly, offer the closest static version (a showcase or lobby with the visuals), write the gap to `brief/FRAMEWORK-FEEDBACK.md`, and do not promise an offline file ([0019](../../dev/docs/decisions/0019-delivery-routes.md)).
 
 ## Q1.4 Main goal
 Ask: What is the most important thing the website should achieve?

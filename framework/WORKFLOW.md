@@ -70,7 +70,7 @@ Classify first, then act. Always record in `brief/CHANGELOG.md` (asked, decided,
 Rules: update `BRIEF.md` first when a change alters a decision. After changes, re-run the verification steps relevant to the change, then re-export if the user shares files.
 
 ## Stage 6: Export and deliver
-- `npm run export -- <slug>` creates `exports/<slug>/index.html`: one file with scripts, styles, fonts and images inlined, working offline with all animations (double-click to open). Add `-- --zip` for a zip.
+- `npm run export -- <slug>` creates `exports/<slug>/index.html`: one file with scripts, styles, fonts and images inlined, working offline with all animations (double-click to open). Add `-- --zip` for a zip, `-- --light` for a smaller copy. It warns above 15 MB and fails above 25 MB ([0014](../dev/docs/decisions/0014-export-budgets-and-variants.md)); check `npm run weight -- <slug>` early on heavy sites. A heavier static site is shared by a hosted preview link, a site with a live server is delivered by hosting ([0019](../dev/docs/decisions/0019-delivery-routes.md)); there is no folder export, because `file://` blocks models, workers and WASM.
 - Test the export from `file://` in Playwright before handing it over (no console errors, animation plays).
 - Deployment (when decided in the brief): create a private GitHub repository for the site, connect Cloudflare Pages or Netlify, set the CMS rebuild hook, connect the domain. Never push or publish without the user's explicit yes.
 - Handover notes in `sites/<slug>/README.md`: how to run, export, edit content, who to ask.

@@ -29,4 +29,7 @@ Ideas for the framework, not yet built. A mid-task idea is written here, not sta
 | Path-traced stills in the browser (three-gpu-pathtracer) as a Blender-free renderer | tool | alternative when Blender is missing | medium |
 | WebGPU and TSL track | capability | file:// behaviour unproven | large |
 | Image-to-3D (TRELLIS.2, Stable Fast 3D) | capability | Linux or licence limits; single-view meshes are weak | medium |
+| Virtual room and multiplayer capability (from `custom_tabletop`: Blender room to GLB, three.js client, WebSocket server, hosting with a server) | capability | new site type outside the catalog; cannot be a single file ([0019](../decisions/0019-delivery-routes.md)) | large |
+| Screen-recorded preview video of a scroll story | tool | a lightweight way to show a heavy site without hosting | small |
+| Hosted preview link for heavy static sites (Cloudflare Pages preview deploy with approval) | tool | the route for sites over 25 MB, overlaps the deploy workflow item | medium, needs the owner's account |
 | Lazy 4K upgrade for hosted frame sequences | capability | 4K does not fit the single file | small |

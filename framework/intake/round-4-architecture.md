@@ -4,7 +4,7 @@ Goal: decide the technical setup without confusing the user. **Every question ha
 
 Always true for every site built here (do not ask, but state it in the recap):
 - It runs on **localhost** during development and review.
-- It can be **exported as a single HTML file** (`npm run export -- <slug>`) that works offline, with all animations.
+- A static site can be **exported as a single HTML file** (`npm run export -- <slug>`, up to 25 MB) that works offline, with all animations. Heavier sites and sites with a live server are shared and delivered differently: see Q4.12.
 - It lives in `sites/<slug>/` in this repository.
 
 ## Q4.1 Framework
@@ -115,6 +115,17 @@ Options:
 - I need new mailboxes: I will explain the options (registrar, hosting package, Google or Microsoft)
 - No email needed
 Writes: BRIEF.launch (email)
+
+## Q4.12 Showing it to others before launch
+Ask: How do you want to show the result to other people before it goes live?
+Why: decides the delivery route. One file only works up to 25 MB and without a server; photographic frames, models and live rooms are heavier ([0019](../../dev/docs/decisions/0019-delivery-routes.md)). Ask it when the realism tier is T2 or T3, when the weight estimate passes 15 MB, or when the site needs a server; otherwise record "one file" without asking.
+Type: single
+Options:
+- One file to send (Recommended when the estimate is under 15 MB): opens by double-click, offline, all animations; the agent checks the size and offers a lighter copy if needed
+- A preview link (Recommended for heavy sites): free hosting on your own account (for example Cloudflare Pages); I guide you through it and nothing is created without your yes
+- Only on this computer for now: shown on localhost, shared later at launch
+Follow-up: for a site with a live server (virtual room, logins) only the preview link or the launch applies; say so.
+Writes: BRIEF.tech.preview
 
 ## Q4.9 Languages (only if two or more)
 Ask: How should the language switch work?
