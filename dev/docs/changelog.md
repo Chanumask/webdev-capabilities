@@ -6,6 +6,25 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-08 (docs) Photorealism: plan merged, quality spikes
+
+- Plan and research ([04](research/04-photorealism-problem.md), [05](research/05-photorealism-candidates.md), [06](research/06-photorealism-plan.md)) merged into `main` locally; answers recorded: new example, single file with 25 MB cap plus `--light`, paid generation to the backlog, existing Blender 5.2 and blender-mcp usable.
+- Quality spikes in [07](research/07-photorealism-quality-spikes.md): Cycles stills of a desk, a forest and a house; a real-time GLB scene; two scroll-scrubbed sequences exported as one file and opened from `file://`. Objects and nature reach photographic quality, the self-built house does not yet.
+- Findings: scanned assets carry the realism, phones need portrait frames, Blender WebP export breaks silently on 1-channel images, trees from Poly Haven are 0.5 to 1 GB. Decisions 0014 to 0017 stay drafts until the maintainer reviews the results.
+
+**Next session** →
+
+Paste-to-start prompt:
+> Continue the photorealism work: review the spike results (exports/photoreal-spike/index.html), then log decisions 0014 to 0017 and start B1 (exporter) and B2 (Blender pipeline) from the plan.
+
+- **Branch:** `docs/photoreal-quality` (spike results, not merged); `main` is ahead of `origin` by the plan commit.
+- **State:** no framework code changed; spike sources live in `exports/photoreal-spike/src` (git-ignored).
+- **Do next:** maintainer feedback on the spikes, then decisions, then B1 and B2 (a building spike belongs to M1).
+- **Watch for:** blender-mcp is one shared live Blender, never in parallel workers; push needs approval; Blender is 5.2.1 at `C:\Program Files\Blender Foundation\Blender 5.2\`.
+- **Environment:** `git rev-list --count origin/main..main`, then `exports/photoreal-spike/index.html`.
+
+---
+
 ## 2026-10-03 (feat) Wix setup guide and connect-cms option
 
 - New guide [wix/SETUP.md](../../framework/capabilities/cms-providers/wix/SETUP.md): the steps we actually took, with German menu names and pitfalls (no CMS in the sidebar, App Market, `CMS for Harmony`, site ID from the dashboard URL, API key with specific site and read-only data permission, `.env`, `cms:check` error table). Labels not seen on screen are marked as not confirmed.

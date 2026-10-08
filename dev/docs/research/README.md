@@ -12,6 +12,7 @@ Research behind tool and CMS choices, written 2026-10-03. Star counts and versio
 | [04-photorealism-problem.md](04-photorealism-problem.md) | Why the 3D output looks cartoony, the lighting spike, repo facts for the photoreal work |
 | [05-photorealism-candidates.md](05-photorealism-candidates.md) | Verified versions, licences, prices and export impact of photoreal tools, assets and skills |
 | [06-photorealism-plan.md](06-photorealism-plan.md) | The proposed realism tiers, branches, acceptance and draft decisions (awaiting approval) |
+| [07-photorealism-quality-spikes.md](07-photorealism-quality-spikes.md) | What photorealism the tiers actually reach (images, byte and render numbers, pitfalls found) |
 
 ## TL;DR
 - **Use:** Impeccable (design quality), Playwright CLI (the agent sees the result), Astro + Three.js + GSAP (stack).
