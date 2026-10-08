@@ -120,7 +120,7 @@ Options:
 - No people: calm and empty, safest for products and abstract scenes
 - Silhouettes or stylised figures: simple forms, clearly not photographic
 - Close-ups of real people: the agent uses your photos or video and needs the consent of the people shown; it never invents faces, names or quotes
-Follow-up: close-up portraits made from 3D models are not promised (hair and eyes look game-like); walking or talking people are not part of this version. Ask Q2.6b about photos or video of people.
+Follow-up: close-up portraits made from 3D models are not promised (hair and eyes look game-like). Standing, talking and walking people work in rendered frames (licensed animation clips); crowds are not part of this version. Ask Q2.6b about photos or video of people.
 Writes: BRIEF.motion3d.people
 
 ## Q3.9 Layout character

@@ -3,6 +3,7 @@
  * Fetch licensed assets into a site, once, by id (decisions 0016, 0017 and 0020).
  *   node framework/tools/assets.mjs add <site> <models|textures|hdris>/<id> [--res 2k] [--allow-large]   Poly Haven, CC0
  *   node framework/tools/assets.mjs add <site> people/<id>                                               Microsoft Rocketbox, MIT
+ *   node framework/tools/assets.mjs add <site> animations/<name>                                         Rocketbox animation (walk, idle, talk), MIT
  * Poly Haven files land in sites/<site>/assets/polyhaven/<kind>/<id>/, people in assets/people/<id>/ (FBX plus
  * textures converted to JPEG and PNG). Every asset gets a row in sites/<site>/ASSETS.md. Anything over 50 MB needs
  * --allow-large. Nothing is fetched at build time.
@@ -15,6 +16,7 @@ import { KINDS, LARGE_BYTES, planDownload, totalBytes, ledgerRow, appendLedger }
 import {
   ROCKETBOX_REPO,
   ROCKETBOX_CATEGORIES,
+  ROCKETBOX_ANIMATION_DIRS,
   ROCKETBOX_LICENSE_URL,
   decodeTga,
   convertedName,
@@ -108,15 +110,43 @@ async function addPerson(site, id) {
   );
 }
 
+async function addAnimation(site, name) {
+  if (!/^[A-Za-z0-9_-]+$/.test(name)) return fail('Use animations/<name>, for example animations/m_walk_neutral_01');
+  const api = `https://api.github.com/repos/${ROCKETBOX_REPO}/contents/Assets/Animations`;
+  for (const dir of ROCKETBOX_ANIMATION_DIRS) {
+    const list = await getJson(`${api}/${dir}`);
+    const hit = list?.find((f) => f.name === `${name}.max.fbx`);
+    if (!hit) continue;
+    const dest = path.join(site.dir, 'assets', 'people', 'animations', `${name}.fbx`);
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    if (!fs.existsSync(dest)) fs.writeFileSync(dest, await getBuffer(hit.download_url));
+    const licenseFile = path.join(site.dir, 'assets', 'people', 'LICENSE-Microsoft-Rocketbox.txt');
+    if (!fs.existsSync(licenseFile)) fs.writeFileSync(licenseFile, await getBuffer(ROCKETBOX_LICENSE_URL));
+    const size = `${(fs.statSync(dest).size / 1024 / 1024).toFixed(1)} MB`;
+    const kind = dir.replace('all_animations_max_motextr_', '');
+    const row = `| animations/${name} (Rocketbox, ${kind}) | https://github.com/${ROCKETBOX_REPO} | MIT (keep assets/people/LICENSE-Microsoft-Rocketbox.txt) | notice in the licence file | ${today} | ${size} |  |
+`;
+    const added = appendLedger(site.dir, row, `animations/${name}`);
+    console.log(
+      `animations/${name} (${kind}): ${size} in ${path.relative(site.dir, dest)}${added ? ', listed in ASSETS.md' : ''}`,
+    );
+    return;
+  }
+  return fail(
+    `Rocketbox has no animation "${name}". Names look like m_walk_neutral_01, f_idle_breathe_01, m_gestic_talk_neutral_01.`,
+  );
+}
+
 if (cmd !== 'add' || !slug || !spec?.includes('/')) {
   fail(
-    'Usage: node framework/tools/assets.mjs add <site> <models|textures|hdris|people>/<id> [--res 2k] [--allow-large]',
+    'Usage: node framework/tools/assets.mjs add <site> <models|textures|hdris|people|animations>/<id> [--res 2k] [--allow-large]',
   );
 } else {
   const [kind, id] = spec.split('/');
   const site = findSite(slug);
   if (!site) fail(`Site "${slug}" not found (npm run list).`);
   else if (kind === 'people') await addPerson(site, id);
+  else if (kind === 'animations') await addAnimation(site, id);
   else if (!KINDS.includes(kind) || !/^[A-Za-z0-9_]+$/.test(id)) {
     fail(`Use <${[...KINDS, 'people'].join('|')}>/<id>, for example models/pocket_watch`);
   } else await addPolyHaven(site, kind, id);

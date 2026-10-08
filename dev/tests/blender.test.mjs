@@ -262,3 +262,15 @@ test('Rocketbox texture names are converted and understood', () => {
   assert.deepEqual(textureParts('f003_head_normal.jpg'), { prefix: 'f003', part: 'head', kind: 'normal' });
   assert.equal(textureParts('readme.txt'), null);
 });
+
+import { ROCKETBOX_ANIMATION_DIRS } from '../../framework/tools/people-lib.mjs';
+
+test('animations are looked up in place, static and xyz folders and played by the library', () => {
+  assert.deepEqual(
+    ROCKETBOX_ANIMATION_DIRS.map((d) => d.replace('all_animations_max_motextr_', '')),
+    ['xy', 'static', 'xyz'],
+  );
+  const lib = readFileSync(join(root, 'framework', 'capabilities', 'blender-pipeline', 'lib', 'webdev_bpy.py'), 'utf8');
+  assert.match(lib, /def apply_animation\(arm, name\)/);
+  assert.match(lib, /assets', 'people', 'animations'/);
+});

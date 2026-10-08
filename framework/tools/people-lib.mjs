@@ -5,6 +5,13 @@
 
 export const ROCKETBOX_REPO = 'microsoft/Microsoft-Rocketbox';
 export const ROCKETBOX_CATEGORIES = ['Adults', 'Children', 'Professions'];
+/** Animation folders of the repo: in place (xy: root motion extracted), static (root fixed), xyz. */
+export const ROCKETBOX_ANIMATION_DIRS = [
+  'all_animations_max_motextr_xy',
+  'all_animations_max_motextr_static',
+  'all_animations_max_motextr_xyz',
+];
+
 export const ROCKETBOX_LICENSE_URL = `https://raw.githubusercontent.com/${ROCKETBOX_REPO}/master/LICENSE.md`;
 
 /** Decodes an uncompressed 24 or 32 bit TGA. Returns { width, height, channels, data } with data as RGB(A), top row first. */

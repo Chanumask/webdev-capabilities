@@ -175,6 +175,25 @@ def import_person(pid, loc=(0, 0, 0), rot_z=0.0, arm_deg=48):
     return root, arm, new
 
 
+def apply_animation(arm, name):
+    """Plays a Rocketbox animation (`npm run assets -- add <site> animations/<name>`) on a Rocketbox armature.
+    All avatars share one skeleton, so no retargeting is needed. Returns (first_frame, last_frame).
+    Sets the scene frame range to the clip. Walks come in place ('xy'): move the avatar's root yourself."""
+    path = os.path.join(ASSETS, 'assets', 'people', 'animations', name + '.fbx')
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.fbx(filepath=path)
+    new = [o for o in bpy.data.objects if o not in before]
+    src = [o for o in new if o.type == 'ARMATURE'][0]
+    action = src.animation_data.action
+    arm.animation_data_create()
+    arm.animation_data.action = action
+    for o in new:
+        bpy.data.objects.remove(o, do_unlink=True)
+    first, last = int(action.frame_range[0]), int(action.frame_range[1])
+    bpy.context.scene.frame_start, bpy.context.scene.frame_end = first, last
+    return first, last
+
+
 def bbox(objs):
     pts = []
     for o in objs:
