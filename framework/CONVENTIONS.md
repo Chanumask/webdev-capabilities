@@ -51,7 +51,8 @@ Slug rules: lowercase letters, numbers, dashes; short; no dates (`meyer-architek
 | `npm run dev -- <slug>` | starts the site on localhost (first free port from 4321) and prints the address |
 | `npm run stop -- <slug>` | stops that dev server |
 | `npm run build -- <slug>` | production build into `sites/<slug>/dist` |
-| `npm run export -- <slug>` | single-file offline export into `exports/<slug>/` (add `-- --zip`) |
+| `npm run export -- <slug>` | single-file offline export into `exports/<slug>/` (add `-- --zip`, `-- --light`); warns above 15 MB, fails above 25 MB |
+| `npm run weight -- <slug>` | page weight of the build and the estimated size of the single file |
 | `npm run status -- <slug>` | stage of a site and proposed next steps (the agent runs it to lead the conversation) |
 | `npm run launch-prep -- <slug> --domain d.de` | prepares launch guide, robots, sitemap, headers, site address (no network) |
 | `npm run launch-check -- <slug>` | pre-launch checks on the built site |

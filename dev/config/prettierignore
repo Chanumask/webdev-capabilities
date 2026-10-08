@@ -13,3 +13,4 @@ dev/hooks
 .impeccable
 *.md
 package-lock.json
+.playwright-cli/

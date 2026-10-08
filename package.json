@@ -12,6 +12,7 @@
     "build": "node framework/tools/site.mjs build",
     "list": "node framework/tools/site.mjs list",
     "export": "node framework/tools/export-site.mjs",
+    "weight": "node framework/tools/weight.mjs",
     "format": "prettier --config dev/config/prettierrc.json --ignore-path dev/config/prettierignore --write .",
     "format:check": "prettier --config dev/config/prettierrc.json --ignore-path dev/config/prettierignore --check .",
     "lint": "eslint --config dev/config/eslint.config.js .",

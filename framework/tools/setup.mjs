@@ -83,6 +83,12 @@ if (pw) {
   add('Playwright skill present', fs.existsSync(path.join(root, '.claude', 'skills', 'playwright-cli', 'SKILL.md')));
   const cfg = path.join(root, '.playwright', 'cli.config.json');
   if (!fs.existsSync(cfg)) run('playwright-cli install', { stdio: 'inherit' });
+  // second config for testing exports from file:// (playwright-cli blocks file: URLs by default)
+  if (fs.existsSync(cfg)) {
+    const fileCfg = path.join(root, '.playwright', 'file.config.json');
+    const base = JSON.parse(fs.readFileSync(cfg, 'utf8'));
+    fs.writeFileSync(fileCfg, JSON.stringify({ ...base, allowUnrestrictedFileAccess: true }, null, 2) + '\n');
+  }
   add(
     'browser for Playwright',
     fs.existsSync(cfg),

@@ -6,6 +6,15 @@ Newest first. Short entries: what changed, with links. Format and archiving: [do
 
 ---
 
+## 2026-10-08 (feat) Export of heavy assets, decisions 0014 to 0017
+
+- Decisions [0014](decisions/0014-export-budgets-and-variants.md) to [0017](decisions/0017-asset-licensing-and-ledger.md) logged: export budgets, realism tiers, Blender as a local tool, asset licensing. [0007](decisions/0007-localhost-and-single-file-export.md) is amended.
+- `export-site` inlines assets that scripts load (frames, HDRI, models) via `export-lib.mjs`, knows `.avif .hdr .exr .gltf .bin .ktx2 .wasm`, reports the heaviest assets, warns above 15 MB and fails above 25 MB (exit code 2, `--max-mb=N` overrides), and has `--light` (images at most 960 px, `window.__LIGHT_EXPORT`).
+- New `npm run weight -- <slug>` (page weight and the estimated single-file size; matched the real export of `lindenhof` exactly at 1.47 MB). `npm run setup` writes `.playwright/file.config.json` so exports can be opened from `file://`; the `export-site` skill uses it. Prettier ignores `.playwright-cli/` tool output. 6 new tests (`dev/tests/export.test.mjs`).
+- Next on the plan: B2 Blender pipeline, then the reference example.
+
+---
+
 ## 2026-10-08 (docs) Photorealism: plan merged, quality spikes
 
 - Plan and research ([04](research/04-photorealism-problem.md), [05](research/05-photorealism-candidates.md), [06](research/06-photorealism-plan.md)) merged into `main` locally; answers recorded: new example, single file with 25 MB cap plus `--light`, paid generation to the backlog, existing Blender 5.2 and blender-mcp usable.
